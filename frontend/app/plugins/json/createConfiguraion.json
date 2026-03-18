@@ -1,0 +1,164 @@
+[
+  {
+    "query": "saveConfiguration",
+    "data": [
+      {
+        "type": "text",
+        "name": "id",
+        "label": "id",
+        "id": "id",
+        "value": "",
+        "disabled": true,
+        "gqlType": "UUID",
+        "validationType": "string",
+        "validations": []
+      },
+      {
+        "type": "text",
+        "name": "name",
+        "label": "name",
+        "id": "name",
+        "value": "",
+        "gqlType": "String",
+        "validationType": "string",
+        "validations": []
+      },
+      {
+        "type": "text",
+        "name": "description",
+        "label": "description",
+        "id": "description",
+        "value": "",
+        "gqlType": "String",
+        "tooltip": "it is just for information and understanding",
+        "validationType": "string",
+        "validations": []
+      },
+
+      {
+        "type": "select",
+        "name": "scope",
+        "label": "config scope",
+        "id": "scope",
+        "value": "",
+        "grid": "5",
+        "gqlType": "String",
+        "rData": null,
+        "tooltip": "Scope defines the configuration property",
+        "data": [
+          {
+            "name": "DEFAULT",
+            "value": "Default"
+          },
+          {
+            "name": "INSTITUTION",
+            "value": "Institution Level"
+          },
+          {
+            "name": "DIVISION",
+            "value": "Division Level"
+          }
+        ],
+        "validationType": "string",
+        "validations": []
+      },
+
+      {
+        "type": "text",
+        "name": "defaultValue",
+        "label": "defaultValue",
+        "id": "defaultValue",
+        "grid": 5,
+        "value": "",
+        "gqlType": "String",
+        "validationType": "string",
+        "validations": []
+      },
+
+      {
+        "type": "text",
+        "name": "module",
+        "label": "module",
+        "id": "email",
+        "value": "",
+        "gqlType": "String",
+        "validationType": "string",
+        "validations": []
+      },
+
+      {
+        "type": "text",
+        "name": "grp",
+        "label": "config group",
+        "id": "grp",
+        "gqlType": "String",
+        "grid": 5,
+        "value": "",
+        "tooltip": "it is the sub-division of module",
+        "validationType": "string",
+        "validations": []
+      },
+
+      {
+        "type": "text",
+        "name": "configKey",
+        "label": "Key",
+        "id": "key",
+        "value": "",
+        "gqlType": "String",
+        "validationType": "string",
+        "validations": []
+      },
+
+      {
+        "type": "number",
+        "name": "ord",
+        "label": "order",
+        "id": "order",
+        "value": "",
+        "gqlType": "Int",
+        "validationType": "number",
+        "validations": []
+      },
+
+      {
+        "type": "select",
+        "name": "fieldType",
+        "label": "field Type",
+        "id": "fieldType",
+        "value": "",
+        "gqlType": "String",
+        "data": [
+          {
+            "name": "text",
+            "value": "text"
+          },
+          {
+            "name": "number",
+            "value": "number"
+          },
+          {
+            "name": "boolean",
+            "value": "boolean"
+          },
+          {
+            "name": "select",
+            "value": "select"
+          }
+        ],
+        "validationType": "string",
+        "validations": []
+      },
+      {
+        "type": "text",
+        "name": "optionData",
+        "label": "optionData",
+        "id": "optionData",
+        "value": "",
+        "gqlType": "String",
+        "validationType": "string",
+        "validations": []
+      }
+    ]
+  }
+]

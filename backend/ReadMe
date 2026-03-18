@@ -1,0 +1,36 @@
+* All plugins and modules should be linked with AIS-GUI via module tag as per there build order
+* When a pom is updated in any of the child project all project needs to be re-build via the command mvn clean install from the AIS-GUI Pom 
+otherwise it will throw error.
+* AS it is a fat jar need to import the Subprojects into the AIS-Main
+* GQL Map,Set support to yet to implement 
+* GQL when method os @override not picking the actual parameters even after enabled parameters in java compiler in eclipse.
+* when using @AttributeOverride the refernece column name should be updated in all reference classes as @manytomany or other relations access the physical column name only
+* enable store varaiables in java compiler to export method names
+
+
+Set impl in graphql and method matcher (Creating seperate resolver and seperate logic to handle the same)
+
+
+graphql meta data via extentions (yet to do )
+
+To implement 
+yet to work on method fetcher refining 
+audit logging 
+logback 
+
+
+
+SELECT
+    ul.*
+FROM 
+    ngp_user_login ul
+JOIN 
+    ngp_user_profile up ON ul.profile_id = up.profile_id
+JOIN 
+    ngp_group_users gu ON gu.grp_id = up.profile_id
+JOIN 
+    ngp_group_tb gt ON gt.grp_id = gu.grp_id
+JOIN 
+    ngp_ent_group eg ON gt.grp_id = eg.grp_id
+JOIN 
+    ngp_ent_master_tb em ON em.id = eg.id

@@ -1,0 +1,113 @@
+[
+  {
+    "title": "Rule Actions",
+    "subTitle": "set a risk score range for each action.When a rule is matched based on the risk score range action will be taken",
+    "layout": 3,
+    "data": [
+      {
+        "type": "number",
+        "label": "from",
+        "name": "rsf1",
+        "id": "rsf1",
+        "value": "0",
+        "validationType": "string",
+        "validations": []
+      },
+      {
+        "type": "number",
+        "name": "rst1",
+        "label": "to",
+        "id": "rst1",
+        "value": "0",
+        "validationType": "number",
+        "validations": []
+      },
+      {
+        "type": "text",
+        "label": "actions",
+        "name": "rsruleaction1",
+        "id": "rsruleaction1",
+        "value": "Allow",
+        "disabled": true,
+        "validationType": "string",
+        "validations": []
+      },
+      {
+        "type": "number",
+        "name": "rsf2",
+        "id": "rsf2",
+        "value": "0",
+        "validationType": "string",
+        "validations": []
+      },
+      {
+        "type": "number",
+        "name": "rst2",
+        "id": "rst2",
+        "value": "0",
+        "validationType": "number",
+        "validations": []
+      },
+      {
+        "type": "text",
+        "name": "rsruleaction2",
+        "id": "rsruleaction2",
+        "value": "Deny",
+        "disabled": true,
+        "validationType": "string",
+        "validations": []
+      },
+      {
+        "type": "number",
+        "name": "rsf3",
+        "id": "rsf3",
+        "value": "0",
+        "validationType": "string",
+        "validations": []
+      },
+      {
+        "type": "number",
+        "name": "rst3",
+        "id": "rst3",
+        "value": "0",
+        "validationType": "number",
+        "validations": []
+      },
+      {
+        "type": "text",
+        "name": "rsruleaction3",
+        "id": "rsruleaction3",
+        "value": "Challenge",
+        "disabled": true,
+        "validationType": "string",
+        "validations": []
+      },
+      {
+        "type": "number",
+        "name": "rsf4",
+        "id": "rsf4",
+        "value": "0",
+        "validationType": "string",
+        "validations": []
+      },
+      {
+        "type": "number",
+        "name": "rst4",
+        "id": "rst4",
+        "value": "0",
+        "validationType": "number",
+        "validations": []
+      },
+      {
+        "type": "text",
+
+        "name": "rsruleaction4",
+        "id": "rsruleaction4",
+        "value": "Review",
+        "disabled": true,
+        "validationType": "string",
+        "validations": []
+      }
+    ]
+  }
+]

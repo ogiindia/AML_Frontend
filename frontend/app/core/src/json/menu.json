@@ -1,0 +1,122 @@
+[
+  {
+    "tid": 1,
+    "sid": 0,
+    "label": "Policy Managnment",
+    "path": "/pom",
+    "page": "back_office",
+    "sub-menu": false
+  },
+  {
+    "tid": 2,
+    "sid": 1,
+    "label": "Manage Rules",
+    "path": "/pom/manage-rules",
+    "page": "back_office",
+    "sub-menu": true
+  },
+  {
+    "tid": 3,
+    "sid": 2,
+    "label": "Manage Lists",
+    "path": "/pom/manage-lists",
+    "page": "back_office",
+    "sub-menu": true
+  },
+  {
+    "tid": 4,
+    "sid": 3,
+    "label": "Manage Custom Facts",
+    "path": "/pom/manage-custom-facts",
+    "page": "back_office",
+    "sub-menu": true
+  },
+  {
+    "tid": 5,
+    "sid": 4,
+    "label": "Manage Custom Event Types",
+    "path": "/pom/manage-custom-events",
+    "page": "back_office",
+    "sub-menu": true
+  },
+  {
+    "tid": 6,
+    "sid": 0,
+    "label": "Administration",
+    "path": "/adm",
+    "page": "back_office",
+    "sub-menu": false
+  },
+  {
+    "tid": 7,
+    "sid": 5,
+    "label": "Application Settings",
+    "path": "/adm/application-settings",
+    "page": "back_office",
+    "sub-menu": true
+  },
+  {
+    "tid": 8,
+    "sid": 6,
+    "label": "Authentication Methods",
+    "path": "/adm/manage-authentication-methods",
+    "page": "back_office",
+    "sub-menu": true
+  },
+  {
+    "tid": 9,
+    "sid": 7,
+    "label": "Back office Settings",
+    "path": "/adm/backoffice-settings",
+    "page": "back_office",
+    "sub-menu": true
+  },
+  {
+    "tid": 10,
+    "sid": 8,
+    "label": "Billing",
+    "path": "/adm/billing",
+    "page": "back_office",
+    "sub-menu": true
+  },
+  {
+    "tid": 11,
+    "sid": 9,
+    "label": "device Managnment",
+    "path": "/adm/device-managnment",
+    "page": "back_office",
+    "sub-menu": true
+  },
+  {
+    "tid": 12,
+    "sid": 0,
+    "label": "Customer Service",
+    "path": "/cs/search-username",
+    "page": "back_office",
+    "sub-menu": false
+  },
+  {
+    "tid": 13,
+    "sid": 0,
+    "label": "Lookup User",
+    "path": "/csm/view-user",
+    "page": "case_manager",
+    "sub-menu": false
+  },
+  {
+    "tid": 14,
+    "sid": 0,
+    "label": "View Queue",
+    "path": "/csm/list-queue",
+    "page": "case_manager",
+    "sub-menu": false
+  },
+  {
+    "tid": 15,
+    "sid": 0,
+    "label": "Process Queue",
+    "path": "/csm/processing-queue",
+    "page": "case_manager",
+    "sub-menu": false
+  }
+]

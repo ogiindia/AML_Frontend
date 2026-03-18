@@ -1,0 +1,81 @@
+{
+  "rule 1": [
+    {
+      "whenAll": [
+        {
+          "condition": {
+            "between": {
+              "varia1": 1,
+              "variable2": 2,
+              "variable3": 3
+            }
+          }
+        },
+        {
+          "variable 1": "",
+          "variable 2": "",
+          "condition": "<"
+        }
+      ],
+      "seriesTransaction": true
+    },
+
+    {
+      "eventType": "User login",
+      "rules": [
+        {
+          "parameter": "deviceID",
+          "Type": "STRGRP",
+          "conditions": {
+            "whenAll": [
+              {
+                "EqualTo": "1234567890987"
+              },
+              {
+                "exists": "1234567"
+              }
+            ],
+            "whenAny": []
+          }
+        },
+        {
+          "parameter": "loggedinTime",
+          "Type": "DATEGRP",
+          "format": "dd/mm/yy",
+          "conditions": {
+            "WhenAny": [
+              {
+                "between": ["12/10/23", "1/12/23"]
+              },
+              {
+                "equalTo": "12/12/23"
+              }
+            ]
+          }
+        },
+        {
+          "parameter": "noOfAttempts",
+          "Type": "NUMGRP",
+          "conditions": {
+            "WhenAny": [
+              {
+                "greaterThan": 2
+              },
+              {
+                "lesserThan": 5
+              }
+            ],
+            "WhenAll": [
+              {
+                "NotEqualTo": null
+              },
+              {
+                "equalTo": 1
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

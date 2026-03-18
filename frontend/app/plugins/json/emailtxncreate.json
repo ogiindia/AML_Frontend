@@ -1,0 +1,95 @@
+[
+  {
+    "title": "Register a Email Report",
+    "subTitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+    "collapsible": false,
+    "isCollapsed": false,
+    "layout": 2,
+
+    "data": [
+      {
+        "type": "text",
+        "name": "accno",
+        "label": "Account Number",
+        "id": "accNo",
+        "value": "",
+        "hidden": false,
+        "disabled": false,
+        "placeholder": "Enter the account number",
+        "tooltip": "Please enter a valid account number",
+        "validationType": "string",
+        "validations": []
+      },
+
+      {
+        "type": "text",
+        "name": "senderid",
+        "label": "Email",
+        "id": "email",
+        "value": "",
+        "placeholder": "Enter the sender email",
+        "validationType": "string",
+        "validations": []
+      },
+
+      {
+        "type": "text",
+        "name": "panno",
+        "label": "Pan no",
+        "id": "panno",
+        "value": "",
+        "placeholder": "Enter the pan no",
+        "validationType": "string",
+        "validations": []
+      },
+
+      {
+        "type": "text",
+        "name": "aadhaar",
+        "label": "Aadhaar",
+        "id": "aadhaar",
+        "value": "",
+        "placeholder": "Enter the aadhaar number",
+        "tooltip": "Please enter a valid aadhaar",
+        "validationType": "string",
+        "validations": []
+      },
+
+      {
+        "type": "text",
+        "name": "ifsc",
+        "label": "ifsc",
+        "id": "ifsc",
+        "value": "",
+        "placeholder": "Enter the ifsc number",
+        "tooltip": "Please enter a valid ifsc",
+        "validationType": "string",
+        "validations": []
+      },
+
+      {
+        "type": "text",
+        "name": "amount",
+        "label": "amount",
+        "id": "amount",
+        "value": "",
+        "placeholder": "Enter the amount",
+        "tooltip": "Please enter a valid amount",
+        "validationType": "string",
+        "validations": []
+      },
+
+      {
+        "type": "text",
+        "name": "subject",
+        "label": "subject",
+        "id": "subject",
+        "value": "",
+        "grid": 12,
+        "placeholder": "Enter the subject if any",
+        "validationType": "string",
+        "validations": []
+      }
+    ]
+  }
+]

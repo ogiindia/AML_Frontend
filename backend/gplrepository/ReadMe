@@ -1,0 +1,12 @@
+* /associate common methods in mutation builder using isQuery method
+* /populate entityClass in MehtodFetcher have to implement optional Override to the respective methods to transform data before sending it to the entityManager
+* implement oneToMany , ManyToOne & oneTooneMapping
+* /DateTime GrahpqlType
+* Exception Handling
+* /@notNull Parameter and field integration in @entityClass
+* =encryption and decryption 
+* how to do login and other data (through api to support other SSO)
+* access based data (get principal and other details)
+* /implement paging method for each entity.
+
+Services Should have @Service entity and extends BaseResolver to make it work.

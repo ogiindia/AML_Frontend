@@ -1,0 +1,61 @@
+{
+  "content": [
+    {
+      "id": 1,
+      "name": "Entity 1",
+      "data1": "Data 1",
+      "data2": "Data 2",
+      "data3": "Data 3",
+      "data4": "Data 4"
+    },
+    {
+      "id": 2,
+      "name": "Entity 2",
+      "data1": "Data 1",
+      "data2": "Data 2",
+      "data3": "Data 3",
+      "data4": "Data 4"
+    },
+    {
+      "id": 3,
+      "name": "Entity 3",
+      "data1": "Data 1",
+      "data2": "Data 2",
+      "data3": "Data 3",
+      "data4": "Data 4"
+    },
+    {
+      "id": 4,
+      "name": "Entity 4",
+      "data1": "Data 1",
+      "data2": "Data 2",
+      "data3": "Data 3",
+      "data4": "Data 4"
+    }
+  ],
+  "pageable": {
+    "sort": {
+      "sorted": false,
+      "unsorted": true,
+      "empty": true
+    },
+    "pageNumber": 0,
+    "pageSize": 3,
+    "offset": 0,
+    "unpaged": false,
+    "paged": true
+  },
+  "totalPages": 1,
+  "totalElements": 3,
+  "last": true,
+  "size": 3,
+  "number": 0,
+  "sort": {
+    "sorted": false,
+    "unsorted": true,
+    "empty": true
+  },
+  "numberOfElements": 3,
+  "first": true,
+  "empty": false
+}

@@ -1,0 +1,54 @@
+[
+  {
+    "title": "Event Details",
+    "subTitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+    "collapsible": false,
+    "isCollapsed": false,
+    "layout": 1,
+    "query": "saveEventsEntity",
+    "data": [
+      {
+        "type": "text",
+        "gqlType": "UUID",
+        "name": "id",
+        "label": "id",
+        "id": "id",
+        "value": "",
+        "grid": 6,
+        "disabled": true,
+        "hidden": true,
+        "placeholder": "Enter your Id",
+        "tooltip": "Please enter a valid Id",
+        "validationType": "string",
+        "validations": []
+      },
+      {
+        "type": "text",
+        "gqlType": "String!",
+        "name": "eventName",
+        "label": "Event Name",
+        "id": "eventName",
+        "value": "",
+        "placeholder": "Enter the Event Name",
+        "tooltip": "Please enter a valid Event Name",
+        "validationType": "string",
+        "validations": [
+          {
+            "type": "required",
+            "params": ["This field is required"]
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "gqlType": "Boolean!",
+        "name": "isEnabled",
+        "label": "Enable Event",
+        "id": "isEnabled",
+        "value": true,
+        "validationType": "string",
+        "validations": []
+      }
+    ]
+  }
+]

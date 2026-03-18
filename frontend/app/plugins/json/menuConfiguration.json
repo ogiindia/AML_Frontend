@@ -1,0 +1,176 @@
+[
+  {
+    "title": "Create Menu",
+    "collapsible": false,
+    "isCollapsed": false,
+    "layout": 2,
+    "query": "saveEntityMaster",
+    "data": [
+      {
+        "type": "text",
+        "name": "id",
+        "label": "id",
+        "id": "id",
+        "value": "",
+        "disabled": true,
+        "gqlType": "UUID",
+        "validationType": "string",
+        "validations": []
+      },
+      {
+        "type": "select",
+        "name": "module",
+        "label": "Module",
+        "id": "module",
+        "value": "",
+        "grid": "6",
+        "gqlType": "String",
+        "rData": null,
+        "data": [
+          {
+            "name": "Back Office",
+            "value": "Back Office"
+          },
+          {
+            "name": "Cluster",
+            "value": "Cluster"
+          }
+        ],
+        "validationType": "string",
+        "validations": []
+      },
+      {
+        "type": "checkbox",
+        "name": "menushowInMenu",
+        "label": "showInMenu",
+        "alias": "showInMenu",
+        "id": "menushowInMenu",
+        "value": true,
+        "grid": 3,
+        "gqlType": "Boolean",
+        "validationType": "string",
+        "validations": []
+      },
+      {
+        "type": "checkbox",
+        "name": "isMenu",
+        "label": "isMenu",
+        "id": "isMenu",
+        "value": true,
+        "grid": 3,
+        "gqlType": "Boolean",
+        "validationType": "string",
+        "validations": []
+      },
+      {
+        "type": "checkbox",
+        "name": "menusubMenu",
+        "alias": "subMenu",
+        "label": "subMenu",
+        "id": "menusubMenu",
+        "value": false,
+        "grid": 3,
+        "gqlType": "Boolean",
+        "disabled": true,
+        "validationType": "string",
+        "validations": []
+      },
+      {
+        "type": "text",
+        "name": "menuicons",
+        "label": "icons",
+        "alias": "icons",
+        "id": "menuicons",
+        "value": "",
+        "grid": 3,
+        "gqlType": "String",
+        "validationType": "string",
+        "validations": []
+      },
+      {
+        "type": "number",
+        "name": "menuMenuOrder",
+        "label": "MenuOrder",
+        "alias": "MenuOrder",
+        "id": "menuMenuOrder",
+        "value": "",
+        "grid": 3,
+        "gqlType": "Int",
+        "validationType": "number",
+        "validations": []
+      },
+
+      {
+        "type": "text",
+        "name": "tid",
+        "label": "tid",
+        "id": "tid",
+        "value": "",
+        "grid": "6",
+        "gqlType": "String",
+        "validationType": "string",
+        "validations": []
+      },
+      {
+        "type": "text",
+        "name": "menuparentMenuID",
+        "label": "parentMenuID",
+        "alias": "parentMenuID",
+        "id": "menuparentMenuID",
+        "value": "",
+        "grid": "6",
+        "gqlType": "String",
+        "validationType": "string",
+        "validations": []
+      },
+      {
+        "type": "text",
+        "name": "entityName",
+        "label": "entityName",
+        "id": "entityName",
+        "value": "",
+        "grid": 6,
+        "gqlType": "String",
+        "validationType": "string",
+        "validations": []
+      },
+      {
+        "type": "text",
+        "name": "menumenuName",
+        "label": "menuName",
+        "alias": "menuName",
+        "id": "menumenuName",
+        "value": "",
+        "grid": 6,
+        "gqlType": "String",
+        "validationType": "string",
+        "validations": []
+      },
+
+      {
+        "type": "text",
+        "name": "menupath",
+        "label": "path",
+        "alias": "path",
+        "id": "menupath",
+        "value": "",
+        "grid": 6,
+        "gqlType": "String",
+        "validationType": "string",
+        "validations": []
+      },
+      {
+        "type": "text",
+        "name": "menupage",
+        "alias": "page",
+        "label": "page",
+        "id": "menupage",
+        "value": "",
+        "grid": 6,
+        "gqlType": "String",
+        "validationType": "string",
+        "validations": []
+      }
+    ]
+  }
+]

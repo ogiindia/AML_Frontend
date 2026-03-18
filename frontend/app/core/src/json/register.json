@@ -1,0 +1,31 @@
+{
+  "uId": "123456",
+  "password": "5eb63bbbe01eeed093cb22bb8f5acdc3", //md5 with salt encrypted
+  "email": "abvd@fis.com",
+  "phoneNo": "123456789",
+  "firstname": "abc",
+  "lastname": "bdc",
+  "grpId": 2,
+  "instId": 1267,
+  "org": {
+    // only for institution registration
+    "org_name": "hdfc bank",
+    "org_logo": "http://www.hdfc.com/",
+    "org_id": 1267,
+    "org_primary_color": "asf1245",
+    "org_secondary_color": "blue"
+  },
+  "userType": 1,
+  "create_user_id": 1
+}
+
+// //to create instituition
+// {
+//     "org_name":"hdfc bank",
+//     "org_logo" : "http://www.hdfc.com/",
+//     "org_id":1267,
+//     "org_primary_color":"red",
+//     "org_secondary_color":"blue"
+
+
+// }

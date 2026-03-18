@@ -1,0 +1,225 @@
+[
+  {
+    "title": "Create User",
+    "subTitle": "",
+    "collapsible": false,
+    "isCollapsed": false,
+    "layout": 1,
+    "query": "saveUserProfileWithLogin",
+    "data": [
+      {
+        "type": "text",
+        "name": "id",
+        "label": "user Id",
+        "id": "id",
+        "value": "",
+        "grid": "4",
+        "hidden": true,
+        "gqlType": "Long!",
+        "disabled": true,
+        "placeholder": "Enter your userId",
+        "tooltip": "Please enter a userId",
+        "validationType": "string",
+        "validations": []
+      },
+      {
+        "type": "text",
+        "name": "username",
+        "label": "user Name",
+        "id": "username",
+        "value": "",
+        "placeholder": "Enter your username",
+        "tooltip": "Please enter a username",
+        "validationType": "string",
+        "validations": [
+          {
+            "type": "required",
+            "params": [
+              "This field is required"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "name": "firstName",
+        "label": "first Name",
+        "id": "firstName",
+        "grid": 6,
+        "value": "",
+        "placeholder": "Enter your First name",
+        "tooltip": "Please enter a first Name",
+        "validationType": "string",
+        "validations": [
+          {
+            "type": "required",
+            "params": [
+              "This field is required"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "name": "lastName",
+        "label": "last Name",
+        "id": "lastName",
+        "grid": 6,
+        "value": "",
+        "placeholder": "Enter your First name",
+        "tooltip": "Please enter a first Name",
+        "validationType": "string",
+        "validations": []
+      },
+      {
+        "type": "text",
+        "name": "email",
+        "label": "Email",
+        "id": "email",
+        "value": "",
+        "placeholder": "Enter your email",
+        "tooltip": "Please enter a email which will be used for login",
+        "validationType": "string",
+        "validations": [
+          {
+            "type": "required",
+            "params": [
+              "This field is required"
+            ]
+          },
+          {
+            "type": "email",
+            "params": [
+              "Enter an valid Email"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "name": "bankName",
+        "label": "Bank Name",
+        "id": "bankName",
+        "grid": "6",
+        "value": "",
+        "placeholder": "Enter the Bank name",
+        "tooltip": "Please enter the bank name",
+        "validationType": "string",
+        "validations": []
+      },
+      {
+        "type": "select",
+        "name": "insId",
+        "label": "Zone",
+        "gqlType": "String!",
+        "id": "insId",
+        "value": "",
+        "placeholder": "Select a Zone",
+        "url": "listDivisionEntity",
+        "grid": "6",
+        "dataMap": {
+          "divisionId": true,
+          "divisionName": true
+        },
+        "rData": null,
+        "data": [],
+        "validationType": "string",
+        "validations": [
+          {
+            "type": "required",
+            "params": [
+              "This field is required"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "name": "role",
+        "label": "Role",
+        "gqlType": "String!",
+        "id": "role",
+        "value": "",
+        "placeholder": "Select your Role",
+        "tooltip": "Role is responsible for deciding the user is maker or checker",
+        "grid": "6",
+        "data": [
+          {
+            "name": "MAKER",
+            "value": "Maker"
+          },
+          {
+            "name": "CHECKER",
+            "value": "Checker"
+          }
+        ],
+        "validationType": "string",
+        "validations": [
+          {
+            "type": "required",
+            "params": [
+              "This field is required"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "name": "groups.id",
+        "label": "Group",
+        "gqlType": "String!",
+        "id": "groups.id",
+        "value": "",
+        "placeholder": "Select a Group",
+        "url": "listGroupEntity",
+        "grid": "6",
+        "dataMap": {
+          "id": true,
+          "groupName": true
+        },
+        "validationType": "array",
+        "validations": []
+      },
+      {
+        "type": "password",
+        "name": "password",
+        "label": "Password",
+        "gqlType": "String!",
+        "id": "upassword",
+        "value": "",
+        "grid": 6,
+        "placeholder": "Enter your password",
+        "tooltip": "Please enter your password",
+        "validationType": "string",
+        "validations": [
+          {
+            "type": "required",
+            "params": [
+              "This field is required"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "password",
+        "name": "confPassword",
+        "label": "Confirm Password",
+        "id": "ucpassword",
+        "value": "",
+        "grid": 6,
+        "placeholder": "Enter your confirm password",
+        "tooltip": "Please enter your confirm password",
+        "validationType": "string",
+        "validations": [
+          {
+            "type": "passwordMatch",
+            "params": [
+              "upassword",
+              "The entered password does not match"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

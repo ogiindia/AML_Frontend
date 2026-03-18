@@ -1,0 +1,32 @@
+[
+  {
+    "id": "data4",
+    "label": "data4",
+    "width": "200",
+    "type": "text",
+    "hidden": true,
+    "mandatory": true
+  },
+  {
+    "id": "name",
+    "label": "name",
+    "width": "200",
+    "type": "text"
+  },
+  {
+    "id": "data1",
+    "label": "data1",
+    "width": "200",
+    "type": "text"
+  },
+  {
+    "id": "data2",
+    "label": "data2",
+    "type": "text"
+  },
+  {
+    "id": "data3",
+    "label": "data3",
+    "type": "text"
+  }
+]

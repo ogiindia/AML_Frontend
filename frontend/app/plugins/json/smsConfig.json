@@ -1,0 +1,41 @@
+[
+  {
+    "title": "SMS Config",
+    "collapsible": false,
+    "isCollapsed": false,
+    "layout": 1,
+    "data": [
+      {
+        "type": "text",
+        "name": "cName",
+        "label": "config Name",
+        "id": "gName",
+        "value": "",
+        "placeholder": "Enter a config name",
+        "tooltip": "Please enter a config name",
+        "validationType": "string",
+        "validations": []
+      },
+      {
+        "type": "text",
+        "name": "curl",
+        "label": "SMS vendor Url",
+        "id": "curl",
+        "value": "",
+        "placeholder": "Enter the sms vendor url",
+        "validationType": "string",
+        "validations": []
+      },
+      {
+        "type": "text",
+        "name": "dheader",
+        "label": "Default header name",
+        "id": "dheader",
+        "value": "",
+        "placeholder": "Enter the default header name",
+        "validationType": "string",
+        "validations": []
+      }
+    ]
+  }
+]

@@ -1,0 +1,5 @@
+{
+  "username": "abvd",
+  "password": "5eb63bbbe01eeed093cb22bb8f5acdc3", //md5 with salt encrypted
+  "grantType": "password"
+}

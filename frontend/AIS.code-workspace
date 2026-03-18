@@ -1,0 +1,36 @@
+{
+  "folders": [
+    {
+      "path": ".",
+    },
+  ],
+  "settings": {
+    "search.exclude": {
+      "**/node_modules": true,
+      "**/dist": true,
+      "**/build": true,
+      "**/*.zip": true,
+      "**/public": true,
+      "**/*.lock.*": true,
+    },
+    "files.exclude": {
+      "**/android": true,
+      "**/ios": true,
+      "**/node_modules": true,
+      "**/dist": true,
+      "**/build": true,
+      "**/*.zip": true,
+      "**/public": true,
+      "**/*-lock.*": true,
+    },
+    "editor.formatOnSave": true,
+    "eslint.options": {
+      "extensions": [
+        ".html",
+        ".js",
+        ".vue",
+        ".jsx"
+      ]
+    }
+  },
+}

@@ -1,0 +1,185 @@
+[
+  {
+    "title": "Register a Report",
+    "subTitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+    "collapsible": false,
+    "isCollapsed": false,
+    "layout": 2,
+
+    "data": [
+      {
+        "type": "text",
+        "name": "accNo",
+        "label": "Account Number",
+        "id": "accNo",
+        "value": "",
+        "hidden": false,
+        "disabled": false,
+        "placeholder": "Enter the account number",
+        "tooltip": "Please enter a valid account number",
+        "validationType": "string",
+        "validations": []
+      },
+      {
+        "type": "select",
+        "name": "channel",
+        "label": "Channel",
+        "id": "channel",
+        "value": "",
+        "data": [
+          {
+            "value": "ATM",
+            "name": "ATM"
+          },
+          {
+            "value": "POS",
+            "name": "POS"
+          },
+          {
+            "value": "Mobile Banking",
+            "name": "MB"
+          },
+          {
+            "value": "Internet Banking",
+            "name": "IB"
+          }
+        ],
+        "validationType": "string",
+        "validations": []
+      },
+
+      {
+        "type": "number",
+        "name": "amt",
+        "label": "Amount",
+        "id": "amt",
+        "value": "",
+        "placeholder": "Enter the amount",
+        "validationType": "number",
+        "validations": []
+      },
+
+      {
+        "type": "text",
+        "name": "txnId",
+        "label": "Transaction ID",
+        "id": "txnId",
+        "value": "",
+        "placeholder": "Enter the transaction id",
+        "validationType": "string",
+        "validations": []
+      },
+
+      {
+        "type": "text",
+        "name": "ifsc",
+        "label": "ifsc",
+        "id": "ifsc",
+        "value": "",
+        "placeholder": "Enter the IFSC",
+        "tooltip": "Please enter a valid ifsc",
+        "validationType": "string",
+        "validations": []
+      },
+      {
+        "type": "number",
+        "name": "mobileNo",
+        "label": "Phone Number",
+        "id": "fphone",
+        "value": "",
+        "placeholder": "Enter your phone number",
+        "tooltip": "Please enter your phone number without dashes and country code",
+        "validationType": "number",
+        "validations": []
+      },
+      {
+        "type": "text",
+        "name": "bankName",
+        "label": "Bank Name",
+        "id": "bankName",
+        "value": "",
+        "placeholder": "Enter the Bank name",
+        "tooltip": "Please enter the bank name",
+        "validationType": "string",
+        "validations": []
+      },
+      {
+        "type": "text",
+        "name": "requestor",
+        "label": "Requestor",
+        "id": "requestor",
+        "value": "",
+        "placeholder": "Enter the Requestor",
+        "tooltip": "Please enter the Requestor",
+        "validationType": "string",
+        "validations": []
+      },
+      {
+        "type": "text",
+        "name": "bankCode",
+        "label": "Bank Code",
+        "id": "bankCode",
+        "value": "",
+        "placeholder": "Enter the Bank code",
+        "tooltip": "Please enter the bank code",
+        "validationType": "string",
+        "validations": []
+      },
+      {
+        "type": "text",
+        "name": "custName",
+        "label": "Customer Name",
+        "id": "custName",
+        "value": "",
+        "placeholder": "Enter the Customer Name",
+        "tooltip": "Please enter the Customer Name",
+        "validationType": "string",
+        "validations": []
+      },
+      {
+        "type": "date",
+        "name": "txnDt",
+        "label": "Transaction Date",
+        "id": "txnDT",
+        "value": "",
+        "placeholder": "Enter the Transaction Date",
+        "validationType": "string",
+        "validations": []
+      },
+      {
+        "type": "text",
+        "name": "upiId",
+        "label": "UPI ID",
+        "id": "upiID",
+        "value": "",
+        "placeholder": "Enter the UPI ID",
+        "validationType": "string",
+        "validations": []
+      },
+
+      {
+        "type": "text",
+        "name": "rrn",
+        "label": "rrn",
+        "id": "rrn",
+        "value": "",
+        "placeholder": "Enter the rrn name",
+        "tooltip": "Please enter the rrn name",
+        "validationType": "string",
+        "validations": []
+      },
+
+      {
+        "type": "text",
+        "name": "remarks",
+        "label": "Remarks / mail subject",
+        "id": "remarks",
+        "value": "",
+        "grid": 12,
+        "placeholder": "Enter the Remarks if any",
+        "validationType": "string",
+        "validations": []
+      }
+    ]
+  }
+]

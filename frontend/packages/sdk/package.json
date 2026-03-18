@@ -1,0 +1,14 @@
+{
+  "name": "@ais/sdk",
+  "version": "1.0.0",
+  "description": "sdk for netbanking",
+  "main": "index.js",
+  "peerDependencies": {
+    "@ais/crypto": "workspace:^"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

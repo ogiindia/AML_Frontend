@@ -1,0 +1,48 @@
+[
+  {
+    "title": "Institution Details",
+    "subTitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+    "collapsible": false,
+    "isCollapsed": false,
+    "layout": 1,
+    "query": "saveInstitutionEntity",
+    "data": [
+      {
+        "type": "text",
+        "gqlType": "String!",
+        "name": "institutionId",
+        "label": "Institution Id",
+        "id": "institutionId",
+        "value": "",
+        "grid": "4",
+        "placeholder": "Enter your Institution Id",
+        "tooltip": "Please enter a valid institution Id",
+        "validationType": "string",
+        "validations": [
+          {
+            "type": "required",
+            "params": ["This field is required"]
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "gqlType": "String!",
+        "name": "institutionName",
+        "label": "Institution Name",
+        "id": "institutionName",
+        "value": "",
+        "grid": "8",
+        "placeholder": "Enter the Institution Name",
+        "tooltip": "Please enter a valid institution Name",
+        "validationType": "string",
+        "validations": [
+          {
+            "type": "required",
+            "params": ["This field is required"]
+          }
+        ]
+      }
+    ]
+  }
+]

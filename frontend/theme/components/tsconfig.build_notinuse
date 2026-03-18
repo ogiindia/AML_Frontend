@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outFile": "./dist/index.d.ts",
+    "composite": false,
+    "noEmit": false,
+    "stripInternal": true,
+    "skipLibCheck": true
+  },
+  "include": ["./src/**/*.ts", "./src/**/*.tsx", "./index.js"],
+  "exclude": ["node_modules", "dist", "**/*.jsx", "**/*.js"]
+}

@@ -1,0 +1,296 @@
+:root {
+    --bg: #f5f7fb;
+    --card: #ffffff;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --primary: #2563eb;
+    --primary-600: #1d4ed8;
+    --accent: #22c55e;
+    --danger: #ef4444;
+    --chip: #eef2ff;
+}
+
+[data-theme="dark"] {
+    --bg: #0b1220;
+    --card: #0f172a;
+    --text: #e5e7eb;
+    --muted: #94a3b8;
+    --chip: #111827;
+}
+
+* {
+    box-sizing: border-box
+}
+
+html,
+body,
+#root {
+    height: 100%
+}
+
+body {
+    margin: 0;
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    background: var(--bg);
+    color: var(--text)
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 0
+}
+
+.h-title {
+    font-weight: 700
+}
+
+.badge {
+    font-size: 12px;
+    color: black
+}
+
+.actions {
+    display: flex;
+    gap: 8px
+}
+
+.btn {
+    border: 1px solid #e5e7eb;
+    background: var(--card);
+    color: var(--text);
+    padding: 8px 12px;
+    border-radius: 10px;
+    cursor: pointer
+}
+
+.btn.primary {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white
+}
+
+.btn.ghost {
+    background: transparent;
+    border-color: #334155;
+    color: var(--text)
+}
+
+.btn.danger {
+    border-color: var(--danger);
+    color: #ef4444
+}
+
+.card {
+    background: var(--card);
+    border: 1px solid rgba(148, 163, 184, .25);
+    border-radius: 14px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .06);
+    padding: 14px
+}
+
+.chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px
+}
+
+.chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--chip);
+    padding: 10px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(99, 102, 241, .25);
+    cursor: pointer
+}
+
+.chip input {
+    accent-color: #4f46e5
+}
+
+.toolbar {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-top: 12px
+}
+
+.input {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    background: var(--card);
+    border: 1px solid rgba(148, 163, 184, .35);
+    padding: 10px 12px;
+    border-radius: 12px;
+    gap: 8px
+}
+
+.input input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: inherit
+}
+
+.slider {
+    display: flex;
+    align-items: center;
+    gap: 8px
+}
+
+.kpi {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 12px
+}
+
+.kpi .card {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-height: 84px
+}
+
+.table {
+    margin-top: 12px;
+    width: 100%;
+}
+
+.table table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: var(--card);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(148, 163, 184, .25)
+}
+
+.table th,
+.table td {
+    padding: 12px 10px;
+    border-bottom: 1px solid rgba(148, 163, 184, .2);
+    text-align: left
+}
+
+.table th {
+    background: rgba(148, 163, 184, .08);
+    font-weight: 600
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    color: var(--muted)
+}
+
+.switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px
+}
+
+.switch input {
+    appearance: none;
+    width: 42px;
+    height: 24px;
+    background: #cbd5e1;
+    border-radius: 999px;
+    position: relative;
+    outline: none;
+    cursor: pointer
+}
+
+.switch input:checked {
+    background: var(--primary)
+}
+
+.switch input::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: white;
+    transition: all .2s
+}
+
+.switch input:checked::after {
+    left: 21px
+}
+
+
+
+/* Sanction Chip Background color */
+
+.sanction-modal-chips .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.sanction-modal-chips .chip {
+    padding: 10px 20px;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    border: none;
+    box-shadow: 0 6px 0 rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+}
+
+.sanction-modal-chips .chip input[type="radio"] {
+    margin-right: 8px;
+}
+
+
+.chips-palette .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.chips-palette .chip {
+    padding: 10px 20px;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    border: none;
+    box-shadow: 0 6px 0 rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    transition: transform 0.08s ease;
+}
+
+.chips-palette .chip:active {
+    transform: translateY(1px);
+}
+
+.chips-palette .chip input[type="checkbox"],
+.chips-palette .chip input[type="radio"] {
+    margin-right: 8px;
+}

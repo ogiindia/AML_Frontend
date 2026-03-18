@@ -1,0 +1,16 @@
+packages:
+  # all packages in direct subdirs of packages/
+  - 'app/*'
+  - 'packages/*'
+  - 'lab/*'
+  - 'backend/*'
+  - 'libs/*'
+  - 'theme/*'
+  # exclude packages that are inside test directories
+  - '!**/test/**'
+
+# Define a catalog of version ranges.
+catalog:
+  react: ^18.2.0
+  react-dom: ^18.2.0
+  redux: ^5.0.1

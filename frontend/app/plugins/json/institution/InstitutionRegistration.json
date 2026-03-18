@@ -1,0 +1,139 @@
+[
+  {
+    "title": "Institution Details",
+    "subTitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+    "collapsible": false,
+    "isCollapsed": false,
+    "layout": 1,
+    "data": [
+      {
+        "type": "text",
+        "name": "orgID",
+        "label": "Institution Id",
+        "id": "instId",
+        "value": "",
+        "col": "4",
+        "placeholder": "Enter your Institution Id",
+        "tooltip": "Please enter a valid institution Id",
+        "validationType": "string",
+        "validations": [
+          {
+            "type": "required",
+            "params": ["This field is required"]
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "name": "orgName",
+        "label": "Organization Name",
+        "id": "oName",
+        "value": "",
+        "placeholder": "Enter your Organization name",
+        "tooltip": "Please enter a organization name",
+        "validationType": "string",
+        "validations": [
+          {
+            "type": "required",
+            "params": ["This field is required"]
+          }
+        ]
+      },
+      {
+        "type": "file",
+        "name": "orgLogo",
+        "label": "Organization Logo",
+        "id": "ologo",
+        "value": "logo",
+        "placeholder": "Enter your Organization logo",
+        "tooltip": "Please logo url",
+        "validationType": "string",
+        "validations": []
+      },
+      {
+        "type": "color",
+        "name": "orgPrimaryColor",
+        "label": "Primary Color",
+        "id": "oprimaryColor",
+        "value": "#3F418D",
+        "grid": 2,
+        "placeholder": "Enter your Organization Primary COlor",
+        "tooltip": "Please enter a organization primary Color",
+        "validationType": "string",
+        "validations": []
+      },
+      {
+        "type": "color",
+        "name": "orgSecondaryColor",
+        "label": "Secondary Color",
+        "id": "osecondaryColor",
+        "className": "no-wrap",
+        "value": "#F9EDED",
+        "grid": 2,
+        "placeholder": "Enter your Organization secondary Color",
+        "tooltip": "Please enter a organization Secondary Color",
+        "validationType": "string",
+        "validations": []
+      },
+
+      {
+        "type": "color",
+        "name": "appSuccessColor",
+        "label": "Success Color",
+        "id": "appSuccessColor",
+        "value": "#81c784",
+        "grid": 2,
+        "placeholder": "Enter your Organization success Color",
+        "tooltip": "Please enter a organization success Color",
+        "validationType": "string",
+        "validations": []
+      },
+      {
+        "type": "color",
+        "name": "appInfoColor",
+        "label": "Info Color",
+        "id": "appInfoColor",
+        "value": "#4fc3f7",
+        "grid": 2,
+        "placeholder": "Enter your Organization info COlor",
+        "tooltip": "Please enter a organization info Color",
+        "validationType": "string",
+        "validations": []
+      },
+      {
+        "type": "color",
+        "name": "appWarningColor",
+        "label": "Warning Color",
+        "id": "appWarningColor",
+        "value": "#ffb74d",
+        "grid": 2,
+        "placeholder": "Enter your Organization warning COlor",
+        "tooltip": "Please enter a organization warning Color",
+        "validationType": "string",
+        "validations": []
+      },
+      {
+        "type": "color",
+        "name": "appDangerColor",
+        "label": "Danger Color",
+        "id": "appDangerColor",
+        "value": "#e57373",
+        "grid": 2,
+        "placeholder": "Enter your Organization danger COlor",
+        "tooltip": "Please enter a organization danger Color",
+        "validationType": "string",
+        "validations": []
+      }
+    ]
+  },
+  {
+    "data": [
+      {
+        "type": "label",
+        "labelType": "warning",
+        "id": "generalRules",
+        "label": "Note : <br />Be sure to provide accurate Institution details because Institution details are not validated and used for major calculations."
+      }
+    ]
+  }
+]

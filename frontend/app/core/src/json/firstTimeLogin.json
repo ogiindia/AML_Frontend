@@ -1,0 +1,81 @@
+[
+  {
+    "data": [
+      {
+        "type": "password",
+        "name": "oldPassword",
+        "label": "Old Password",
+        "id": "oldPassword",
+        "value": "",
+        "placeholder": "Enter your current password",
+        "tooltip": "Enter your current password",
+        "validationType": "string",
+        "validations": [
+          {
+            "type": "required",
+            "params": ["this field is required"]
+          }
+        ]
+      },
+      {
+        "type": "password",
+        "name": "newPassword",
+        "label": "New Password",
+        "id": "newPassword",
+        "value": "",
+        "placeholder": "Enter password",
+        "tooltip": "Please enter a password",
+        "validationType": "string",
+        "validations": [
+          {
+            "type": "required",
+            "params": ["this field is required"]
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "name": "confirmPassword",
+        "label": "Confirm Password",
+        "id": "confirmPassword",
+        "value": "",
+        "placeholder": "Enter your password again",
+        "tooltip": "Enter the password again",
+        "validationType": "string",
+        "validations": [
+          {
+            "type": "required",
+            "params": ["this field is required"]
+          },
+          {
+            "type": "min",
+            "params": [8, "Password Must atleast 8 digits"]
+          },
+          {
+            "type": "matches",
+            "params": ["[0-9]", "Your password must have atleast 1 digit"]
+          },
+          {
+            "type": "matches",
+            "params": ["[a-z]", "Your password must have atleast 1 lowercase"]
+          },
+          {
+            "type": "matches",
+            "params": ["[A-Z]", "Your password must have alteast 1 uppercase"]
+          },
+          {
+            "type": "passwordMatch",
+            "params": ["newPassword", "Passwords does not match"]
+          }
+        ]
+      },
+      {
+        "type": "label",
+        "labelType": "default",
+        "id": "generalRules",
+        "title": "Notes",
+        "label": "<br /> password should be 8 digit <br /> password should contain atleast 1 lowercase , 1 uppercase & 1 digit"
+      }
+    ]
+  }
+]

@@ -1,0 +1,30 @@
+@font-face {
+  font-family: 'roboto-normal';
+  src: url('./roboto/Roboto-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'roboto-bold';
+  src: url('./roboto/Roboto-Medium.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+.side-menu {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+h4,
+h5,
+h6 {
+  font-family: inherit;
+  font-weight: normal;
+}
+
+.font-bolder {
+  font-family: 'roboto-bold';
+  font-weight: bold;
+}

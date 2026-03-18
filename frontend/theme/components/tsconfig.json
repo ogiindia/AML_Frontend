@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "esnext",
+    "moduleResolution": "Node",
+    "jsx": "react",
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "baseUrl": ".",
+    "outDir": "dist",
+    // "outFile": "core.d.ts",
+    "allowJs": true,
+    "checkJs": false,
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
+  "include": ["src"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build",
+    "public",
+    "vite.config.ts",
+    "package.json"
+  ]
+}

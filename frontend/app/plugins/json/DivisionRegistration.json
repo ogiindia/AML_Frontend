@@ -1,0 +1,72 @@
+[
+  {
+    "title": "Division Details",
+    "subTitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+    "collapsible": false,
+    "isCollapsed": false,
+    "layout": 1,
+    "query": "saveDivisionEntity",
+    "data": [
+      {
+        "type": "select",
+        "name": "institution",
+        "label": "institution",
+        "id": "institution",
+        "gqlType": "UUID!",
+        "value": "",
+        "placeholder": "Enter your Institution",
+        "tooltip": "Please enter a valid institution",
+        "url": "listInstitutionEntity",
+        "dataMap": {
+          "id": true,
+          "institutionName": true
+        },
+        "rData": null,
+        "data": [],
+        "validationType": "string",
+        "validations": [
+          {
+            "type": "required",
+            "params": ["This field is required"]
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "gqlType": "String!",
+        "name": "divisionId",
+        "label": "Division Id",
+        "id": "divisionId",
+        "value": "",
+        "grid": 6,
+        "placeholder": "Enter your Division Id",
+        "tooltip": "Please enter a valid Division Id",
+        "validationType": "string",
+        "validations": [
+          {
+            "type": "required",
+            "params": ["This field is required"]
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "gqlType": "String!",
+        "name": "divisionName",
+        "label": "Division Name",
+        "id": "divisionName",
+        "value": "",
+        "grid": "6",
+        "placeholder": "Enter the Division Name",
+        "tooltip": "Please enter a valid Division Name",
+        "validationType": "string",
+        "validations": [
+          {
+            "type": "required",
+            "params": ["This field is required"]
+          }
+        ]
+      }
+    ]
+  }
+]

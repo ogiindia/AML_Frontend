@@ -1,0 +1,22 @@
+import { MutedBgLayout, RuleEngineWizard } from '@ais/components';
+import React from 'react';
+import { Col, Row } from 'react-bootstrap';
+import { useLocation } from 'react-router';
+
+const CreateRule = () => {
+
+  const [loading, setloading] = React.useState();
+  const { state } = useLocation();
+  console.log(state);
+
+  return (
+    <MutedBgLayout>
+      <Row>
+        <Col span="auto">
+          <RuleEngineWizard />
+        </Col>
+      </Row>
+    </MutedBgLayout>
+  );
+};
+export default CreateRule;

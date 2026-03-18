@@ -1,0 +1,40 @@
+{
+  "name": "core",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@ais/api": "workspace:^",
+    "@emotion/is-prop-valid": "^1.3.1",
+    "@fontsource/inter": "^5.2.5",
+    "@tailwindcss/vite": "^4.1.8",
+    "cra-template": "1.2.0",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "react-scripts": "5.0.1",
+    "tailwindcss": "^4.1.8",
+    "web-vitals": "^4.2.4"
+  },
+  "scripts": {
+    "start": "vite --mode=aml",
+    "build": "vite build --mode=aml",
+    "preview": "vite preview"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

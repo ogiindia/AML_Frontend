@@ -1,0 +1,222 @@
+{
+  "userDetails": {
+    "userType": "SA",
+    "passwordDate": "2023-10-21T12:13:23.184",
+    "groupID": "supergrp",
+    "userName": "Super Admin",
+    "appLogo": null,
+    "appPrimaryColor": "232454",
+    "appSecondaryColor": "4bcd3e",
+    "appInfoColor": null,
+    "appWarningColor": null,
+    "appSuccessColor": null,
+    "appDangerColor": null,
+    "passwordExpired": true,
+    "firstTimeLogin": true
+  },
+  "menu": [
+    {
+      "tid": "1001",
+      "sid": "0",
+      "label": "Dashboard",
+      "path": "dashboard",
+      "file": null,
+      "page": "dashboard",
+      "submenu": "false",
+      "icon": "bank",
+      "parentMenuID": null,
+      "module": "Back Office"
+    },
+    {
+      "tid": "1010",
+      "sid": "1",
+      "label": "Rbac",
+      "path": null,
+      "file": null,
+      "page": null,
+      "submenu": "true",
+      "parentMenuID": null,
+      "module": "Back Office"
+    },
+    {
+      "tid": "1011",
+      "sid": "1",
+      "label": "Create User",
+      "path": "v2-users-create",
+      "file": null,
+      "page": "v2-users-create",
+      "submenu": "true",
+      "icon": "person-add",
+      "parentMenuID": "1010",
+      "module": "Back Office"
+    },
+    {
+      "tid": "1014",
+      "sid": "1",
+      "label": "List User",
+      "path": "v2-users-list",
+      "file": null,
+      "page": "v2-users-list",
+      "icon": "person-lines-fill",
+      "submenu": "true",
+      "parentMenuID": "1010",
+      "module": "Back Office"
+    },
+
+    {
+      "tid": "1103",
+      "sid": "2",
+      "label": "Groups",
+      "path": "v2-groups-list",
+      "file": null,
+      "page": "v2-groups-list",
+      "submenu": "true",
+      "icon": "people",
+      "parentMenuID": "1010",
+      "module": "Back Office"
+    },
+    {
+      "tid": "1110",
+      "sid": "1",
+      "label": "NCCRP",
+      "path": null,
+      "file": null,
+      "page": null,
+      "submenu": "true",
+      "parentMenuID": null,
+      "module": "Back Office"
+    },
+
+    {
+      "tid": "1116",
+      "sid": "5",
+      "label": "Txn list",
+      "path": "v1-cybercrime-txnlist",
+      "file": null,
+      "page": "v1-cybercrime-txnlist",
+      "submenu": "true",
+      "icon": "card-list",
+      "parentMenuID": "1110",
+      "module": "Back Office"
+    },
+
+    {
+      "tid": "1113",
+      "sid": "2",
+      "label": "Suspected Chain",
+      "path": "v1-cybercrime-list",
+      "file": null,
+      "page": "v1-cybercrime-list",
+      "submenu": "true",
+      "icon": "person-lines-fill",
+      "parentMenuID": "1110",
+      "module": "Back Office"
+    },
+    {
+      "tid": "1114",
+      "sid": "3",
+      "label": "DemoGraphic View",
+      "path": "v1-cybercrime-demolist",
+      "file": null,
+      "page": "v1-cybercrime-demolist",
+      "submenu": "true",
+      "icon": "people",
+      "parentMenuID": "1110",
+      "module": "Back Office"
+    },
+    {
+      "tid": "1115",
+      "sid": "4",
+      "label": "File Upload",
+      "path": "v1-cybercrime-fileupload",
+      "file": null,
+      "page": "v1-cybercrime-fileupload",
+      "submenu": "true",
+      "icon": "file-check",
+      "parentMenuID": "1110",
+      "module": "Back Office"
+    },
+    {
+      "tid": "1117",
+      "sid": "6",
+      "label": "Reports",
+      "path": "v1-cybercrime-reports",
+      "file": null,
+      "page": "v1-cybercrime-reports",
+      "submenu": "true",
+      "icon": "flag",
+      "parentMenuID": "1110",
+      "module": "Back Office"
+    },
+
+    {
+      "tid": "1401",
+      "sid": "0",
+      "label": "General Settings",
+      "path": null,
+      "file": null,
+      "page": null,
+      "submenu": "false",
+      "parentMenuID": null,
+      "module": "Back Office"
+    },
+    {
+      "tid": "1402",
+      "sid": "1",
+      "label": "SMS Settings",
+      "path": null,
+      "file": null,
+      "page": null,
+      "submenu": "true",
+      "icon": "sliders",
+      "parentMenuID": "1401",
+      "module": "Back Office"
+    },
+    {
+      "tid": "1403",
+      "sid": "2",
+      "label": "SMS config",
+      "path": "sms/config/data",
+      "file": null,
+      "page": "pom",
+      "submenu": "true",
+      "parentMenuID": "1402",
+      "module": "Back Office"
+    },
+    {
+      "tid": "1404",
+      "sid": "3",
+      "label": "SMS Template Mapping",
+      "path": "pom",
+      "file": null,
+      "page": "pom",
+      "submenu": "true",
+      "parentMenuID": "1402",
+      "module": "Back Office"
+    },
+    {
+      "tid": "1405",
+      "sid": "4",
+      "label": "EMAIL Settings",
+      "path": "pom",
+      "file": null,
+      "page": "pom",
+      "icon": "envelope",
+      "submenu": "false",
+      "parentMenuID": "1401",
+      "module": "Case Manager"
+    },
+    {
+      "tid": "1406",
+      "sid": "5",
+      "label": "Report config",
+      "path": "pom",
+      "file": null,
+      "page": "pom",
+      "submenu": "false",
+      "parentMenuID": "1401",
+      "module": "Back Office"
+    }
+  ],
+  "modules": ["Case Manager", "Back Office", "Rule Manager", "reports"]
+}

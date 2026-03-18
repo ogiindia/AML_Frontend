@@ -1,0 +1,11 @@
+.login-bg {
+    background-image: var(--assets-login-background-image);
+}
+
+.align-top {
+    vertical-align: top;
+}
+
+.bg-white {
+    background-color: var(--color-white);
+}

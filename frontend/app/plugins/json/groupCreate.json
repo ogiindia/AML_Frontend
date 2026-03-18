@@ -1,0 +1,23 @@
+[
+  {
+    "title": "Create Group",
+    "subTitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+    "collapsible": false,
+    "isCollapsed": false,
+    "layout": 2,
+
+    "data": [
+      {
+        "type": "text",
+        "name": "groupName",
+        "label": "group Name",
+        "id": "gName",
+        "value": "",
+        "placeholder": "Enter a group name",
+        "tooltip": "Please enter a group name",
+        "validationType": "string",
+        "validations": []
+      }
+    ]
+  }
+]

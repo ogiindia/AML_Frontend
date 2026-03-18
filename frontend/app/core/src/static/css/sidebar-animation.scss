@@ -1,0 +1,24 @@
+.sideMenu {
+  transition: 400ms;
+  overflow: hidden;
+  height: 100vh;
+
+  &.maximized {
+    width: 250px;
+  }
+
+  &.minimized {
+    width: 60px;
+    position: fixed;
+    z-index: 9999;
+  }
+}
+
+.custom-content-block {
+  &.pl-60 {
+    padding-left: 60px;
+  }
+  &.pl-0 {
+    padding-left: 0px;
+  }
+}

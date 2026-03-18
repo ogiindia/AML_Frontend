@@ -1,0 +1,32 @@
+import logo from './logo.svg';
+// import './App.css';
+import { Col, Row } from 'react-bootstrap';
+
+function App() {
+  const backendURl = window.env.BACKEND_URL;
+
+  return (
+    <div className="App">
+      <Row>
+        <Col>
+          <header className="App-header">
+            <img src={logo} className="App-logo" alt="logo" />
+            <p>
+              Edit <code>src/App.js</code> and save to reload.
+            </p>
+            <a
+              className="App-link"
+              href="https://reactjs.org"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Learn React
+            </a>
+          </header>
+        </Col>
+      </Row>
+    </div>
+  );
+}
+
+export default App;
