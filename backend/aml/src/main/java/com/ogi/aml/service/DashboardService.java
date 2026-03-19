@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
+import java.time.OffsetDateTime;
 import java.time.Year;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -348,6 +349,7 @@ public class DashboardService {
 			LOGGER.info("Service getRuleVsTransaction called");
 
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Constants.DATE_PATTERN);
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSSXXX");
 
 			Year currentYear = Year.now();
 
@@ -369,10 +371,9 @@ public class DashboardService {
 			LOGGER.info("Transaction records fetched | recordCount={}", lsttransaction.size());
 
 			Map<Month, Map<String, Long>> result = lsttransaction.stream()
-					.collect(Collectors.groupingBy(t -> LocalDate.parse(t.getTransactiondate(), formatter).getMonth(),
-							TreeMap::new, // keeps months ordered
+					.collect(Collectors.groupingBy(t -> OffsetDateTime.parse(t.getTransactiondate(), dtf).getMonth(),
+							TreeMap::new,
 							Collectors.groupingBy(TransactionEntity::getDepositorwithdrawal, Collectors.counting())));
-
 			List<Map<String, Object>> output = new ArrayList<>();
 
 			for (Map.Entry<Month, Map<String, Long>> entry : result.entrySet()) {

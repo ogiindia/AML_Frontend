@@ -48,18 +48,6 @@ public class TransactionEntity {
 	
 	@Column(name = "DEPOSITORWITHDRAWAL")
 	private String depositorwithdrawal;
-
-	@Column(name = "INSTRUMENTCODE")
-	private String instrumentcode;
-	
-	@Column(name = "INSTRUMENTNO")
-	private String instrumentno;
-	
-	@Column(name = "INSTRUMENTDATE")
-	private String instrumentdate;
-	
-	@Column(name = "MICRCODE")
-	private String micrcode;
 	
 	@Column(name = "ACCTCURRENCYCODE")
 	private String acctcurrencycode;
@@ -201,37 +189,7 @@ public class TransactionEntity {
 	public void setDepositorwithdrawal(String depositorwithdrawal) {
 		this.depositorwithdrawal = depositorwithdrawal;
 	}
-	public String getInstrumentcode() {
-		return instrumentcode;
-	}
-
-	public void setInstrumentcode(String instrumentcode) {
-		this.instrumentcode = instrumentcode;
-	}
-
-	public String getInstrumentno() {
-		return instrumentno;
-	}
-
-	public void setInstrumentno(String instrumentno) {
-		this.instrumentno = instrumentno;
-	}
-
-	public String getInstrumentdate() {
-		return instrumentdate;
-	}
-
-	public void setInstrumentdate(String instrumentdate) {
-		this.instrumentdate = instrumentdate;
-	}
-
-	public String getMicrcode() {
-		return micrcode;
-	}
-
-	public void setMicrcode(String micrcode) {
-		this.micrcode = micrcode;
-	}
+	
 
 	public String getAcctcurrencycode() {
 		return acctcurrencycode;

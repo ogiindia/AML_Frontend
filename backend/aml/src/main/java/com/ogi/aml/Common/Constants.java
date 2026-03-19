@@ -17,7 +17,7 @@ public class Constants {
 	public static final int CDD_END_RISK_SCORE =95;
 	public static final int EDD_START_RISK_SCORE =95;
 	public static final int EDD_END_RISK_SCORE =100;
-	public static final String OPEN_ALERT ="REVIEW";
+	public static final String OPEN_ALERT ="OPEN";
 	public static final String APPROVED_ALERTS ="APPROVED";
 	public static final String REJECTED_ALERTS ="REJECTED";
 	public static final String SUCCESS ="SUCCESS";
