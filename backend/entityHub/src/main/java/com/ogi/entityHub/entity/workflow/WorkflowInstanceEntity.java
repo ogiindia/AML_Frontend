@@ -23,9 +23,7 @@ public class WorkflowInstanceEntity extends LongBaseEntity {
 	private String user_assignee;
 	private String customerId;
 	private String transactionId;
-	
-	
-	
+
 	public String getUser_assignee() {
 		return user_assignee;
 	}

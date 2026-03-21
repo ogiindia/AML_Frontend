@@ -1055,12 +1055,12 @@ public class AmlController {
 	}
 
 	@RequestMapping(value = "/getAlertRangeCount")
-	public ResponseEntity<?> getAlertRangeCount(@RequestParam String range) {
+	public ResponseEntity<?> getAlertRangeCount(@RequestParam String range,@RequestParam String username) {
 		try {
 
 			LOGGER.info("API getAlertRangeCount called | range={}", range);
 
-			Map<String, Long> resp = screeningservice.getAlertRangeCount(range, "levelone");
+			Map<String, Long> resp = screeningservice.getAlertRangeCount(range, username);
 
 			if (resp == null || resp.isEmpty()) {
 				LOGGER.warn("No alert range data found | range={} | level=levelone", range);

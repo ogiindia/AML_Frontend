@@ -40,9 +40,6 @@ public class TransactionEntity {
 	@Column(name = "TRANSACTIONDATE")
 	private String transactiondate;
 	
-	@Column(name = "TRANSACTIONTIME")
-	private String transactiontime;
-	
 	@Column(name = "AMOUNT")
 	private Double amount;
 	
@@ -164,14 +161,6 @@ public class TransactionEntity {
 
 	public void setTransactiondate(String transactiondate) {
 		this.transactiondate = transactiondate;
-	}
-
-	public String getTransactiontime() {
-		return transactiontime;
-	}
-
-	public void setTransactiontime(String transactiontime) {
-		this.transactiontime = transactiontime;
 	}
 
 	public Double getAmount() {

@@ -1,6 +1,7 @@
 package com.ogi.factory.interfaces;
 
 import java.util.List;
+import java.util.Map;
 
 public interface Workflowinterface {
 
@@ -19,6 +20,8 @@ public interface Workflowinterface {
 	boolean updateUserAssigneeByParentId(List<String> entityIds, String userAssignee);
 	
 	String getWorflowHistoryByParentIdWithComments(String parentId);
+	
+	Map<String, Long> getAlertDashboardCountData(String range, String user);
 	
 
 }

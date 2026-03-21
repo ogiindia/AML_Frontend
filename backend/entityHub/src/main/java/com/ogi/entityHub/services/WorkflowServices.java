@@ -1,5 +1,7 @@
 package com.ogi.entityHub.services;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -11,6 +13,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.management.RuntimeErrorException;
+import javax.persistence.Tuple;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -47,6 +50,7 @@ import com.ogi.entityHub.entity.workflow.WorkflowStagingEntity;
 import com.ogi.entityHub.repo.WorkflowApproversRepo;
 import com.ogi.entityHub.repo.WorkflowDataRepo;
 import com.ogi.entityHub.repo.WorkflowInstanceHistory;
+import com.ogi.entityHub.repo.WorkflowInstanceImplRepo;
 import com.ogi.entityHub.repo.WorkflowInstanceRepo;
 import com.ogi.entityHub.repo.WorkflowRepo;
 
@@ -72,6 +76,9 @@ public class WorkflowServices extends BaseResolver<WorkflowEntity, Long> impleme
 
 	@Autowired
 	WorkflowApproversRepo workflowApproverRepo;
+	
+	@Autowired
+	WorkflowInstanceImplRepo workflowinstanceimplrepo;
 
 	WorkflowServices(EntityBuilder entityBuilder) {
 		this.entityBuilder = entityBuilder;
@@ -210,6 +217,19 @@ public class WorkflowServices extends BaseResolver<WorkflowEntity, Long> impleme
 		            .filter(comment -> comment != null && !comment.trim().isEmpty())
 		            .collect(Collectors.joining(";"));
 	}
+	
+	public Map<String, Long> getAlertDashboardCountData(String range, String user) {
+		 Map<String, Long> lstAltCount =
+				 workflowinstanceimplrepo.getAlertDashboardCountData(range,user);
+
+		    if (lstAltCount == null || lstAltCount.isEmpty()) {
+		        return null;
+		    }
+
+		    return lstAltCount;
+	}
+	
+	
 
 	@GraphQLQuery
 	public List<WorkflowInstanceEntity> findEntitiesPendingForApproval() {

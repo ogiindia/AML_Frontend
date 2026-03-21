@@ -156,7 +156,8 @@ function DashboardList({ username, groupId }) {
 
 
             const res = await api.get("/app/rest/v1/getAlertRangeCount", {
-                range: range
+                range: range,
+                username: username
             });
 
             settotalSummaryAlertsData([
@@ -179,7 +180,8 @@ function DashboardList({ username, groupId }) {
             setLoading(true);
 
             const res = await api.get("/app/rest/v1/getAlertRangeCount", {
-                range: range
+                range: range,
+                username: username
             });
 
             setTotalAlertsData([
@@ -199,7 +201,8 @@ function DashboardList({ username, groupId }) {
             setLoading(true);
 
             const res = await api.get("/app/rest/v1/getAlertRangeCount", {
-                range: range
+                range: range,
+                username: username
             });
 
 
@@ -219,7 +222,9 @@ function DashboardList({ username, groupId }) {
             setLoading(true);
 
             const res = await api.get("/app/rest/v1/getAlertRangeCount", {
-                range: range
+                range: range,
+                username: username
+
             });
 
             setClosedAlertsData([

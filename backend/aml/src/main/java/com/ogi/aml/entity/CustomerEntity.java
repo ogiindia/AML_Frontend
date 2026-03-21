@@ -25,9 +25,6 @@ public class CustomerEntity {
 	@Column(name = "CUSTOMERCATEGORY")
 	private String customercategory;
 	
-	@Column(name = "BANKCODE")
-	private String bankcode;
-	
 	@Column(name = "BRANCHCODE")
 	private String branchcode;
 	
@@ -115,12 +112,7 @@ public class CustomerEntity {
 	public void setCustomercategory(String customercategory) {
 		this.customercategory = customercategory;
 	}
-	public String getBankcode() {
-		return bankcode;
-	}
-	public void setBankcode(String bankcode) {
-		this.bankcode = bankcode;
-	}
+	
 	public String getBranchcode() {
 		return branchcode;
 	}
