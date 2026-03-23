@@ -153,7 +153,7 @@ public class DashboardService {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Constants.DATE_PATTERN);
 			String today = LocalDate.now().format(formatter);
 
-			List<TransactionEntity> lsttrans = transactionimplrepo.getKycAlertsDetailsImplRepo(today, today, "");
+			List<TransactionEntity> lsttrans = transactionimplrepo.getTransactionDetailsImplRepo(today, today, "","");
 
 			if (lsttrans == null || lsttrans.isEmpty()) {
 
@@ -207,7 +207,7 @@ public class DashboardService {
 			String fromDate = today.minusMonths(1).format(formatter);
 			String toDate = today.format(formatter);
 
-			List<TransactionEntity> lsttrans = transactionimplrepo.getKycAlertsDetailsImplRepo(fromDate, toDate, "");
+			List<TransactionEntity> lsttrans = transactionimplrepo.getTransactionDetailsImplRepo(fromDate, toDate, "","");
 
 			if (lsttrans == null || lsttrans.isEmpty()) {
 
@@ -258,7 +258,7 @@ public class DashboardService {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Constants.DATE_PATTERN);
 			String today = LocalDate.now().format(formatter);
 
-			List<TransactionEntity> lsttrans = transactionimplrepo.getKycAlertsDetailsImplRepo(today, today, "");
+			List<TransactionEntity> lsttrans = transactionimplrepo.getTransactionDetailsImplRepo(today, today, "","");
 
 			if (lsttrans == null || lsttrans.isEmpty()) {
 
@@ -300,7 +300,7 @@ public class DashboardService {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Constants.DATE_PATTERN);
 			String today = LocalDate.now().format(formatter);
 
-			List<TransactionEntity> lsttrans = transactionimplrepo.getKycAlertsDetailsImplRepo(today, today, "");
+			List<TransactionEntity> lsttrans = transactionimplrepo.getTransactionDetailsImplRepo(today, today, "","");
 
 			if (lsttrans == null || lsttrans.isEmpty()) {
 
@@ -359,8 +359,8 @@ public class DashboardService {
 			String fromDate = startDate.minusMonths(1).format(formatter);
 			String toDate = endDate.format(formatter);
 
-			List<TransactionEntity> lsttransaction = transactionimplrepo.getKycAlertsDetailsImplRepo(fromDate, toDate,
-					"");
+			List<TransactionEntity> lsttransaction = transactionimplrepo.getTransactionDetailsImplRepo(fromDate, toDate,
+					"","");
 
 			if (lsttransaction == null || lsttransaction.isEmpty()) {
 

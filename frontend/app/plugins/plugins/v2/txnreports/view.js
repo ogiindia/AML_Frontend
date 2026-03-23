@@ -77,7 +77,7 @@ function MKCView() {
           createdAt: true
         },
 
-        findTransactionEntitybyId: {
+        findTransactionById: {
           __args: {
             id: new VariableType('txnId')
           },
@@ -88,7 +88,6 @@ function MKCView() {
           transactiontype: true,
           channeltype: true,
           transactiondate: true,
-          transactiontime: true,
           amount: true,
           depositorwithdrawal: true,
           narration: true
@@ -135,8 +134,8 @@ function MKCView() {
         settimeline(workflowHistory);
       }
 
-      if (data && "findTransactionEntitybyId" in data) {
-        setcurrentTransaction(data['findTransactionEntitybyId']);
+      if (data && "findTransactionById" in data) {
+        setcurrentTransaction(data['findTransactionById']);
       }
 
       if (data && "findAlertsByParentId" in data) {

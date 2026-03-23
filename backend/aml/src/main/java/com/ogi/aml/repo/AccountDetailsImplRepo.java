@@ -28,7 +28,7 @@ public class AccountDetailsImplRepo {
 
 			List<AccountDetailsEntity> list = new ArrayList<>();
 
-			SearchFieldsDTO srcField=new SearchFieldsDTO("8297946610","LD2604000323",null,null,null);
+			SearchFieldsDTO srcField=new SearchFieldsDTO(customerId,null,null,null,null,null);
 			
 			list = perquetservice.executeQueryReturnEntity("Accounts", AccountDetailsEntity.class,srcField);
 

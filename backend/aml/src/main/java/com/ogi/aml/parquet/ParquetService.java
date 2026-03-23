@@ -68,36 +68,36 @@ public class ParquetService {
 			rs = stmt.executeQuery();
 
 			if (!rs.next()) {
-			    LOGGER.warn("No data found");
-			    return Collections.emptyList(); // never return null
+				LOGGER.warn("No data found");
+				return Collections.emptyList(); // never return null
 			}
 
 			meta = rs.getMetaData();
 			int cols = meta.getColumnCount();
 
 			do {
-			    T entity = type.getDeclaredConstructor().newInstance();
+				T entity = type.getDeclaredConstructor().newInstance();
 
-			    for (int i = 1; i <= cols; i++) {
+				for (int i = 1; i <= cols; i++) {
 
-			        String colName = meta.getColumnLabel(i);
-			        Object value = rs.getObject(i);
+					String colName = meta.getColumnLabel(i);
+					Object value = rs.getObject(i);
 
-			        String fieldName = toCamel(colName);
+					String fieldName = toCamel(colName);
 
-			        try {
-			            Field f = type.getDeclaredField(fieldName);
-			            f.setAccessible(true);
+					try {
+						Field f = type.getDeclaredField(fieldName);
+						f.setAccessible(true);
 
-			            Object converted = convertValue(value, f.getType());
-			            f.set(entity, converted);
+						Object converted = convertValue(value, f.getType());
+						f.set(entity, converted);
 
-			        } catch (NoSuchFieldException ignore) {
-			            LOGGER.debug("Field not found: {}", fieldName);
-			        }
-			    }
+					} catch (NoSuchFieldException ignore) {
+						LOGGER.debug("Field not found: {}", fieldName);
+					}
+				}
 
-			    result.add(entity);
+				result.add(entity);
 
 			} while (rs.next());
 		} catch (Exception e) {
@@ -230,51 +230,63 @@ public class ParquetService {
 					selectQuery.append(", ");
 				}
 
-				
-				if (srcField.customerId() != null && !srcField.customerId().isEmpty()) {
+				if ("Y".equalsIgnoreCase(col.getSearch())) {
 
-				    if ("Accounts".equalsIgnoreCase(shortName)) {
+					String criteria = col.getCriteria();
 
-				        if ("CUSTCD".equalsIgnoreCase(col.getFrom())) {
-				            conditions.add(col.getFrom() + " = '" + srcField.customerId() + "'");
-				        }
-				        
-				        if ("ACCTNO".equalsIgnoreCase(col.getFrom())) {
-				            conditions.add(col.getFrom() + " = '" + srcField.accountNo() + "'");
-				        }
+					if (criteria != null && !criteria.isEmpty()) {
 
-				    } else if ("Customers".equalsIgnoreCase(shortName)) {
+						String value = null;
+						boolean isValid = false;
 
-				        if ("CUSTNO".equalsIgnoreCase(col.getFrom())) {
-				            conditions.add(col.getFrom() + " = '" + srcField.customerId() + "'");
-				        }
-				    }
-				}
+						switch (col.getTo().toLowerCase()) {
 
-				if ("TRANSACTIONS".equalsIgnoreCase(shortName)) {
+						case "customerid":
+							value = srcField.customerId();
+							if (value != null && !value.trim().isEmpty()) {
+								criteria = criteria.replace("#customerid#", "'" + value.trim() + "'");
+								isValid = true;
+							}
+							break;
 
-				    if (srcField.transId() != null && "TXNNO".equalsIgnoreCase(col.getFrom())) {
-				        conditions.add(col.getFrom() + " = '" + srcField.transId() + "'");
-				    }
+						case "accountno":
+							value = srcField.accountNo();
+							if (value != null && !value.trim().isEmpty()) {
+								criteria = criteria.replace("#accountno#", "'" + value.trim() + "'");
+								isValid = true;
+							}
+							break;
 
-				    if (srcField.customerId() != null && "CUSTOMERNO".equalsIgnoreCase(col.getFrom())) {
-				        conditions.add(col.getFrom() + " = '" + srcField.customerId() + "'");
-				    }
+						case "transactionid":
+							value = srcField.transId();
+							if (value != null && !value.trim().isEmpty()) {
+								criteria = criteria.replace("#transactionid#", "'" + value.trim() + "'");
+								isValid = true;
+							}
+							break;
 
-				    if (srcField.startDate() != null && srcField.endDate() != null 
-				        && "TXDATE".equalsIgnoreCase(col.getFrom())) {
+						case "transactiondate":
+							if (srcField.startDate() != null && srcField.endDate() != null) {
+								criteria = criteria.replaceFirst("#Date#", "'" + srcField.startDate() + "'")
+										.replaceFirst("#Date#", "'" + srcField.endDate() + "'");
+								isValid = true;
+							}
+							break;
+						}
 
-				        conditions.add(col.getFrom() + " BETWEEN '" 
-				            + srcField.startDate() + "' AND '" + srcField.endDate() + "'");
-				    }
+						// ✅ Add only if valid AND no leftover placeholders
+						if (isValid && !criteria.contains("#")) {
+							conditions.add(criteria);
+						}
+					}
+
 				}
 			}
 
-			
 			if (!conditions.isEmpty()) {
-			    condition = " WHERE " + String.join(" AND ", conditions);
+				condition = " WHERE " + String.join(" AND ", conditions);
 			}
-			
+
 			String parquetPath = tofindParqutePat(config);
 
 			if (parquetPath == null || parquetPath.trim().isEmpty()) {
@@ -284,8 +296,7 @@ public class ParquetService {
 
 			parquetPath = parquetPath.replace("\\", "/");
 
-			String query = selectQuery + " FROM read_parquet('" + parquetPath + "*/*/*/*.parquet') "
-					+ condition;
+			String query = selectQuery + " FROM read_parquet('" + parquetPath + "*/*/*/*.parquet') " + condition;
 
 			LOGGER.debug("Generated query for shortName={}: {}", shortName, query);
 

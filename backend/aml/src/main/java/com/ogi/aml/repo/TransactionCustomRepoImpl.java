@@ -6,22 +6,22 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.ogi.aml.entity.CustomerEntity;
+import com.ogi.aml.entity.TransactionEntity;
 import com.ogi.aml.parquet.ParquetService;
 import com.ogi.aml.parquet.SearchFieldsDTO;
 
 @Repository
-public class CustomerCustomRepoImpl implements CustomerCustomRepo {
-
+public class TransactionCustomRepoImpl implements TransactionCustomRepo {
+	
 	@Autowired
 	private ParquetService parquetService;
 
 	@Override
-	public Optional<CustomerEntity> findByIdFromParquet(String customerId) {
+	public Optional<TransactionEntity> findByTransDtlsFromParquet(String transId) {
 
-		SearchFieldsDTO srcField = new SearchFieldsDTO(customerId, null, null, null, null,null);
+		SearchFieldsDTO srcField = new SearchFieldsDTO(null, null, null, null, transId,null);
 
-		List<CustomerEntity> list = parquetService.executeQueryReturnEntity("Customers", CustomerEntity.class,
+		List<TransactionEntity> list = parquetService.executeQueryReturnEntity("TRANSACTIONS", TransactionEntity.class,
 				srcField);
 
 		if (list != null && !list.isEmpty()) {
@@ -30,4 +30,5 @@ public class CustomerCustomRepoImpl implements CustomerCustomRepo {
 
 		return Optional.empty();
 	}
+
 }

@@ -1,6 +1,5 @@
 package com.ogi.aml.service;
 
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -10,7 +9,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -28,7 +26,6 @@ import com.ogi.aml.Common.RandomIdGenerate;
 import com.ogi.aml.entity.AlertsEntity;
 import com.ogi.aml.entity.CustomerEntity;
 import com.ogi.aml.entity.KycAlertsEntity;
-import com.ogi.aml.entity.RuleCategoryEntity;
 import com.ogi.aml.entity.SanctionMatchedListEntity;
 import com.ogi.aml.entity.SuspiciousTransactionEntity;
 import com.ogi.aml.entity.TransactionEntity;
@@ -378,8 +375,8 @@ public class ScreeningService {
 
 			LOGGER.debug("Transaction date range | fromDate={} toDate={}", fromDate, toDate);
 
-			List<TransactionEntity> lstTrans = transactionimplrepo.getKycAlertsDetailsImplRepo(fromDate, toDate,
-					customerId);
+			List<TransactionEntity> lstTrans = transactionimplrepo.getTransactionDetailsImplRepo(fromDate, toDate,
+					customerId,"");
 
 			if (lstTrans == null || lstTrans.isEmpty()) {
 
@@ -564,7 +561,7 @@ public class ScreeningService {
 			LOGGER.info("Generating KYC alert | customerId={} transId={} riskType={} status={}", customerId, transId,
 					cdd_edd, status);
 
-			List<TransactionEntity> lstAlert = transactionimplrepo.getTransDetailsImplRepo(customerId, transId);
+			List<TransactionEntity> lstAlert = transactionimplrepo.getTransactionDetailsImplRepo("","",customerId, transId);
 
 			if (lstAlert == null || lstAlert.isEmpty()) {
 
@@ -674,7 +671,7 @@ public class ScreeningService {
 			}
 
 			// 🔹 Fetch transaction
-			List<TransactionEntity> lstTrans = transactionimplrepo.getTransDetailsImplRepo("",
+			List<TransactionEntity> lstTrans = transactionimplrepo.getTransactionDetailsImplRepo("","","",
 					request.getTransactionId());
 
 			if (lstTrans == null || lstTrans.isEmpty()) {

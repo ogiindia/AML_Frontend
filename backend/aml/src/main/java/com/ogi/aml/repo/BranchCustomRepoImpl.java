@@ -6,22 +6,21 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.ogi.aml.entity.CustomerEntity;
+import com.ogi.aml.entity.BranchMasterEntity;
 import com.ogi.aml.parquet.ParquetService;
 import com.ogi.aml.parquet.SearchFieldsDTO;
 
 @Repository
-public class CustomerCustomRepoImpl implements CustomerCustomRepo {
-
+public class BranchCustomRepoImpl implements BranchCustomRepo{
 	@Autowired
 	private ParquetService parquetService;
 
 	@Override
-	public Optional<CustomerEntity> findByIdFromParquet(String customerId) {
+	public Optional<BranchMasterEntity> findByBranchFromParquet(String branchCode) {
 
-		SearchFieldsDTO srcField = new SearchFieldsDTO(customerId, null, null, null, null,null);
+		SearchFieldsDTO srcField = new SearchFieldsDTO(null, null, null, null, null,branchCode);
 
-		List<CustomerEntity> list = parquetService.executeQueryReturnEntity("Customers", CustomerEntity.class,
+		List<BranchMasterEntity> list = parquetService.executeQueryReturnEntity("BRANCH", BranchMasterEntity.class,
 				srcField);
 
 		if (list != null && !list.isEmpty()) {

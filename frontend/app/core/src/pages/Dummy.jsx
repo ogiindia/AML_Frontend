@@ -39,7 +39,7 @@ export default function Dummy() {
           createdAt: true
         },
 
-        findTransactionEntitybyId: {
+        findTransactionById: {
           __args: {
             id: new VariableType('txnId')
           },
@@ -50,7 +50,6 @@ export default function Dummy() {
           transactiontype: true,
           channeltype: true,
           transactiondate: true,
-          transactiontime: true,
           amount: true,
           depositorwithdrawal: true,
           narration: true
@@ -68,33 +67,32 @@ export default function Dummy() {
           custId: true,
           transactionId: true,
           riskCategory: true,
-        }, findCustomerEntitybyId: {
+        }, findCustomerById: {
           __args: {
-            id: new VariableType('customerId')
+            customerId: new VariableType('customerId')
           },
-          introducercategory: true,
-          introducercustomerid: true,
-          customercategory: true,
-          estimatedincomefrombusiness: true,
-          checked: true,
-          net_worth: true,
+
           customerid: true,
-          customerempcode: true,
           customername: true,
           customertype: true,
-          minor: true,
-          fatfncct: true,
-          otherincome: true,
-          annualincome: true,
-          bankcode: true,
-          wblist: true,
-          drugtrafficking: true,
+          customercategory: true,
           branchcode: true,
-          introducername: true,
-          creditrating: true,
           natureofbusiness: true,
-          intercountry: true,
-          createddatetime: true
+          creditrating: true,
+          createddatetime: true,
+          firstname: true,
+          lastname: true,
+          dateofbirth: true,
+          nationality: true,
+          sex: true,
+          panno: true,
+          occupation: true,
+          city: true,
+          country: true,
+          phoneno: true,
+          mobileno: true,
+          emailid: true,
+
         }
       }
     }
@@ -116,16 +114,16 @@ export default function Dummy() {
         setcommentsList(data['getWorflowHistoryByParentId']);
       }
 
-      if (data && "findTransactionEntitybyId" in data) {
-        setcurrentTransaction(data['findTransactionEntitybyId']);
+      if (data && "findTransactionById" in data) {
+        setcurrentTransaction(data['findTransactionById']);
       }
 
       if (data && "findAlertsByParentId" in data) {
         setalertList(data["findAlertsByParentId"]);
       }
 
-      if (data && "findCustomerEntitybyId" in data) {
-        setcustomerDetails(data['findCustomerEntitybyId']);
+      if (data && "findCustomerById" in data) {
+        setcustomerDetails(data['findCustomerById']);
       }
 
     });

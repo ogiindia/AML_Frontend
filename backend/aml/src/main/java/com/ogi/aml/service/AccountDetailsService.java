@@ -113,8 +113,8 @@ public class AccountDetailsService {
 
 			List<Map<String, Object>> output = new ArrayList<>();
 
-			List<TransactionEntity> lsttransaction = transactionimplrepo.getKycAlertsDetailsImplRepo("", "",
-					customerId);
+			List<TransactionEntity> lsttransaction = transactionimplrepo.getTransactionDetailsImplRepo("", "",
+					customerId,"");
 
 			if (lsttransaction == null || lsttransaction.isEmpty()) {
 

@@ -186,7 +186,7 @@ public class KYCAlertsService {
 
 			LOGGER.info("Processing transactions for date range | today={}", todayStr);
 
-			List<TransactionEntity> lstAlert = transactionimplrepo.getKycAlertsDetailsImplRepo(todayStr, todayStr, "");
+			List<TransactionEntity> lstAlert = transactionimplrepo.getTransactionDetailsImplRepo(todayStr, todayStr, "","");
 
 			if (lstAlert != null && !lstAlert.isEmpty()) {
 

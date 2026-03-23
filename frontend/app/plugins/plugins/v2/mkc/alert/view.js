@@ -122,7 +122,7 @@ export default function View({ parentId, instanceId, customerId, entityId, trans
                     createdAt: true
                 },
 
-                findTransactionEntitybyId: {
+                findTransactionById: {
                     __args: {
                         id: new VariableType('txnId')
                     },
@@ -190,9 +190,8 @@ export default function View({ parentId, instanceId, customerId, entityId, trans
                 setcommentsList(data['getWorflowHistoryByParentId']);
             }
 
-            if (data && "findTransactionEntitybyId" in data) {
-                alert(JSON.stringify(data['findTransactionEntitybyId']));
-                setcurrentTransaction(data['findTransactionEntitybyId']);
+            if (data && "findTransactionById" in data) {
+                setcurrentTransaction(data['findTransactionById']);
             }
 
             if (data && "findCustomerById" in data) {
