@@ -123,9 +123,6 @@ function ViewCustomers({ isTxn = false }) {
                   <InfoItem title={'Nationality'} className={'mb-2'}>
                     <span>{customerDetails.nationality}</span>
                   </InfoItem>
-                  <InfoItem title={'Age'} className={'mb-2'}>
-                    <span>{customerDetails.age}</span>
-                  </InfoItem>
 
                   <InfoItem title={'Sex'} className={'mb-2'}>
                     <span>{customerDetails.sex}</span>
@@ -136,21 +133,14 @@ function ViewCustomers({ isTxn = false }) {
                   <InfoItem title={'Occupation'} className={'mb-2'}>
                     <span>{customerDetails.occupation}</span>
                   </InfoItem>
-                  <InfoItem title={'Address'} className={'mb-2'}>
-                    <span>{customerDetails.addressline1}</span>
-                  </InfoItem>
                   <InfoItem title={'City'} className={'mb-2'}>
                     <span>{customerDetails.city}</span>
-                  </InfoItem>
-
-                  <InfoItem title={'State'} className={'mb-2'}>
-                    <span>{customerDetails.state}</span>
                   </InfoItem>
                   <InfoItem title={'Country'} className={'mb-2'}>
                     <span>{customerDetails.country}</span>
                   </InfoItem>
-                  <InfoItem title={'Pin Code'} className={'mb-2'}>
-                    <span>{customerDetails.pincode}</span>
+                  <InfoItem title={'Mobile No.'} className={'mb-2'}>
+                    <span>{customerDetails.phoneno}</span>
                   </InfoItem>
                   <InfoItem title={'Mobile No.'} className={'mb-2'}>
                     <span>{customerDetails.mobileno}</span>

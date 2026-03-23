@@ -248,6 +248,13 @@ public class ParquetService {
 								isValid = true;
 							}
 							break;
+						case "branchcode":
+							value = srcField.branchCode();
+							if (value != null && !value.trim().isEmpty()) {
+								criteria = criteria.replace("#branchcode#", "'" + value.trim() + "'");
+								isValid = true;
+							}
+							break;
 
 						case "accountno":
 							value = srcField.accountNo();

@@ -39,12 +39,12 @@ public class RedisService {
 				var cfg = connectionFactory.getStandaloneConfiguration();
 				
 
-				Logger.info("Redis IP : " + redisIP + " - Redis Port : " + redisPort);
+				//Logger.info("Redis IP : " + redisIP + " - Redis Port : " + redisPort);
 
 				if (cfg != null) {
-					Logger.info("Redis host = " + cfg.getHostName() + ", port = " + cfg.getPort());
+					//Logger.info("Redis host = " + cfg.getHostName() + ", port = " + cfg.getPort());
 				}
-				Logger.info("Redis heartbeat updated");
+				//Logger.info("Redis heartbeat updated");
 			} catch (Exception e) {
 				// Handle gracefully if Redis is unavailable
 				Logger.error("Redis job failed: " + e.getMessage());
