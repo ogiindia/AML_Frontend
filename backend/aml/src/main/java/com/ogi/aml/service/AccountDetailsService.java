@@ -2,6 +2,7 @@ package com.ogi.aml.service;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -126,10 +127,23 @@ public class AccountDetailsService {
 
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Constants.DATE_PATTERN);
 
+			
+			
 			Map<Month, Map<String, Long>> result = lsttransaction.stream()
-					.collect(Collectors.groupingBy(t -> LocalDate.parse(t.getTransactiondate(), formatter).getMonth(),
-							TreeMap::new, // Keeps months sorted
-							Collectors.groupingBy(TransactionEntity::getDepositorwithdrawal, Collectors.counting())));
+				    .collect(Collectors.groupingBy(t -> {
+				        String value = t.getTransactiondate();
+
+				        return OffsetDateTime
+				                .parse(value.replace(" ", "T")) // Fix format
+				                .toLocalDate()
+				                .getMonth();
+
+				    }, TreeMap::new,
+				       Collectors.groupingBy(
+				           TransactionEntity::getDepositorwithdrawal,
+				           Collectors.counting()
+				       )
+				));
 
 			for (Month month : result.keySet()) {
 

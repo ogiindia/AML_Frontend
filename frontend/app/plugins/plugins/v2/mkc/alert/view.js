@@ -133,7 +133,6 @@ export default function View({ parentId, instanceId, customerId, entityId, trans
                     transactiontype: true,
                     channeltype: true,
                     transactiondate: true,
-                    transactiontime: true,
                     amount: true,
                     depositorwithdrawal: true,
                     narration: true
@@ -151,45 +150,32 @@ export default function View({ parentId, instanceId, customerId, entityId, trans
                     custId: true,
                     transactionId: true,
                     riskCategory: true,
-                }, findCustomerEntitybyId: {
+                }, findCustomerById: {
                     __args: {
-                        id: new VariableType('customerId')
+                        customerId: new VariableType('customerId')
                     },
 
                     customerid: true,
                     customername: true,
                     customertype: true,
                     customercategory: true,
-                    bankcode: true,
                     branchcode: true,
                     natureofbusiness: true,
                     creditrating: true,
                     createddatetime: true,
-
+                    firstname: true,
+                    lastname: true,
                     dateofbirth: true,
                     nationality: true,
-                    age: true,
                     sex: true,
-
+                    panno: true,
                     occupation: true,
-                    addressline1: true,
+                    city: true,
+                    country: true,
                     phoneno: true,
                     mobileno: true,
+                    emailid: true,
 
-                    // introducercategory: true,
-                    // introducercustomerid: true,
-                    // estimatedincomefrombusiness: true,
-                    // checked: true,
-                    // net_worth: true,
-                    // customerempcode: true,
-                    // minor: true,
-                    // fatfncct: true,
-                    // otherincome: true,
-                    // annualincome: true,
-                    // wblist: true,
-                    // drugtrafficking: true,
-                    // introducername: true,
-                    // intercountry: true,
                 }
             }
         }
@@ -198,18 +184,19 @@ export default function View({ parentId, instanceId, customerId, entityId, trans
         const gql = jsonToGraphQLQuery(gjson);
         console.log(gql);
         api.graphql(gql, { parentId: state?.parentId || parentId, instanceId: state?.instanceId || instanceId, customerId: state?.customerId || customerId, txnId: state?.transactionId || transactionId }).then((res) => {
-            const { error, data } = res;
+            const { errors, data } = res || {};
 
             if (data && "getWorflowHistoryByParentId" in data) {
                 setcommentsList(data['getWorflowHistoryByParentId']);
             }
 
             if (data && "findTransactionEntitybyId" in data) {
+                alert(JSON.stringify(data['findTransactionEntitybyId']));
                 setcurrentTransaction(data['findTransactionEntitybyId']);
             }
 
-            if (data && "findCustomerEntitybyId" in data) {
-                setcustomerDetails(data['findCustomerEntitybyId']);
+            if (data && "findCustomerById" in data) {
+                setcustomerDetails(data['findCustomerById']);
             }
 
         });
@@ -649,15 +636,21 @@ export default function View({ parentId, instanceId, customerId, entityId, trans
                             <Col span="12">
                                 <SimpleCard title={`Transaction Details`}>
                                     <Row>
-                                        {currentTransaction && Object.keys(currentTransaction).map((cust, index) => {
-                                            return (
-                                                <Col span='auto' key={cust}>
-                                                    <ReadOnlyField title={cust}>
-                                                        <span>{currentTransaction[cust]}</span>
+                                        {currentTransaction && Object.keys(currentTransaction).length > 0 ? (
+                                            Object.keys(currentTransaction).map((key) => (
+                                                <Col span="auto" key={key}>
+                                                    <ReadOnlyField title={key}>
+                                                        <span>{currentTransaction[key]}</span>
                                                     </ReadOnlyField>
                                                 </Col>
-                                            );
-                                        })}
+                                            ))
+                                        ) : (
+                                            <Col span="12">
+                                                <ReadOnlyField title="Transaction">
+                                                    <span>Record not assigned</span>
+                                                </ReadOnlyField>
+                                            </Col>
+                                        )}
                                     </Row>
 
                                 </SimpleCard>

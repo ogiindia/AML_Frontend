@@ -32,7 +32,7 @@ public class CustomerDetailsService {
 
 			LOGGER.info("Service getCustomerDetails called | customerId={}", custId);
 
-			Optional<CustomerEntity> respCustDetails = customerrepo.findById(custId);
+			Optional<CustomerEntity> respCustDetails = customerrepo.findByIdFromParquet(custId);
 
 			if (respCustDetails.isPresent()) {
 
@@ -91,15 +91,15 @@ public class CustomerDetailsService {
 			res.setDateofbirth(entity.getDateofbirth());
 			res.setPlaceofbirth(entity.getPlaceofbirth());
 			res.setNationality(entity.getNationality());
-			res.setAge(entity.getAge());
+			//res.setAge(entity.getAge());
 			res.setSex(entity.getSex());
 			res.setPanno(entity.getPanno());
 			res.setOccupation(entity.getOccupation());
-			res.setAddressline1(entity.getAddressline1());
+			//res.setAddressline1(entity.getAddressline1());
 			res.setCity(entity.getCity());
-			res.setState(entity.getState());
+			//res.setState(entity.getState());
 			res.setCountry(entity.getCountry());
-			res.setPincode(entity.getPincode());
+			//res.setPincode(entity.getPincode());
 			res.setPhoneno(entity.getPhoneno());
 			res.setMobileno(entity.getMobileno());
 			res.setEmailid(entity.getEmailid());

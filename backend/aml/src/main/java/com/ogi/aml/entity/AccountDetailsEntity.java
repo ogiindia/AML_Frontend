@@ -22,6 +22,31 @@ public class AccountDetailsEntity {
 	
 	@Column(name = "BRANCHCODE")
 	private String branchcode;
+	
+	@Column(name = "ACCOUNTOPENEDDATE")
+	private String accountopeneddate;
+	
+	@Column(name = "STATUS")
+	private String status;
+
+	
+	
+
+	public String getAccountopeneddate() {
+		return accountopeneddate;
+	}
+
+	public void setAccountopeneddate(String accountopeneddate) {
+		this.accountopeneddate = accountopeneddate;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
 	public String getAccountno() {
 		return accountno;

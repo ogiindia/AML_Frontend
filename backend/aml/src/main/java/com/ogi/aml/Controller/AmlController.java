@@ -85,6 +85,8 @@ public class AmlController {
 
 	@Value("${file.path:C:/Users/FIS/Source/AML/Document/SampleFiles/}")
 	public String path;
+	
+	
 
 	@PostMapping("/uploadEvidence")
 	public ResponseEntity<String> uploadAlertFiles(@RequestParam String parentId, @RequestParam String TransactionId,

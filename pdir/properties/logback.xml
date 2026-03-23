@@ -29,7 +29,7 @@
 	<contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
 		<resetJUL>true</resetJUL>
 	</contextListener>
-	<property name="DEV_HOME" value="C:/Users/FIS/Source/AML/Application/aml-gui-monorepo/Logs" />
+	<property name="DEV_HOME" value="C:/Users/FIS/Source/AML/Application/aml-gui-frontend/AML_Frontend/Logs" />
 	<appender name="SYSOUT" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
 			<Pattern>

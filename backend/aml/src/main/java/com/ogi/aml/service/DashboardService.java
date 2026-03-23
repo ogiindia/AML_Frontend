@@ -169,7 +169,7 @@ public class DashboardService {
 			List<Map<String, Object>> response = result.entrySet().stream()
 					.sorted(Map.Entry.<Long, Long>comparingByValue().reversed()).limit(10).map(e -> {
 
-						Optional<CustomerEntity> customer = customerrepo.findById(String.valueOf(e.getKey()));
+						Optional<CustomerEntity> customer = customerrepo.findByIdFromParquet(String.valueOf(e.getKey()));
 
 						Map<String, Object> map = new HashMap<>();
 
@@ -223,7 +223,7 @@ public class DashboardService {
 			List<Map<String, Object>> response = result.entrySet().stream()
 					.sorted(Map.Entry.<Long, Long>comparingByValue().reversed()).limit(10).map(e -> {
 
-						Optional<CustomerEntity> customer = customerrepo.findById(String.valueOf(e.getKey()));
+						Optional<CustomerEntity> customer = customerrepo.findByIdFromParquet(String.valueOf(e.getKey()));
 
 						Map<String, Object> map = new HashMap<>();
 

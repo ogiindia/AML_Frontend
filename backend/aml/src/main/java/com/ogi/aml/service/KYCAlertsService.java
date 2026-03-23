@@ -254,7 +254,7 @@ public class KYCAlertsService {
 			LOGGER.debug("Creating KYC alert | customerId={} transactionId={} riskCategory={}", req.getCustomerid(),
 					req.getTransactionid(), riskCategory);
 
-			Optional<CustomerEntity> custDetails = customerrepo.findById(String.valueOf(req.getCustomerid()));
+			Optional<CustomerEntity> custDetails = customerrepo.findByIdFromParquet(String.valueOf(req.getCustomerid()));
 
 			if (custDetails.isPresent()) {
 

@@ -29,6 +29,8 @@ function DashboardList({ username, groupId }) {
     const { showPluginModal } = useModalHost();
     const [loading, setLoading] = React.useState(false);
 
+    const [error, setError] = useState(null);
+
     const [totalSummaryAlertsData, settotalSummaryAlertsData] = useState([]);
     const [totalAlertsData, setTotalAlertsData] = useState([]);
     const [openedAlertsData, setOpenedAlertsData] = useState([]);

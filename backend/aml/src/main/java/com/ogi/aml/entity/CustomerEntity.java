@@ -52,9 +52,6 @@ public class CustomerEntity {
 	@Column(name = "NATIONALITY")
 	private String nationality;
 	
-	@Column(name = "AGE")
-	private Integer age;
-	
 	@Column(name = "SEX")
 	private String sex;
 	
@@ -64,20 +61,11 @@ public class CustomerEntity {
 	@Column(name = "OCCUPATION")
 	private String occupation;
 	
-	@Column(name = "ADDRESSLINE1")
-	private String addressline1;
-	
 	@Column(name = "CITY")
 	private String city;
 	
-	@Column(name = "STATE")
-	private String state;
-	
 	@Column(name = "COUNTRY")
 	private String country;
-	
-	@Column(name = "PINCODE")
-	private String pincode;
 	
 	@Column(name = "PHONENO")
 	private String phoneno;
@@ -167,12 +155,7 @@ public class CustomerEntity {
 	public void setNationality(String nationality) {
 		this.nationality = nationality;
 	}
-	public Integer getAge() {
-		return age;
-	}
-	public void setAge(Integer age) {
-		this.age = age;
-	}
+	
 	public String getSex() {
 		return sex;
 	}
@@ -191,36 +174,21 @@ public class CustomerEntity {
 	public void setOccupation(String occupation) {
 		this.occupation = occupation;
 	}
-	public String getAddressline1() {
-		return addressline1;
-	}
-	public void setAddressline1(String addressline1) {
-		this.addressline1 = addressline1;
-	}
+	
 	public String getCity() {
 		return city;
 	}
 	public void setCity(String city) {
 		this.city = city;
 	}
-	public String getState() {
-		return state;
-	}
-	public void setState(String state) {
-		this.state = state;
-	}
+	
 	public String getCountry() {
 		return country;
 	}
 	public void setCountry(String country) {
 		this.country = country;
 	}
-	public String getPincode() {
-		return pincode;
-	}
-	public void setPincode(String pincode) {
-		this.pincode = pincode;
-	}
+	
 	public String getPhoneno() {
 		return phoneno;
 	}

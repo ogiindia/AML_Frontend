@@ -20,8 +20,6 @@ import org.springframework.stereotype.Repository;
 
 import com.ogi.aml.Common.Constants;
 import com.ogi.aml.entity.AlertsEntity;
-import com.ogi.aml.entity.TransactionEntity;
-import com.ogi.aml.service.DashboardService;
 
 @Repository
 public class CustomerAlertsRepo {

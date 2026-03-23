@@ -612,7 +612,7 @@ public class ScreeningService {
 			LOGGER.debug("Creating KYC alert | customerId={} transactionId={} riskCategory={} status={}",
 					req.getCustomerid(), req.getTransactionid(), riskCategory, status);
 
-			Optional<CustomerEntity> custDetails = customerrepo.findById(String.valueOf(req.getCustomerid()));
+			Optional<CustomerEntity> custDetails = customerrepo.findByIdFromParquet(String.valueOf(req.getCustomerid()));
 
 			if (custDetails.isEmpty()) {
 
@@ -685,7 +685,10 @@ public class ScreeningService {
 			TransactionEntity txn = lstTrans.get(0);
 
 			// 🔹 Fetch customer safely
-			CustomerEntity customer = customerrepo.findById(String.valueOf(request.getCust_id())).orElse(null);
+			Optional<CustomerEntity> customer = customerrepo.findByIdFromParquet(String.valueOf(request.getCust_id()));
+
+			
+			//CustomerEntity customer = customerrepo.findById(String.valueOf(request.getCust_id())).orElse(null);
 
 			if (customer == null) {
 				LOGGER.warn("Customer not found | customerId={}", request.getCust_id());
@@ -717,9 +720,9 @@ public class ScreeningService {
 			// null-safe conversions
 			susTrans.setAccount_no(txn.getAccountno() != null ? txn.getAccountno().toString() : null);
 
-			susTrans.setCustomer_id(customer.getCustomerid());
-			susTrans.setCustomer_name(customer.getCustomername());
-			susTrans.setPan(customer.getPanno());
+			susTrans.setCustomer_id(customer.get().getCustomerid());
+			susTrans.setCustomer_name(customer.get().getCustomername());
+			susTrans.setPan(customer.get().getPanno());
 
 			susTrans.setTransaction_date(txn.getTransactiondate());
 			susTrans.setTransaction_amount(txn.getAmount() != null ? txn.getAmount().toString() : null);
