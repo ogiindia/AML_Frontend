@@ -176,6 +176,21 @@ public class ParquetService {
 		return trancustFldDTOObj;
 	}
 
+	
+	public List<TransactionMapping> getAllConfig() {
+		List<TransactionMapping> transMappLstObj = new ArrayList<>();
+		try {
+			return jsonConfigLoader.getStartUpConfig();
+			
+		} catch (Exception e) {
+			transMappLstObj = null;
+			LOGGER.error("Exception found in ParquetService@getConfig : {}", e);
+		} finally {
+			transMappLstObj = null;
+		}
+		return Collections.emptyList();
+	}
+	
 	/**
 	 * 
 	 * @param shortName

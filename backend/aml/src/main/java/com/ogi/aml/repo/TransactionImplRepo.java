@@ -1,34 +1,18 @@
 package com.ogi.aml.repo;
 
-import java.io.Console;
-import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Expression;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.ogi.aml.Common.Constants;
 import com.ogi.aml.entity.TransactionEntity;
 import com.ogi.aml.parquet.ParquetService;
 import com.ogi.aml.parquet.SearchFieldsDTO;
-import com.ogi.aml.service.DashboardService;
 
 @Repository
 public class TransactionImplRepo {

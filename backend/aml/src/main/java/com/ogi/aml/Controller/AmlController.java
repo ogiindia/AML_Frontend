@@ -45,6 +45,7 @@ import com.ogi.aml.service.DiligenceDetailsService;
 import com.ogi.aml.service.FinalReportService;
 import com.ogi.aml.service.KYCAlertsService;
 import com.ogi.aml.service.SanctionScreeningService;
+import com.ogi.aml.service.SchemaCreation;
 import com.ogi.aml.service.ScreeningService;
 
 import org.slf4j.Logger;
@@ -83,10 +84,11 @@ public class AmlController {
 	@Autowired
 	AlertService alertservice;
 
+	@Autowired
+	SchemaCreation schemacreation;
+
 	@Value("${file.path:C:/Users/FIS/Source/AML/Document/SampleFiles/}")
 	public String path;
-	
-	
 
 	@PostMapping("/uploadEvidence")
 	public ResponseEntity<String> uploadAlertFiles(@RequestParam String parentId, @RequestParam String TransactionId,
@@ -1057,7 +1059,7 @@ public class AmlController {
 	}
 
 	@RequestMapping(value = "/getAlertRangeCount")
-	public ResponseEntity<?> getAlertRangeCount(@RequestParam String range,@RequestParam String username) {
+	public ResponseEntity<?> getAlertRangeCount(@RequestParam String range, @RequestParam String username) {
 		try {
 
 			LOGGER.info("API getAlertRangeCount called | range={}", range);
@@ -1102,6 +1104,27 @@ public class AmlController {
 					size, e);
 
 			throw e;
+		}
+	}
+
+	@RequestMapping(value = "/setMappingList")
+	public ResponseEntity<?> setMappingList() {
+		try {
+			LOGGER.info("API setMappingList called");
+
+			String resp = schemacreation.setMappingList();
+
+			if (resp == null || resp.isEmpty()) {
+				LOGGER.warn("No mapping data found");
+			} else {
+				LOGGER.info("Mapping successfully");
+			}
+
+			return new ResponseEntity<>(resp, HttpStatus.OK);
+
+		} catch (Exception e) {
+			LOGGER.error("Exception in setMappingList", e);
+			return new ResponseEntity<>("Failed to fetch Mapping List alerts", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
