@@ -34,7 +34,8 @@ public class CatalogEntity extends LongBaseEntity {
 	private String customField2;
 
 	private String customField3;
-
+	
+	
 	public String getName() {
 		return name;
 	}

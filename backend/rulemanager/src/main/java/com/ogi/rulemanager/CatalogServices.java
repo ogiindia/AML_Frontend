@@ -94,6 +94,21 @@ public class CatalogServices extends BaseResolver<CatalogEntity, Long> {
 
 		return super.saveAll(entities);
 	}
+	@Transactional
+	public List<CatalogEntity> saveAllCatalogs(List<CatalogEntity> entities, Long schemaId) {
+		
+
+		for (CatalogEntity catalogEntity : entities) {
+
+			SchemaMaster schemaMaster = new SchemaMaster();
+			schemaMaster.setId(schemaId);
+
+			catalogEntity.setSchema(schemaMaster);
+		}
+
+		return super.saveAll(entities);
+	}
+	
 
 	private CatalogTypeEntity findByType(String type) {
 		return catalogTypeRepo.findByName(type).orElseThrow();

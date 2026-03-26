@@ -30,10 +30,13 @@ public class SchemaService extends BaseResolver<SchemaMaster, Long> implements R
 
 	@Autowired
 	RuleCatalogEntityRepository catalogRepo;
-	
+
 	@Autowired
 	RuleCatalogTypesRespository catalogTypeRepo;
-	
+
+	@Autowired
+	CatalogServices catalogservices;
+
 	@Override
 	public String getEntityID() {
 		// TODO Auto-generated method stub
@@ -109,14 +112,13 @@ public class SchemaService extends BaseResolver<SchemaMaster, Long> implements R
 					if (!existingCols.contains(colName)) {
 
 						CatalogEntity field = new CatalogEntity();
-						
-						CatalogTypeEntity typ=findByType(col.getType());
-						
+
+						CatalogTypeEntity typ = findByType(col.getType());
 
 						field.setSchema(schema);
 						field.setName(col.getTo());
 						field.setAlias(col.getTo());
-
+						field.setType(typ);
 						newFields.add(field);
 					}
 				}
@@ -124,18 +126,17 @@ public class SchemaService extends BaseResolver<SchemaMaster, Long> implements R
 
 			// ✅ 4. Save only new fields
 			if (!newFields.isEmpty()) {
-				catalogRepo.saveAll(newFields);
+
+				catalogservices.saveAllCatalogs(newFields, schema.getId());
 				totalNewColumns += newFields.size();
 			}
 		}
 
 		return "Schemas added: " + totalInsertedSchemas + ", New columns added: " + totalNewColumns;
 	}
-	
-	
+
 	private CatalogTypeEntity findByType(String type) {
 		return catalogTypeRepo.findByName(type).orElseThrow();
 	}
-
 
 }
