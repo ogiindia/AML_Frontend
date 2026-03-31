@@ -6,9 +6,12 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -19,6 +22,7 @@ import org.springframework.stereotype.Service;
 import com.aml.file.pro.core.efrmsrv.startup.config.ColumnMapping;
 import com.aml.file.pro.core.efrmsrv.startup.config.TransactionMapping;
 import com.google.gson.Gson;
+import com.ogi.aml.Common.Constants;
 
 @Service
 public class ParquetService {
@@ -176,12 +180,11 @@ public class ParquetService {
 		return trancustFldDTOObj;
 	}
 
-	
 	public List<TransactionMapping> getAllConfig() {
 		List<TransactionMapping> transMappLstObj = new ArrayList<>();
 		try {
 			return jsonConfigLoader.getStartUpConfig();
-			
+
 		} catch (Exception e) {
 			transMappLstObj = null;
 			LOGGER.error("Exception found in ParquetService@getConfig : {}", e);
@@ -190,7 +193,7 @@ public class ParquetService {
 		}
 		return Collections.emptyList();
 	}
-	
+
 	/**
 	 * 
 	 * @param shortName
@@ -288,9 +291,18 @@ public class ParquetService {
 							break;
 
 						case "transactiondate":
-							if (srcField.startDate() != null && srcField.endDate() != null) {
-								criteria = criteria.replaceFirst("#Date#", "'" + srcField.startDate() + "'")
-										.replaceFirst("#Date#", "'" + srcField.endDate() + "'");
+
+							if ((srcField.startDate() != null && !srcField.startDate().isEmpty())
+									&& srcField.endDate() != null && !srcField.endDate().isEmpty()) {
+
+								String format = col.getFormat(); // ✅ get from JSON
+
+								String start = formatDate(srcField.startDate(), format);
+								String end = formatDate(srcField.endDate(), format);
+
+								criteria = criteria.replaceFirst("#Date#", "'" + start + "'").replaceFirst("#Date#",
+										"'" + end + "'");
+
 								isValid = true;
 							}
 							break;
@@ -327,6 +339,25 @@ public class ParquetService {
 		} catch (Exception e) {
 			LOGGER.error("Exception in buildSelectQuery | shortName={}", shortName, e);
 			return null;
+		}
+	}
+
+	private String formatDate(String inputDate, String format) {
+		try {
+			if (format == null || format.isEmpty()) {
+				format = Constants.PARQUET_DATE_PATTERN; // default
+			}
+
+			DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern(Constants.DATE_PATTERN);
+			DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern(format);
+
+			LocalDate date = LocalDate.parse(inputDate, inputFormat);
+
+			return date.format(outputFormat);
+
+		} catch (Exception e) {
+			LOGGER.error("Date conversion failed: {} with format {}", inputDate, format, e);
+			return inputDate; // fallback
 		}
 	}
 
@@ -378,17 +409,29 @@ public class ParquetService {
 
 		// Integer / int
 		if (target == Integer.class || target == int.class) {
-			return ((Number) value).intValue();
+		    if (value instanceof Number n) {
+		        return n.intValue();
+		    }
+		    String s = value.toString().trim();
+		    return s.isEmpty() ? null : Integer.parseInt(s);
 		}
 
 		// Long / long
 		if (target == Long.class || target == long.class) {
-			return ((Number) value).longValue();
+		    if (value instanceof Number n) {
+		        return n.longValue();
+		    }
+		    String s = value.toString().trim();
+		    return s.isEmpty() ? null : Long.parseLong(s);
 		}
 
 		// Double / double
 		if (target == Double.class || target == double.class) {
-			return ((Number) value).doubleValue();
+		    if (value instanceof Number n) {
+		        return n.doubleValue();
+		    }
+		    String s = value.toString().trim();
+		    return s.isEmpty() ? null : Double.parseDouble(s);
 		}
 
 		// Boolean / boolean
@@ -415,14 +458,21 @@ public class ParquetService {
 
 		// java.time.LocalDate
 		if (target == java.time.LocalDate.class) {
-			if (value instanceof java.sql.Date d) {
-				return d.toLocalDate();
-			}
-			if (value instanceof java.sql.Timestamp ts) {
-				return ts.toLocalDateTime().toLocalDate();
-			}
-			// parse from String (e.g. "2024-03-21")
-			return java.time.LocalDate.parse(value.toString());
+		    if (value instanceof java.sql.Date d) {
+		        return d.toLocalDate();
+		    }
+		    if (value instanceof java.sql.Timestamp ts) {
+		        return ts.toLocalDateTime().toLocalDate();
+		    }
+
+		    String str = value.toString().trim();
+
+		    try {
+		        return java.time.LocalDate.parse(str); // ISO
+		    } catch (Exception e) {
+		        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Constants.PARQUET_DATE_PATTERN, Locale.ENGLISH);
+		        return java.time.LocalDate.parse(str, formatter);
+		    }
 		}
 
 		// java.math.BigDecimal
@@ -438,17 +488,29 @@ public class ParquetService {
 
 		// Float / float
 		if (target == Float.class || target == float.class) {
-			return ((Number) value).floatValue();
+		    if (value instanceof Number n) {
+		        return n.floatValue();
+		    }
+		    String s = value.toString().trim();
+		    return s.isEmpty() ? null : Float.parseFloat(s);
 		}
 
 		// Short / short
 		if (target == Short.class || target == short.class) {
-			return ((Number) value).shortValue();
+		    if (value instanceof Number n) {
+		        return n.shortValue();
+		    }
+		    String s = value.toString().trim();
+		    return s.isEmpty() ? null : Short.parseShort(s);
 		}
 
 		// Byte / byte
 		if (target == Byte.class || target == byte.class) {
-			return ((Number) value).byteValue();
+		    if (value instanceof Number n) {
+		        return n.byteValue();
+		    }
+		    String s = value.toString().trim();
+		    return s.isEmpty() ? null : Byte.parseByte(s);
 		}
 
 		// java.time.LocalDateTime

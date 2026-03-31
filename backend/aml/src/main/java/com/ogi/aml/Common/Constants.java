@@ -11,6 +11,7 @@ public class Constants {
 	public static final String END_TIME=" 23:59:59";
 	public static final String DATE_TIME_PATTERN="yyyy-MM-dd HH:mm:ss";
 	public static final String DATE_PATTERN="yyyy-MM-dd";
+	public static final String PARQUET_DATE_PATTERN="dd-MMM-yyyy";
 	public static final int PREVIOUS_MONTHS =6;
 	public static final int LAST_30_DAYS =30;
 	public static final int CDD_START_RISK_SCORE =80;

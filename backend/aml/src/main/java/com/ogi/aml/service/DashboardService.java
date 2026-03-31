@@ -7,10 +7,12 @@ import java.time.Month;
 import java.time.OffsetDateTime;
 import java.time.Year;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
@@ -163,7 +165,7 @@ public class DashboardService {
 
 			LOGGER.info("Transaction records fetched | recordCount={}", lsttrans.size());
 
-			Map<Long, Long> result = lsttrans.stream()
+			Map<Long, Long> result = lsttrans.stream().filter(x -> x.getCustomerid() != null)
 					.collect(Collectors.groupingBy(TransactionEntity::getCustomerid, Collectors.counting()));
 
 			List<Map<String, Object>> response = result.entrySet().stream()
@@ -217,7 +219,7 @@ public class DashboardService {
 
 			LOGGER.info("Transaction records fetched | recordCount={}", lsttrans.size());
 
-			Map<Long, Long> result = lsttrans.stream()
+			Map<Long, Long> result = lsttrans.stream().filter(x -> x.getCustomerid() != null)
 					.collect(Collectors.groupingBy(TransactionEntity::getCustomerid, Collectors.counting()));
 
 			List<Map<String, Object>> response = result.entrySet().stream()
@@ -268,7 +270,7 @@ public class DashboardService {
 
 			LOGGER.info("Transaction records fetched | recordCount={}", lsttrans.size());
 
-			Map<String, Long> result = lsttrans.stream()
+			Map<String, Long> result = lsttrans.stream().filter(x -> x.getCustomerid() != null)
 					.collect(Collectors.groupingBy(TransactionEntity::getChanneltype, Collectors.counting()));
 
 			List<Map<String, Object>> response = result.entrySet().stream().map(e -> {
@@ -310,7 +312,7 @@ public class DashboardService {
 
 			LOGGER.info("Transaction records fetched | recordCount={}", lsttrans.size());
 
-			Map<String, Long> result = lsttrans.stream()
+			Map<String, Long> result = lsttrans.stream().filter(x -> x.getCustomerid() != null)
 					.collect(Collectors.groupingBy(TransactionEntity::getBranchcode, Collectors.counting()));
 
 			List<Map<String, Object>> response = result.entrySet().stream()
@@ -347,8 +349,11 @@ public class DashboardService {
 		try {
 
 			LOGGER.info("Service getRuleVsTransaction called");
-
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Constants.DATE_PATTERN);
+			DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+			        .parseCaseInsensitive()   // ✅ IMPORTANT
+			        .appendPattern(Constants.PARQUET_DATE_PATTERN)
+			        .toFormatter(Locale.ENGLISH);
+			
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSSXXX");
 
 			Year currentYear = Year.now();
@@ -370,10 +375,22 @@ public class DashboardService {
 
 			LOGGER.info("Transaction records fetched | recordCount={}", lsttransaction.size());
 
-			Map<Month, Map<String, Long>> result = lsttransaction.stream()
-					.collect(Collectors.groupingBy(t -> OffsetDateTime.parse(t.getTransactiondate(), dtf).getMonth(),
-							TreeMap::new,
-							Collectors.groupingBy(TransactionEntity::getDepositorwithdrawal, Collectors.counting())));
+			
+
+				Map<Month, Map<String, Long>> result = lsttransaction.stream()
+				    .filter(t -> t.getTransactiondate() != null && !t.getTransactiondate().isEmpty())
+				    .collect(Collectors.groupingBy(
+				        t -> LocalDate.parse(
+				                t.getTransactiondate().toUpperCase(),
+				                formatter
+				            ).getMonth(),
+				        TreeMap::new,
+				        Collectors.groupingBy(
+				            t -> t.getDepositorwithdrawal() != null ? t.getDepositorwithdrawal() : "UNKNOWN",
+				            Collectors.counting()
+				        )
+				    ));
+				
 			List<Map<String, Object>> output = new ArrayList<>();
 
 			for (Map.Entry<Month, Map<String, Long>> entry : result.entrySet()) {
