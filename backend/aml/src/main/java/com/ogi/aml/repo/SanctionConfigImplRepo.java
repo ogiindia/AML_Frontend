@@ -56,5 +56,35 @@ public class SanctionConfigImplRepo {
 		}
 
 	}
+	
+	public List<SanctionConfigEntity> getSanctionListTypeImplRepo(String sanctionName) {
+		try {
+
+			LOGGER.info("Fetching sanction list | sanctionName={} ", sanctionName);
+
+			CriteriaBuilder cb = em.getCriteriaBuilder();
+			CriteriaQuery<SanctionConfigEntity> cq = cb.createQuery(SanctionConfigEntity.class);
+
+			Root<SanctionConfigEntity> root = cq.from(SanctionConfigEntity.class);
+
+			List<Predicate> predicates = new ArrayList<Predicate>();
+			
+			if (sanctionName != null && !sanctionName.isEmpty()) {
+				predicates.add(cb.equal(root.get("sanction_name"), sanctionName));
+			}
+
+			cq.where(predicates.toArray(new Predicate[] {}));
+
+			TypedQuery<SanctionConfigEntity> query = em.createQuery(cq);
+			return query.getResultList();
+
+		} catch (Exception ex) {
+
+			LOGGER.error("Error fetching sanction list", ex);
+
+			return Collections.emptyList();
+		}
+
+	}
 
 }

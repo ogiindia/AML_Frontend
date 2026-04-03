@@ -5,7 +5,7 @@ public class RequestSanctionConfigData {
 
 	private String country;
 
-	
+	private String list_type;
 
 	public String getSanction_name() {
 		return sanction_name;
@@ -21,6 +21,14 @@ public class RequestSanctionConfigData {
 
 	public void setCountry(String country) {
 		this.country = country;
+	}
+
+	public String getList_type() {
+		return list_type;
+	}
+
+	public void setList_type(String list_type) {
+		this.list_type = list_type;
 	}
 
 

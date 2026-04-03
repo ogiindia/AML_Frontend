@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 
+import api from '@ais/api';
 import {
     Col,
     CustomInput,
@@ -9,7 +10,8 @@ import {
     MutedBgLayout,
     NewButton,
     Row,
-    SimpleCard
+    SimpleCard,
+    toast,
 } from '@ais/components';
 import { VariableType } from '@ais/graphql';
 import React, { useEffect, useState } from 'react';
@@ -26,26 +28,6 @@ function KYCView() {
 
 
     useEffect(() => {
-        let glJson = {
-            query: {
-                __variables: {
-                    type: 'String!'
-                },
-                listCatalogTypes: {
-                    id: true,
-                    name: true
-                },
-                listSchemaMasterByType: {
-                    __args: {
-                        type: new VariableType('type')
-                    },
-                    id: true,
-                    schemaName: true
-                }
-            }
-        }
-
-
         const data = [
             { name: "US Passport", value: 'US Passport' },
             { name: "Generic Passport", value: "Generic Passport" },
@@ -61,45 +43,137 @@ function KYCView() {
 
     }, []);
 
-
-
     const [isVisible, setIsVisible] = useState(false);
+    const [selectedDocType, setSelectedDocType] = useState('');
+    const [fileInputKey, setFileInputKey] = useState(0);
+    const [selectedFile, setSelectedFile] = useState(null);
 
+    const handleClear = () => {
+        setSelectedDocType('');
+        setFileInputKey((prev) => prev + 1); // reset file input
+        setSelectedFile(null);
+        setIsVisible(false);
+    };
 
+    const convertToBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+
+            reader.readAsDataURL(file); // includes prefix like data:...;base64,
+
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = (error) => reject(error);
+        });
+    };
+
+    const handleUploadNIDVDocument = async () => {
+
+        if (!selectedDocType) {
+            toast({ title: 'Please select a document type', variant: 'error' });
+            return;
+        }
+
+        if (!selectedFile) {
+            toast({ title: 'Please upload a file', variant: 'error' });
+            return;
+        }
+
+        const file = selectedFile;
+
+        try {
+            const base64 = await convertToBase64(file);
+            const pureBase64 = base64.split(',')[1];
+
+            const payload = {
+                documentType: selectedDocType,
+                fileName: file.name,
+                contentType: file.type,
+                fileData: pureBase64   // or use base64 if backend needs prefix
+            };
+
+            const res = await api.post('/app/rest/v1/uploadNIDVDocument', payload);
+
+            console.debug('Upload response', res);
+
+            toast({
+                title: 'Upload successful',
+                variant: 'success',
+            });
+
+            setIsVisible(true);
+
+        } catch (err) {
+            console.error('Upload error', err);
+            toast({
+                title: 'Upload failed',
+                description: err?.message || '',
+                variant: 'error'
+            });
+        }
+    };
 
     return (
         <>
             <MutedBgLayout>
                 <Row>
                     <Col span="12">
-                        <H1>KYC</H1>
+                        <H1>National ID Verification</H1>
                     </Col>
 
                     <Col span={'12'}>
                         <SimpleCard>
-                            <Row>
-                                <Col span="6" padding={false}>
-                                    <H3>Document Type</H3>
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    alignItems: 'flex-end',
+                                    gap: 24,
+                                }}
+                            >
+                                <div style={{ flex: '0 0 40%' }}>
+                                    <H3 style={{ marginBottom: '5px !important', marginLeft: '8px' }}>Document Type</H3>
                                     <CustomSelect
                                         name="schema"
                                         data={schemaMaster}
+                                        value={selectedDocType}
+                                        onChange={(e) => setSelectedDocType(e.target.value)}
                                         placeholder={'Please select the doument type'}
                                     ></CustomSelect>
-                                </Col>
-                                <Col span="5" padding={false}>
-                                    <H3>Upload KYC Document</H3>
-                                    <Row className="flex-1" align="center" justify="between">
-                                        <Col span="8" padding={false}>
-                                            <CustomInput gap={0} type="file" className="cursor-pointer" />
-
-                                        </Col>
-                                        <Col span="3" padding={false}>
-                                            <NewButton onClick={() => setIsVisible(!isVisible)}>Submit</NewButton>
-                                        </Col>
-                                    </Row>
-                                </Col>
-                            </Row>
-
+                                </div>
+                                <div style={{ flex: '0 0 40%' }}>
+                                    <H3 style={{ marginBottom: '5px', marginLeft: '8px' }}>Document</H3>
+                                    <CustomInput
+                                        key={fileInputKey}
+                                        gap={0}
+                                        type="file"
+                                        className="cursor-pointer"
+                                        accept="image/*,application/pdf"
+                                        onChange={e => {
+                                            const file = e.target.files?.[0];
+                                            if (!file) {
+                                                setSelectedFile(null);
+                                                return;
+                                            }
+                                            const ok =
+                                                file.type.startsWith('image/') || file.type === 'application/pdf';
+                                            if (!ok) {
+                                                toast({
+                                                    title: 'Only image and PDF files are allowed',
+                                                    variant: 'error',
+                                                });
+                                                e.target.value = '';
+                                                setSelectedFile(null);
+                                                return;
+                                            }
+                                            setSelectedFile(file);
+                                        }}
+                                    />
+                                </div>
+                                <div style={{ flex: '0 0 auto', marginLeft: 'auto', display: 'flex', gap: 8 }}>
+                                    {/* <NewButton onClick={() => setIsVisible(true)}>Submit</NewButton> */}
+                                    <NewButton onClick={handleUploadNIDVDocument}>Submit</NewButton>
+                                    <NewButton onClick={handleClear}>Clear</NewButton>
+                                </div>
+                            </div>
                         </SimpleCard>
                     </Col>
                 </Row>
@@ -124,7 +198,7 @@ function KYCView() {
                 </Col>
 
 
-            </MutedBgLayout>
+            </MutedBgLayout >
         </>
     );
 }

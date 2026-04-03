@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -584,10 +585,10 @@ public class AmlController {
 	public ResponseEntity<?> setSanctionDetails(@RequestBody RequestSanctionConfigData request) {
 		try {
 
-			LOGGER.info("API setSanctionDetails called | sanctionName={} | country={}", request.getSanction_name(),
-					request.getCountry());
+			LOGGER.info("API setSanctionDetails called | sanctionName={} | country={} | List type={} ", request.getSanction_name(),
+					request.getCountry(), request.getList_type());
 
-			sanctionscreeningservice.setSanctionDetails(request.getSanction_name(), request.getCountry());
+			sanctionscreeningservice.setSanctionDetails(request.getSanction_name(), request.getCountry(),request.getList_type());
 
 			LOGGER.info("Sanction details saved successfully | sanctionName={} | country={}",
 					request.getSanction_name(), request.getCountry());
@@ -623,6 +624,31 @@ public class AmlController {
 		} catch (Exception e) {
 
 			LOGGER.error("Exception occurred in getSanctionDetails API | sanctionName={}", sanctionName, e);
+
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to fetch sanction details");
+		}
+	}
+	
+	@RequestMapping(value = "/getListType")
+	public ResponseEntity<?> getListType(@RequestParam String sanctionName) {
+		try {
+
+			LOGGER.info("API getListType called | sanctionName={}", sanctionName);
+
+			List<ResponseSanctionConfigData> resp = sanctionscreeningservice.getListType(sanctionName);
+
+			if (resp == null || resp.isEmpty()) {
+				LOGGER.warn("No sanction details found | sanctionName={}", sanctionName);
+			} else {
+				LOGGER.info("Sanction details fetched successfully | sanctionName={} | recordCount={}", sanctionName,
+						resp.size());
+			}
+
+			return ResponseEntity.ok(resp);
+
+		} catch (Exception e) {
+
+			LOGGER.error("Exception occurred in getListType API | sanctionName={}", sanctionName, e);
 
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to fetch sanction details");
 		}
@@ -1126,6 +1152,27 @@ public class AmlController {
 			LOGGER.error("Exception in setMappingList", e);
 			return new ResponseEntity<>("Failed to fetch Mapping List alerts", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+	
+	
+	@PostMapping("/uploadNIDVDocument")
+	public ResponseEntity<String> uploadNIDVDocument(@RequestBody Map<String, String> request) {
+
+	    try {
+	        String documentType = request.get("documentType");
+	        String fileName = request.get("fileName");
+	        String base64Data = request.get("fileData");
+
+	        byte[] fileBytes = Base64.getDecoder().decode(base64Data);
+
+	        Path filePath = Paths.get(path, fileName);
+	        Files.write(filePath, fileBytes);
+
+	        return ResponseEntity.ok("File saved");
+
+	    } catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Upload failed");
+	    }
 	}
 
 }

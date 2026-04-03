@@ -26,6 +26,10 @@ public class SanctionConfigEntity {
 	@Column(name = "STATUS")
 	private String status;
 	
+	@Column(name = "LIST_TYPE")
+	private String list_type;
+	
+	
 	@Column(name = "CREATED_DATE")
 	private Timestamp created_date;
 
@@ -59,6 +63,14 @@ public class SanctionConfigEntity {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getList_type() {
+		return list_type;
+	}
+
+	public void setList_type(String list_type) {
+		this.list_type = list_type;
 	}
 
 	public Timestamp getCreated_date() {

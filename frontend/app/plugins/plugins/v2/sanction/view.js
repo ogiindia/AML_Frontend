@@ -76,6 +76,10 @@ function View() {
 
     const [fileType, setFileType] = useState('CSV');
 
+    const [listType, setListType] = useState('SL');
+
+    const [selectedListType, setSelectedListType] = useState('SL');
+
 
     const [selectedSanction, setSelectedSanction] = useState('');
     const [selectedDeleteSanction, setSelectedDeleteSanction] = useState('');
@@ -105,6 +109,7 @@ function View() {
                     setAvailableLists(sanctionNames);
                     setSelectedSanction(prev => prev || (sanctionNames[0] || ''));
                     setSelectedDeleteSanction(prev => prev || (sanctionNames[0] || ''));
+
                     console.info("Sanction List Loaded: ", sanctionNames);
                 } else {
                     console.warn("Unexpected API response format:", res);
@@ -129,7 +134,8 @@ function View() {
         try {
             await api.post('/app/rest/v1/setSanctionDetails', {
                 sanction_name: newSanctionName,
-                country: newCountry
+                country: newCountry,
+                list_type: listType
             });
 
             console.log('Saved Successfully');
@@ -148,7 +154,6 @@ function View() {
 
         }
     };
-
 
     const deleteSanction = async () => {
 
@@ -173,6 +178,7 @@ function View() {
     const handleClearPopup = () => {
         setNewSanctionName('');
         setNewCountry('');
+        setListType('SL');
     }
     const handleUploadSanctionList = async () => {
 
@@ -342,6 +348,36 @@ function View() {
         if (currentPage > totalPages) setCurrentPage(totalPages);
     }, [totalPages, currentPage]);
 
+    useEffect(() => {
+        if (selectedSanction) {
+            getListTypeLabel(selectedSanction);
+        }
+    }, [selectedSanction]);
+    const getListTypeLabel = (sanction) => {
+        try {
+            api.get('/app/rest/v1/getListType', {
+                sanctionName: sanction
+            }).then((res) => {
+
+                const listType = res?.[0]?.list_type;
+
+                if (listType === "SL") {
+                    setSelectedListType("Sanction List");
+                } else if (listType === "WL") {
+                    setSelectedListType("White List");
+                } else if (listType === "BL") {
+                    setSelectedListType("Block List");
+                } else {
+                    setSelectedListType("Unknown List Type");
+                }
+
+            });
+
+        } catch (error) {
+            console.error("Failed to fetch  list type", error);
+
+        }
+    }
     return (
         <MutedBgLayout>
             <Row>
@@ -513,14 +549,31 @@ function View() {
                                             .join('\n')}
                                     `}</style>
 
-                                    <div style={{ fontWeight: 600, marginBottom: 8 }}>Sanction List</div>
+                                    <div
+                                        style={{
+                                            fontWeight: 600,
+                                            marginBottom: 8,
+                                            display: 'flex',
+                                            justifyContent: 'space-between',
+                                            alignItems: 'center',
+                                            width: '100%',
+                                        }}
+                                    >
+                                        <span>Sanction List</span>
+
+                                        {selectedSanction && (
+                                            <span>
+                                                List Type : <strong style={{ color: '#1976d2' }}>{selectedListType || 'Loading...'}</strong>
+                                            </span>
+                                        )}
+                                    </div>
                                     <div className="sanction-modal-chips">
                                         <div className="chips">
                                             {availableLists.map(name => (
                                                 <label key={name} className="chip" style={{ cursor: 'pointer' }}>
                                                     <input
                                                         type="radio"
-                                                        name="deleteSanction"
+                                                        name="listSanction"
                                                         value={name}
                                                         checked={selectedSanction === name}
                                                         onChange={() => setSelectedSanction(name)}
@@ -660,11 +713,36 @@ function View() {
                                 />
                             </div>
 
+                            <div>
+
+                                <div style={{ marginBottom: 20, display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                                    <div style={{ marginBottom: 10, fontWeight: 'bold' }}>List Type</div>
+                                    <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+
+                                        <label style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                                            <input type="radio" name="setListType" value="SL" checked={listType === 'SL'} onChange={e => setListType(e.target.value)} />
+                                            <span>Sanction List</span>
+                                        </label>
+
+                                        <label style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                                            <input type="radio" name="setListType" value="WL" checked={listType === 'WL'} onChange={e => setListType(e.target.value)} />
+                                            <span>White List</span>
+                                        </label>
+
+                                        <label style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                                            <input type="radio" name="setListType" value="BL" checked={listType === 'BL'} onChange={e => setListType(e.target.value)} />
+                                            <span>Block List</span>
+                                        </label>
+                                    </div>
+
+                                </div>
+                            </div>
                             <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
                                 <button className="btn" onClick={handleClearPopup}>Clear</button>
                                 <button className="btn primary" onClick={handleSaveNewSanction}>Save</button>
                                 <button className="btn danger" onClick={() => setShowModal(false)}>Close</button>
                             </div>
+
                         </div>
                     </div>
                 )

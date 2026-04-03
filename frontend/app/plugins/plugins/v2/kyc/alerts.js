@@ -10,7 +10,8 @@ import {
     SimpleCard,
     UnderlinedTabs,
     PaginationControlled,
-    NGPBar
+    NGPBar,
+    IconButton,
 } from '@ais/components';
 import { SimpleTable } from "@ais/datatable";
 import React, { useEffect, useState } from "react";
@@ -48,6 +49,8 @@ function Alerts() {
 
     const [searchKYCCustomerId, setSearchKYCCustomerId] = useState('');
     const [searchKYCAccountNumber, setSearchKYCAccountNumber] = useState('');
+
+    const [activeView, setActiveView] = useState('dashboard'); // 'dashboard' | 'search'
 
 
     const RANGE_OPTIONS = [
@@ -688,324 +691,337 @@ function Alerts() {
     return (
         <>
             <MutedBgLayout>
-
-                <Row>
-                    <Col span="24">
+                <Row align="center" justify="start">
+                    <Col span="auto">
                         <H1>Periodical Alerts</H1>
                     </Col>
+
+                    <Col span="auto" className="flex gap-2">
+                        <IconButton
+                            icon="LayoutDashboard"      // pick any icon name your lib supports
+                            size={20}
+                            title="Dashboard View"
+                            className={activeView === 'dashboard' ? 'text-primary' : ''}
+                            onClick={() => setActiveView(prev => (prev === 'dashboard' ? 'hidden' : 'dashboard'))}
+                        />
+
+
+                    </Col>
                 </Row>
-                <Row>
-                    <div
-                        style={{
-                            display: "flex",
-                            gap: 20,
-                            flexWrap: "wrap", // keep wrap, or use "nowrap" for single row
-                        }}
-                    >
-                        <div
-                            key={'Total Alerts'}
-                            style={{
-                                flex: "0 0 260px", // fixed width
-                                width: 260,
-                                minWidth: 260,
-                                maxWidth: 260,
-                            }}
-                        >
+                {activeView === 'dashboard' && (
 
-                            <SimpleCard
-                                align="start"
-                                title="Total Alerts"
-                                subtitle={`Last ${RANGE_OPTIONS.find(opt => opt.value === totalRange)?.label || totalRange} Alerts`}
-                                customHeaderComponents={(
-                                    <div style={{ position: "relative" }}>
-                                        <button
-                                            type="button"
-                                            title="View range options"
-                                            onClick={() => setShowTotalRangePopup((prev) => !prev)}
-                                            style={{
-                                                border: "1px solid #d9d9d9",
-                                                borderRadius: 6,
-                                                background: "#fff",
-                                                cursor: "pointer",
-                                                width: 30,
-                                                height: 30,
-                                                fontSize: 16
-                                            }}
-                                        >
-                                            ✅
-                                        </button>
-
-                                        {showTotalRangePopup && (
-                                            <div
-                                                style={{
-                                                    position: "absolute",
-                                                    top: 36,
-                                                    right: 0,
-                                                    zIndex: 20,
-                                                    background: "#fff",
-                                                    border: "1px solid #e5e5e5",
-                                                    borderRadius: 8,
-                                                    padding: 8,
-                                                    minWidth: 140,
-                                                    boxShadow: "0 6px 16px rgba(0,0,0,0.12)"
-                                                }}
-                                            >
-                                                {RANGE_OPTIONS.map((opt) => (
-                                                    <div key={opt.value} style={{ marginBottom: 6 }}>
-                                                        <Button
-                                                            label={`${opt.label}${totalRange === opt.value ? " ✓" : ""}`}
-                                                            onClick={() => onTotalRangeChange(opt.value)}
-                                                            style={{
-                                                                backgroundColor: '#ffffff',
-                                                                color: '#000000',
-                                                            }}
-                                                        />
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        )}
-                                    </div>
-                                )}
-                            >
-                                <NGPBar barData={totalAlertsData} />
-                            </SimpleCard>
-                        </div>
-
-                    </div>
-
-                    <div
-                        style={{
-                            display: "flex",
-                            gap: 20,
-                            flexWrap: "wrap", // keep wrap, or use "nowrap" for single row
-                        }}
-                    >
+                    <Row>
                         <div
                             style={{
-                                flex: "0 0 305px", // fixed width
-                                width: 305,
-                                minWidth: 305,
-                                maxWidth: 305,
+                                display: "flex",
+                                gap: 20,
+                                flexWrap: "wrap", // keep wrap, or use "nowrap" for single row
                             }}
                         >
-                            <SimpleCard
-                                align="start"
-                                title="Cust. Due Diligence"
-                                subtitle={`Last ${RANGE_OPTIONS.find(opt => opt.value === cddRange)?.label || cddRange} Alerts`}
-                                customHeaderComponents={(
-                                    <div style={{ position: "relative" }}>
-                                        <button
-                                            type="button"
-                                            title="View range options"
-                                            onClick={() => setShowCDDRangePopup((prev) => !prev)}
-                                            style={{
-                                                border: "1px solid #d9d9d9",
-                                                borderRadius: 6,
-                                                background: "#fff",
-                                                cursor: "pointer",
-                                                width: 30,
-                                                height: 30,
-                                                fontSize: 16
-                                            }}
-                                        >
-                                            ✅
-                                        </button>
+                            <div
+                                key={'Total Alerts'}
+                                style={{
+                                    flex: "0 0 260px", // fixed width
+                                    width: 260,
+                                    minWidth: 260,
+                                    maxWidth: 260,
+                                }}
+                            >
 
-                                        {showCDDRangePopup && (
-                                            <div
+                                <SimpleCard
+                                    align="start"
+                                    title="Total Alerts"
+                                    subtitle={`Last ${RANGE_OPTIONS.find(opt => opt.value === totalRange)?.label || totalRange} Alerts`}
+                                    customHeaderComponents={(
+                                        <div style={{ position: "relative" }}>
+                                            <button
+                                                type="button"
+                                                title="View range options"
+                                                onClick={() => setShowTotalRangePopup((prev) => !prev)}
                                                 style={{
-                                                    position: "absolute",
-                                                    top: 36,
-                                                    right: 0,
-                                                    zIndex: 20,
+                                                    border: "1px solid #d9d9d9",
+                                                    borderRadius: 6,
                                                     background: "#fff",
-                                                    border: "1px solid #e5e5e5",
-                                                    borderRadius: 8,
-                                                    padding: 8,
-                                                    minWidth: 140,
-                                                    boxShadow: "0 6px 16px rgba(0,0,0,0.12)"
+                                                    cursor: "pointer",
+                                                    width: 30,
+                                                    height: 30,
+                                                    fontSize: 16
                                                 }}
                                             >
-                                                {RANGE_OPTIONS.map((opt) => (
-                                                    <div key={opt.value} style={{ marginBottom: 6 }}>
-                                                        <Button
-                                                            label={`${opt.label}${cddRange === opt.value ? " ✓" : ""}`}
-                                                            onClick={() => onCDDRangeChange(opt.value)}
-                                                            style={{
-                                                                backgroundColor: '#ffffff',
-                                                                color: '#000000',
-                                                            }}
-                                                        />
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        )}
-                                    </div>
-                                )}
-                            >
-                                <NGPBar barData={autoManualCDDAlertsData} />
-                            </SimpleCard>
+                                                ✅
+                                            </button>
+
+                                            {showTotalRangePopup && (
+                                                <div
+                                                    style={{
+                                                        position: "absolute",
+                                                        top: 36,
+                                                        right: 0,
+                                                        zIndex: 20,
+                                                        background: "#fff",
+                                                        border: "1px solid #e5e5e5",
+                                                        borderRadius: 8,
+                                                        padding: 8,
+                                                        minWidth: 140,
+                                                        boxShadow: "0 6px 16px rgba(0,0,0,0.12)"
+                                                    }}
+                                                >
+                                                    {RANGE_OPTIONS.map((opt) => (
+                                                        <div key={opt.value} style={{ marginBottom: 6 }}>
+                                                            <Button
+                                                                label={`${opt.label}${totalRange === opt.value ? " ✓" : ""}`}
+                                                                onClick={() => onTotalRangeChange(opt.value)}
+                                                                style={{
+                                                                    backgroundColor: '#ffffff',
+                                                                    color: '#000000',
+                                                                }}
+                                                            />
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            )}
+                                        </div>
+                                    )}
+                                >
+                                    <NGPBar barData={totalAlertsData} />
+                                </SimpleCard>
+                            </div>
+
                         </div>
 
-                    </div>
-
-                    <div
-                        style={{
-                            display: "flex",
-                            gap: 20,
-                            flexWrap: "wrap", // keep wrap, or use "nowrap" for single row
-                        }}
-                    >
                         <div
                             style={{
-                                flex: "0 0 300px", // fixed width
-                                width: 300,
-                                minWidth: 300,
-                                maxWidth: 300,
+                                display: "flex",
+                                gap: 20,
+                                flexWrap: "wrap", // keep wrap, or use "nowrap" for single row
                             }}
                         >
-                            <SimpleCard
-                                align="start"
-                                title="Ext. Due Diligence"
-                                subtitle={`Last ${RANGE_OPTIONS.find(opt => opt.value === eddRange)?.label || eddRange} Alerts`}
-                                customHeaderComponents={(
-                                    <div style={{ position: "relative" }}>
-                                        <button
-                                            type="button"
-                                            title="View range options"
-                                            onClick={() => setShowEDDRangePopup((prev) => !prev)}
-                                            style={{
-                                                border: "1px solid #d9d9d9",
-                                                borderRadius: 6,
-                                                background: "#fff",
-                                                cursor: "pointer",
-                                                width: 30,
-                                                height: 30,
-                                                fontSize: 16
-                                            }}
-                                        >
-                                            ✅
-                                        </button>
-
-                                        {showEDDRangePopup && (
-                                            <div
+                            <div
+                                style={{
+                                    flex: "0 0 305px", // fixed width
+                                    width: 305,
+                                    minWidth: 305,
+                                    maxWidth: 305,
+                                }}
+                            >
+                                <SimpleCard
+                                    align="start"
+                                    title="Cust. Due Diligence"
+                                    subtitle={`Last ${RANGE_OPTIONS.find(opt => opt.value === cddRange)?.label || cddRange} Alerts`}
+                                    customHeaderComponents={(
+                                        <div style={{ position: "relative" }}>
+                                            <button
+                                                type="button"
+                                                title="View range options"
+                                                onClick={() => setShowCDDRangePopup((prev) => !prev)}
                                                 style={{
-                                                    position: "absolute",
-                                                    top: 36,
-                                                    right: 0,
-                                                    zIndex: 20,
+                                                    border: "1px solid #d9d9d9",
+                                                    borderRadius: 6,
                                                     background: "#fff",
-                                                    border: "1px solid #e5e5e5",
-                                                    borderRadius: 8,
-                                                    padding: 8,
-                                                    minWidth: 140,
-                                                    boxShadow: "0 6px 16px rgba(0,0,0,0.12)"
+                                                    cursor: "pointer",
+                                                    width: 30,
+                                                    height: 30,
+                                                    fontSize: 16
                                                 }}
                                             >
-                                                {RANGE_OPTIONS.map((opt) => (
-                                                    <div key={opt.value} style={{ marginBottom: 6 }}>
-                                                        <Button
-                                                            label={`${opt.label}${eddRange === opt.value ? " ✓" : ""}`}
-                                                            onClick={() => onEDDRangeChange(opt.value)}
-                                                            className="cursor-pointer"
-                                                        />
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        )}
-                                    </div>
-                                )}
-                            >
-                                <NGPBar barData={autoManualEDDAlertsData} />
-                            </SimpleCard>
+                                                ✅
+                                            </button>
+
+                                            {showCDDRangePopup && (
+                                                <div
+                                                    style={{
+                                                        position: "absolute",
+                                                        top: 36,
+                                                        right: 0,
+                                                        zIndex: 20,
+                                                        background: "#fff",
+                                                        border: "1px solid #e5e5e5",
+                                                        borderRadius: 8,
+                                                        padding: 8,
+                                                        minWidth: 140,
+                                                        boxShadow: "0 6px 16px rgba(0,0,0,0.12)"
+                                                    }}
+                                                >
+                                                    {RANGE_OPTIONS.map((opt) => (
+                                                        <div key={opt.value} style={{ marginBottom: 6 }}>
+                                                            <Button
+                                                                label={`${opt.label}${cddRange === opt.value ? " ✓" : ""}`}
+                                                                onClick={() => onCDDRangeChange(opt.value)}
+                                                                style={{
+                                                                    backgroundColor: '#ffffff',
+                                                                    color: '#000000',
+                                                                }}
+                                                            />
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            )}
+                                        </div>
+                                    )}
+                                >
+                                    <NGPBar barData={autoManualCDDAlertsData} />
+                                </SimpleCard>
+                            </div>
+
                         </div>
 
-                    </div>
-
-                    <div
-                        style={{
-                            display: "flex",
-                            gap: 20,
-                            flexWrap: "wrap", // keep wrap, or use "nowrap" for single row
-                        }}
-                    >
                         <div
-                            title="Summary Alerts"
                             style={{
-                                flex: "0 0 315px", // fixed width
-                                width: 315,
-                                minWidth: 315,
-                                maxWidth: 315,
+                                display: "flex",
+                                gap: 20,
+                                flexWrap: "wrap", // keep wrap, or use "nowrap" for single row
                             }}
                         >
-                            <SimpleCard
-                                align="start"
-                                title="KYC Alerts"
-                                subtitle={`Last ${RANGE_OPTIONS.find(opt => opt.value === kycRange)?.label || kycRange} Alerts`}
-                                customHeaderComponents={(
-                                    <div style={{ position: "relative" }}>
-                                        <button
-                                            type="button"
-                                            title="View range options"
-                                            onClick={() => setShowKycRangePopup((prev) => !prev)}
-                                            style={{
-                                                border: "1px solid #d9d9d9",
-                                                borderRadius: 6,
-                                                background: "#fff",
-                                                cursor: "pointer",
-                                                width: 30,
-                                                height: 30,
-                                                fontSize: 16
-                                            }}
-                                        >
-                                            ✅
-                                        </button>
-
-                                        {showKycRangePopup && (
-                                            <div
+                            <div
+                                style={{
+                                    flex: "0 0 300px", // fixed width
+                                    width: 300,
+                                    minWidth: 300,
+                                    maxWidth: 300,
+                                }}
+                            >
+                                <SimpleCard
+                                    align="start"
+                                    title="Ext. Due Diligence"
+                                    subtitle={`Last ${RANGE_OPTIONS.find(opt => opt.value === eddRange)?.label || eddRange} Alerts`}
+                                    customHeaderComponents={(
+                                        <div style={{ position: "relative" }}>
+                                            <button
+                                                type="button"
+                                                title="View range options"
+                                                onClick={() => setShowEDDRangePopup((prev) => !prev)}
                                                 style={{
-                                                    position: "absolute",
-                                                    top: 36,
-                                                    right: 0,
-                                                    zIndex: 20,
+                                                    border: "1px solid #d9d9d9",
+                                                    borderRadius: 6,
                                                     background: "#fff",
-                                                    border: "1px solid #e5e5e5",
-                                                    borderRadius: 8,
-                                                    padding: 8,
-                                                    minWidth: 140,
-                                                    boxShadow: "0 6px 16px rgba(0,0,0,0.12)"
+                                                    cursor: "pointer",
+                                                    width: 30,
+                                                    height: 30,
+                                                    fontSize: 16
                                                 }}
                                             >
-                                                {RANGE_OPTIONS.map((opt) => (
-                                                    <div key={opt.value} style={{ marginBottom: 6 }}>
-                                                        <Button
-                                                            label={`${opt.label}${kycRange === opt.value ? " ✓" : ""}`}
-                                                            onClick={() => onKycRangeChange(opt.value)}
-                                                            style={{
-                                                                backgroundColor: '#ffffff',
-                                                                color: '#000000',
-                                                            }}
-                                                        />
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        )}
-                                    </div>
-                                )}
-                            >
-                                <NGPBar barData={kycAlertsData} />
-                            </SimpleCard>
+                                                ✅
+                                            </button>
+
+                                            {showEDDRangePopup && (
+                                                <div
+                                                    style={{
+                                                        position: "absolute",
+                                                        top: 36,
+                                                        right: 0,
+                                                        zIndex: 20,
+                                                        background: "#fff",
+                                                        border: "1px solid #e5e5e5",
+                                                        borderRadius: 8,
+                                                        padding: 8,
+                                                        minWidth: 140,
+                                                        boxShadow: "0 6px 16px rgba(0,0,0,0.12)"
+                                                    }}
+                                                >
+                                                    {RANGE_OPTIONS.map((opt) => (
+                                                        <div key={opt.value} style={{ marginBottom: 6 }}>
+                                                            <Button
+                                                                label={`${opt.label}${eddRange === opt.value ? " ✓" : ""}`}
+                                                                onClick={() => onEDDRangeChange(opt.value)}
+                                                                className="cursor-pointer"
+                                                            />
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            )}
+                                        </div>
+                                    )}
+                                >
+                                    <NGPBar barData={autoManualEDDAlertsData} />
+                                </SimpleCard>
+                            </div>
+
                         </div>
 
-                    </div>
-                </Row>
+                        <div
+                            style={{
+                                display: "flex",
+                                gap: 20,
+                                flexWrap: "wrap", // keep wrap, or use "nowrap" for single row
+                            }}
+                        >
+                            <div
+                                title="Summary Alerts"
+                                style={{
+                                    flex: "0 0 315px", // fixed width
+                                    width: 315,
+                                    minWidth: 315,
+                                    maxWidth: 315,
+                                }}
+                            >
+                                <SimpleCard
+                                    align="start"
+                                    title="KYC Alerts"
+                                    subtitle={`Last ${RANGE_OPTIONS.find(opt => opt.value === kycRange)?.label || kycRange} Alerts`}
+                                    customHeaderComponents={(
+                                        <div style={{ position: "relative" }}>
+                                            <button
+                                                type="button"
+                                                title="View range options"
+                                                onClick={() => setShowKycRangePopup((prev) => !prev)}
+                                                style={{
+                                                    border: "1px solid #d9d9d9",
+                                                    borderRadius: 6,
+                                                    background: "#fff",
+                                                    cursor: "pointer",
+                                                    width: 30,
+                                                    height: 30,
+                                                    fontSize: 16
+                                                }}
+                                            >
+                                                ✅
+                                            </button>
+
+                                            {showKycRangePopup && (
+                                                <div
+                                                    style={{
+                                                        position: "absolute",
+                                                        top: 36,
+                                                        right: 0,
+                                                        zIndex: 20,
+                                                        background: "#fff",
+                                                        border: "1px solid #e5e5e5",
+                                                        borderRadius: 8,
+                                                        padding: 8,
+                                                        minWidth: 140,
+                                                        boxShadow: "0 6px 16px rgba(0,0,0,0.12)"
+                                                    }}
+                                                >
+                                                    {RANGE_OPTIONS.map((opt) => (
+                                                        <div key={opt.value} style={{ marginBottom: 6 }}>
+                                                            <Button
+                                                                label={`${opt.label}${kycRange === opt.value ? " ✓" : ""}`}
+                                                                onClick={() => onKycRangeChange(opt.value)}
+                                                                style={{
+                                                                    backgroundColor: '#ffffff',
+                                                                    color: '#000000',
+                                                                }}
+                                                            />
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            )}
+                                        </div>
+                                    )}
+                                >
+                                    <NGPBar barData={kycAlertsData} />
+                                </SimpleCard>
+                            </div>
+
+                        </div>
+                    </Row>
+                )}
+
                 <Row>
                     <Col span="24">
                         <UnderlinedTabs tabData={tabs} defaultValue={`general`} />
                     </Col>
                 </Row>
-
-
 
             </MutedBgLayout >
 

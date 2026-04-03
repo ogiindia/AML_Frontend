@@ -289,23 +289,39 @@ public class ParquetService {
 								isValid = true;
 							}
 							break;
-
+							
 						case "transactiondate":
+							if (StringUtils.isNotBlank(srcField.startDate())
+									&& !srcField.startDate().equalsIgnoreCase("null")
+									&& StringUtils.isNotBlank(srcField.endDate())
+									&& !srcField.endDate().equalsIgnoreCase("null")) {
+								criteria = criteria
+										.replaceFirst("#Date#", "strptime('" + srcField.startDate() + "', '%d-%b-%Y')")
+										.replaceFirst("#Date#", "strptime('" + srcField.endDate() + "', '%d-%b-%Y')");
 
-							if ((srcField.startDate() != null && !srcField.startDate().isEmpty())
-									&& srcField.endDate() != null && !srcField.endDate().isEmpty()) {
-
-								String format = col.getFormat(); // ✅ get from JSON
-
-								String start = formatDate(srcField.startDate(), format);
-								String end = formatDate(srcField.endDate(), format);
-
-								criteria = criteria.replaceFirst("#Date#", "'" + start + "'").replaceFirst("#Date#",
-										"'" + end + "'");
+								criteria = criteria.replaceFirst(col.getFrom(),
+										"strptime(" + col.getFrom() + ", '%d-%b-%Y')");
 
 								isValid = true;
 							}
 							break;
+
+						/*
+						 * case "transactiondate":
+						 * 
+						 * if ((srcField.startDate() != null && !srcField.startDate().isEmpty()) &&
+						 * srcField.endDate() != null && !srcField.endDate().isEmpty()) {
+						 * 
+						 * String format = col.getFormat(); // ✅ get from JSON
+						 * 
+						 * String start = formatDate(srcField.startDate(), format); String end =
+						 * formatDate(srcField.endDate(), format);
+						 * 
+						 * criteria = criteria.replaceFirst("#Date#", "'" + start +
+						 * "'").replaceFirst("#Date#", "'" + end + "'");
+						 * 
+						 * isValid = true; } break;
+						 */
 						}
 
 						// ✅ Add only if valid AND no leftover placeholders
