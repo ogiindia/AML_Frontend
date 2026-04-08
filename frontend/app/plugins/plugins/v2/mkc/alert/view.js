@@ -203,7 +203,7 @@ export default function View({ parentId, instanceId, customerId, entityId, trans
 
 
         api.get('/app/rest/v1/getDiligenceDetails', {
-            customerId: state ? state.customerId || customerId : customerId
+            parentId: state ? state.parentId || parentId : parentId
         }).then((res) => {
             setEvidenceList(res);
         }).catch((err) => {

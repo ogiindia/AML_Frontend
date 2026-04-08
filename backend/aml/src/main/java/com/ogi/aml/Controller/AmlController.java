@@ -90,6 +90,10 @@ public class AmlController {
 
 	@Value("${file.path:C:/Users/FIS/Source/AML/Document/SampleFiles/}")
 	public String path;
+	
+	@Value("${accessfile.path:C:/Users/FIS/Source/AML/Document/}")
+	public String accessListPath;
+
 
 	@PostMapping("/uploadEvidence")
 	public ResponseEntity<String> uploadAlertFiles(@RequestParam String parentId, @RequestParam String TransactionId,
@@ -133,18 +137,18 @@ public class AmlController {
 	}
 
 	@RequestMapping(value = "/getDiligenceDetails")
-	public ResponseEntity<?> getDiligenceDetails(@RequestParam String customerId) {
+	public ResponseEntity<?> getDiligenceDetails(@RequestParam String parentId) {
 
 		try {
 
-			LOGGER.info("GetDiligenceDetails API called for customerId={}", customerId);
+			LOGGER.info("GetDiligenceDetails API called for parentId={}", parentId);
 
-			List<ResponseDiligenceDetailsData> resp = diligencedetailsservice.getDiligenceDetails(customerId);
+			List<ResponseDiligenceDetailsData> resp = diligencedetailsservice.getDiligenceDetails(parentId);
 
 			if (resp == null || resp.isEmpty()) {
-				LOGGER.warn("No diligence details found for customerId={}", customerId);
+				LOGGER.warn("No diligence details found for parentId={}", parentId);
 			} else {
-				LOGGER.info("Diligence details fetched successfully for customerId={}, recordCount={}", customerId,
+				LOGGER.info("Diligence details fetched successfully for parentId={}, recordCount={}", parentId,
 						resp.size());
 			}
 
@@ -152,7 +156,7 @@ public class AmlController {
 
 		} catch (Exception e) {
 
-			LOGGER.error("Exception occurred in getDiligenceDetails API for customerId={}, error={}", customerId,
+			LOGGER.error("Exception occurred in getDiligenceDetails API for parentId={}, error={}", parentId,
 					e.getMessage(), e);
 
 			return new ResponseEntity<>("Failed to fetch diligence details", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -1171,6 +1175,32 @@ public class AmlController {
 	        return ResponseEntity.ok("File saved");
 
 	    } catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Upload failed");
+	    }
+	}
+
+	
+	@PostMapping("/uploadAccessListDocument")
+	public ResponseEntity<String> uploadAccessListDocument(@RequestBody Map<String, String> request) {
+
+	    try {
+	        String documentType = request.get("documentType");
+	        String fileName = request.get("fileName");
+	        String base64Data = request.get("fileData");
+	        	        
+	    	Path uploadPath = Paths.get(accessListPath + "/" + documentType + "/" );
+			if (!Files.exists(uploadPath)) {
+				Files.createDirectories(uploadPath);
+				LOGGER.info("Created upload directory: {}", uploadPath);
+			}
+
+	        byte[] fileBytes = Base64.getDecoder().decode(base64Data);
+	        Path filePath = uploadPath.resolve(fileName);
+	        Files.write(filePath, fileBytes);
+	        return ResponseEntity.ok("File saved");
+
+	    } catch (Exception e) {
+	    	 e.printStackTrace(); 
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Upload failed");
 	    }
 	}

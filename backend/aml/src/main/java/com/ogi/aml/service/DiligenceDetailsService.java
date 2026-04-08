@@ -72,26 +72,26 @@ public class DiligenceDetailsService {
 		return entity;
 	}
 
-	public List<ResponseDiligenceDetailsData> getDiligenceDetails(String custId) {
+	public List<ResponseDiligenceDetailsData> getDiligenceDetails(String parentId) {
 		try {
 
-			LOGGER.info("Service getDiligenceDetails called | customerId={}", custId);
+			LOGGER.info("Service getDiligenceDetails called | parentId={}", parentId);
 
-			List<DiligenceDetailsEntity> entities = diligencedetailsimplrepo.getDiligenceDetails(custId);
+			List<DiligenceDetailsEntity> entities = diligencedetailsimplrepo.getDiligenceDetails(parentId);
 
 			if (entities == null || entities.isEmpty()) {
 
-				LOGGER.warn("No diligence details found | customerId={}", custId);
+				LOGGER.warn("No diligence details found | parentId={}", parentId);
 				return Collections.emptyList();
 			}
 
-			LOGGER.info("Diligence records fetched | customerId={} | recordCount={}", custId, entities.size());
+			LOGGER.info("Diligence records fetched | parentId={} | recordCount={}", parentId, entities.size());
 
 			return getDiligenceDetailsResult(entities);
 
 		} catch (Exception ex) {
 
-			LOGGER.error("Exception occurred in getDiligenceDetails | customerId={}", custId, ex);
+			LOGGER.error("Exception occurred in getDiligenceDetails | parentId={}", parentId, ex);
 
 			return Collections.emptyList();
 		}

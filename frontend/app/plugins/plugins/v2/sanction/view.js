@@ -422,7 +422,7 @@ function View() {
                             <span className="badge">Match ≥ {threshold.toFixed(2)}</span>
                             <input type="range" min={0} max={1} step={0.01} value={threshold} onChange={e => setThreshold(parseFloat(e.target.value))} />
                         </div>
-                        <button className="btn primary" onClick={() => fetchMatchedLists(lists)} >Apply</button>
+                        <button className="btn primary" onClick={() => fetchMatchedLists(lists)} >Submit</button>
                         <button className="btn" onClick={() => onClear()}>Clear</button>
                     </div>
                     <StatsCards screened={screened} hits={hits} avgConf={avgConf} updatedAt={updatedAt} />

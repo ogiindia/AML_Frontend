@@ -27,10 +27,10 @@ public class DiligenceDetailsImplRepo {
 	@Autowired
 	EntityManager em;
 
-	public List<DiligenceDetailsEntity> getDiligenceDetails(String customerId) {
+	public List<DiligenceDetailsEntity> getDiligenceDetails(String parentId) {
 		try {
 
-			LOGGER.info("Fetching diligence details | customerId={}", customerId);
+			LOGGER.info("Fetching diligence details | customerId={}", parentId);
 
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<DiligenceDetailsEntity> cq = cb.createQuery(DiligenceDetailsEntity.class);
@@ -39,8 +39,8 @@ public class DiligenceDetailsImplRepo {
 
 			List<Predicate> predicates = new ArrayList<>();
 
-			if (customerId != null && !customerId.isEmpty()) {
-				predicates.add(cb.equal(root.get("customerId"), customerId));
+			if (parentId != null && !parentId.isEmpty()) {
+				predicates.add(cb.equal(root.get("parentId"), parentId));
 			}
 
 			cq.where(predicates.toArray(new Predicate[0]));
@@ -53,7 +53,7 @@ public class DiligenceDetailsImplRepo {
 
 		} catch (Exception ex) {
 
-			LOGGER.error("Error fetching diligence details | customerId={}", customerId, ex);
+			LOGGER.error("Error fetching diligence details | parentId={}", parentId, ex);
 
 			return Collections.emptyList();
 		}

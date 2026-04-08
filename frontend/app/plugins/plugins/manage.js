@@ -56,6 +56,14 @@ function ManageApp() {
             {
               title: 'Configuration',
               url: 'v2-configurations-create',
+            }, ,
+            {
+              title: 'White List',
+              url: 'v2-accesslist-whitelist',
+            },
+            {
+              title: 'Block List',
+              url: 'v2-accesslist-blocklist',
             },
           ],
         },
