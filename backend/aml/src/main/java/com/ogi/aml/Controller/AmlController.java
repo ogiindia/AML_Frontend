@@ -589,10 +589,10 @@ public class AmlController {
 	public ResponseEntity<?> setSanctionDetails(@RequestBody RequestSanctionConfigData request) {
 		try {
 
-			LOGGER.info("API setSanctionDetails called | sanctionName={} | country={} | List type={} ", request.getSanction_name(),
-					request.getCountry(), request.getList_type());
+			LOGGER.info("API setSanctionDetails called | sanctionName={} | country={}", request.getSanction_name(),
+					request.getCountry());
 
-			sanctionscreeningservice.setSanctionDetails(request.getSanction_name(), request.getCountry(),request.getList_type());
+			sanctionscreeningservice.setSanctionDetails(request.getSanction_name(), request.getCountry());
 
 			LOGGER.info("Sanction details saved successfully | sanctionName={} | country={}",
 					request.getSanction_name(), request.getCountry());
@@ -633,30 +633,7 @@ public class AmlController {
 		}
 	}
 	
-	@RequestMapping(value = "/getListType")
-	public ResponseEntity<?> getListType(@RequestParam String sanctionName) {
-		try {
-
-			LOGGER.info("API getListType called | sanctionName={}", sanctionName);
-
-			List<ResponseSanctionConfigData> resp = sanctionscreeningservice.getListType(sanctionName);
-
-			if (resp == null || resp.isEmpty()) {
-				LOGGER.warn("No sanction details found | sanctionName={}", sanctionName);
-			} else {
-				LOGGER.info("Sanction details fetched successfully | sanctionName={} | recordCount={}", sanctionName,
-						resp.size());
-			}
-
-			return ResponseEntity.ok(resp);
-
-		} catch (Exception e) {
-
-			LOGGER.error("Exception occurred in getListType API | sanctionName={}", sanctionName, e);
-
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to fetch sanction details");
-		}
-	}
+	
 
 	@PostMapping("/uploadSanctionList")
 	public ResponseEntity<String> uploadSanctionList(@RequestParam String sanctionName, @RequestParam String fileType,

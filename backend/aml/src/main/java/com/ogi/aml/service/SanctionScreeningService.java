@@ -51,12 +51,12 @@ public class SanctionScreeningService extends BaseResolver<SanctionMatchedListEn
 	@Autowired
 	SanctionMatchedListImplRepo sanctionmatchedlistimplrepo;
 
-	public String setSanctionDetails(String sanctionName, String country, String listType) {
+	public String setSanctionDetails(String sanctionName, String country) {
 		try {
 
-			LOGGER.info("Saving sanction details | sanctionName={} country={} Listtype={}", sanctionName, country, listType);
+			LOGGER.info("Saving sanction details | sanctionName={} country={}", sanctionName, country);
 
-			SanctionConfigEntity entity = setSanctionDetailsToEntity(sanctionName, country, listType);
+			SanctionConfigEntity entity = setSanctionDetailsToEntity(sanctionName, country);
 
 			sanctionconfigrepo.save(entity);
 
@@ -66,7 +66,7 @@ public class SanctionScreeningService extends BaseResolver<SanctionMatchedListEn
 
 		} catch (Exception ex) {
 
-			LOGGER.error("Error saving sanction details | sanctionName={} country={} listType={} ", sanctionName, country, listType, ex);
+			LOGGER.error("Error saving sanction details | sanctionName={} country={} ", sanctionName, country, ex);
 		}
 
 		return Constants.FAILURE;
@@ -113,10 +113,10 @@ public class SanctionScreeningService extends BaseResolver<SanctionMatchedListEn
 		}
 	}
 
-	public SanctionConfigEntity setSanctionDetailsToEntity(String sanctionName, String country, String  listType) {
+	public SanctionConfigEntity setSanctionDetailsToEntity(String sanctionName, String country) {
 		try {
 
-			LOGGER.debug("Creating sanction entity | sanctionName={} country={} listType={}", sanctionName, country, listType);
+			LOGGER.debug("Creating sanction entity | sanctionName={} country={} listType={}", sanctionName, country);
 
 			SanctionConfigEntity entity = new SanctionConfigEntity();
 
@@ -127,7 +127,6 @@ public class SanctionScreeningService extends BaseResolver<SanctionMatchedListEn
 			entity.setCountry(country);
 			entity.setStatus("Y");
 			entity.setCreated_date(new Timestamp(System.currentTimeMillis()));
-			entity.setList_type(listType);
 
 			LOGGER.debug("Sanction entity created successfully | sanctionCode={}", guid);
 
@@ -135,7 +134,7 @@ public class SanctionScreeningService extends BaseResolver<SanctionMatchedListEn
 
 		} catch (Exception ex) {
 
-			LOGGER.error("Error creating sanction entity | sanctionName={} country={} listType={}", sanctionName, country, listType, ex);
+			LOGGER.error("Error creating sanction entity | sanctionName={} country={} ", sanctionName, country,  ex);
 		}
 
 		return null;
@@ -207,66 +206,7 @@ public class SanctionScreeningService extends BaseResolver<SanctionMatchedListEn
 	
 	
 	
-	public List<ResponseSanctionConfigData> getListType(String sanctionName) {
-		try {
-
-			LOGGER.info("Fetching List Type details | sanctionName={}", sanctionName);
-
-			List<ResponseSanctionConfigData> resp = new ArrayList<>();
-
-			List<SanctionConfigEntity> respSanctionMapping = sanctionconfigimplrepo
-					.getSanctionListTypeImplRepo(sanctionName);
-
-			if (respSanctionMapping != null && !respSanctionMapping.isEmpty()) {
-
-				LOGGER.info("Sanction records found | count={}", respSanctionMapping.size());
-
-				resp = getListTypeResult(respSanctionMapping);
-
-			} else {
-
-				LOGGER.warn("No sanction records found | sanctionName={}", sanctionName);
-			}
-
-			return resp;
-
-		} catch (Exception ex) {
-
-			LOGGER.error("Error fetching sanction details | sanctionName={}", sanctionName, ex);
-		}
-
-		return Collections.emptyList();
-	}
-
-	public List<ResponseSanctionConfigData> getListTypeResult(List<SanctionConfigEntity> resp) {
-		try {
-
-			LOGGER.debug("sanction List type entity to response | recordCount={}", resp.size());
-
-			List<ResponseSanctionConfigData> listData = new ArrayList<>();
-
-			for (SanctionConfigEntity entity : resp) {
-
-				ResponseSanctionConfigData res = new ResponseSanctionConfigData();
-
-				res.setList_type(entity.getList_type());
-
-				listData.add(res);
-
-				LOGGER.debug("Mapped sanctionCode={}", entity.getSanction_code());
-			}
-
-			LOGGER.info("sanction List type completed | totalMapped={}", listData.size());
-
-			return listData;
-
-		} catch (Exception ex) {
-
-			LOGGER.error("Error mapping sanction details", ex);
-		}
-
-		return Collections.emptyList();
-	}
+	
 
 	public String uploadSanctionList(String sanctionName, String fileType, String fileName) {
 		try {

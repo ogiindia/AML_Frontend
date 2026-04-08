@@ -72,7 +72,37 @@ public class TransactionImplRepo {
 
 			return list;
 
-			
+			/*
+			 * CriteriaBuilder cb = em.getCriteriaBuilder();
+			 * CriteriaQuery<TransactionEntity> cq =
+			 * cb.createQuery(TransactionEntity.class);
+			 * 
+			 * Root<TransactionEntity> root = cq.from(TransactionEntity.class);
+			 * 
+			 * List<Predicate> predicates = new ArrayList<>();
+			 * 
+			 * if (startDate != null && !startDate.isEmpty()) {
+			 * 
+			 * Expression<java.sql.Date> txnDateAsDate = cb.function("to_Date",
+			 * java.sql.Date.class, root.get("transactiondate"), cb.literal("YYYY-MM-DD"));
+			 * 
+			 * Predicate betweenDates = cb.between(txnDateAsDate,
+			 * java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate));
+			 * 
+			 * predicates.add(betweenDates); }
+			 * 
+			 * if (customerId != null && !customerId.isEmpty()) {
+			 * predicates.add(cb.equal(root.get("customerid"), customerId)); }
+			 * 
+			 * if (transId != null && !transId.isEmpty()) {
+			 * predicates.add(cb.equal(root.get("transactionid"), transId)); }
+			 * 
+			 * cq.where(predicates.toArray(new Predicate[0]));
+			 * 
+			 * List<TransactionEntity> result = em.createQuery(cq).getResultList();
+			 * 
+			 * LOGGER.info("Transactions fetched | count={}", result.size());
+			 */
 
 		} catch (Exception ex) {
 
