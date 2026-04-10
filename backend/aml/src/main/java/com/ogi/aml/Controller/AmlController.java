@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Base64;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -15,14 +16,17 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ogi.aml.Common.Constants;
@@ -93,6 +97,9 @@ public class AmlController {
 	
 	@Value("${accessfile.path:C:/Users/FIS/Source/AML/Document/}")
 	public String accessListPath;
+	
+	@Value("${nameMatched.url:https://finsecrt.aisworld.space/api/v1/rtengine/getscore}")
+	public String nameMatchedUrl;
 
 
 	@PostMapping("/uploadEvidence")
@@ -1181,5 +1188,38 @@ public class AmlController {
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Upload failed");
 	    }
 	}
+	
+	@RequestMapping(value = "/getMatchedLists")
+	public ResponseEntity<?> getMatchedLists(@RequestParam String name) {
+		try {
+
+			LOGGER.info("API getMatchedLists called | url={}, name={}", nameMatchedUrl, name);
+
+			String url = nameMatchedUrl;
+
+			Map<String, String> request = new HashMap<>();
+			request.put("name", name);
+
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.APPLICATION_JSON);
+
+			HttpEntity<Map<String, String>> entity = new HttpEntity<>(request, headers);
+
+			RestTemplate restTemplate = new RestTemplate();
+
+			// ✅ FIX: use List instead of Map
+			ResponseEntity<List> response = restTemplate.postForEntity(url, entity, List.class);
+
+			return ResponseEntity.ok(response.getBody());
+
+		} catch (Exception e) {
+
+			LOGGER.error("Exception occurred in getMatchedLists API | name={}", name, e);
+
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("Failed to fetch sanction matched list");
+		}
+	}
+
 
 }
