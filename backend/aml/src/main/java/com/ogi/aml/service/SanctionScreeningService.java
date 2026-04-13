@@ -256,10 +256,12 @@ public class SanctionScreeningService extends BaseResolver<SanctionMatchedListEn
 		return null;
 	}
 
-	public List<ResponseSanctionMatchedListData> getSanctionMatchedList(String sanctionName, String threshold) {
+	public List<ResponseSanctionMatchedListData> getSanctionMatchedList(String sanctionName, String threshold,
+			String processType) {
 		try {
 
-			LOGGER.info("Fetching sanction matched list | sanctionName={} threshold={}", sanctionName, threshold);
+			LOGGER.info("Fetching sanction matched list | sanctionName={} threshold={} | processType={}", sanctionName,
+					threshold, processType);
 
 			List<ResponseSanctionMatchedListData> resp = new ArrayList<>();
 			List<String> statusList = null;
@@ -269,7 +271,7 @@ public class SanctionScreeningService extends BaseResolver<SanctionMatchedListEn
 			}
 
 			List<SanctionMatchedListEntity> respSanctionMatched = sanctionmatchedlistimplrepo
-					.getSanctionMatchedListImplRepo(statusList, threshold, "");
+					.getSanctionMatchedListImplRepo(statusList, threshold, "", processType);
 
 			if (respSanctionMatched != null && !respSanctionMatched.isEmpty()) {
 
@@ -279,16 +281,16 @@ public class SanctionScreeningService extends BaseResolver<SanctionMatchedListEn
 
 			} else {
 
-				LOGGER.warn("No sanction matched records found | sanctionName={} threshold={}", sanctionName,
-						threshold);
+				LOGGER.warn("No sanction matched records found | sanctionName={} threshold={}| processType={}",
+						sanctionName, threshold, processType);
 			}
 
 			return resp;
 
 		} catch (Exception ex) {
 
-			LOGGER.error("Error fetching sanction matched list | sanctionName={} threshold={}", sanctionName, threshold,
-					ex);
+			LOGGER.error("Error fetching sanction matched list | sanctionName={} threshold={}| processType={}",
+					sanctionName, threshold, processType, ex);
 		}
 
 		return Collections.emptyList();

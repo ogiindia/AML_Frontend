@@ -691,29 +691,29 @@ public class AmlController {
 	}
 
 	@RequestMapping(value = "/getSanctionMatchedList")
-	public ResponseEntity<?> getSanctionMatchedList(@RequestParam String sanctionName, @RequestParam String threshold) {
+	public ResponseEntity<?> getSanctionMatchedList(@RequestParam String sanctionName, @RequestParam String threshold,@RequestParam String processType) {
 		try {
 
-			LOGGER.info("API getSanctionMatchedList called | sanctionName={} | threshold={}", sanctionName, threshold);
+			LOGGER.info("API getSanctionMatchedList called | sanctionName={} | threshold={} | processType={}", sanctionName, threshold,processType);
 
 			List<ResponseSanctionMatchedListData> resp = sanctionscreeningservice.getSanctionMatchedList(sanctionName,
-					threshold);
+					threshold,processType);
 
 			if (resp == null || resp.isEmpty()) {
-				LOGGER.warn("No sanction matched records found | sanctionName={} | threshold={}", sanctionName,
-						threshold);
+				LOGGER.warn("No sanction matched records found | sanctionName={} | threshold={} | processType={}", sanctionName,
+						threshold,processType);
 			} else {
 				LOGGER.info(
-						"Sanction matched list fetched successfully | sanctionName={} | threshold={} | recordCount={}",
-						sanctionName, threshold, resp.size());
+						"Sanction matched list fetched successfully | sanctionName={} | threshold={}  | processType={} | recordCount={}",
+						sanctionName, threshold,processType, resp.size());
 			}
 
 			return ResponseEntity.ok(resp);
 
 		} catch (Exception e) {
 
-			LOGGER.error("Exception occurred in getSanctionMatchedList API | sanctionName={} | threshold={}",
-					sanctionName, threshold, e);
+			LOGGER.error("Exception occurred in getSanctionMatchedList API | sanctionName={} | threshold={} | processType={}",
+					sanctionName, threshold,processType, e);
 
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 					.body("Failed to fetch sanction matched list");

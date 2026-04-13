@@ -46,6 +46,9 @@ public class SanctionMatchedListEntity {
 
 	@Column(name = "MODIFY_DATE")
 	private LocalDateTime modify_date;
+	
+	@Column(name = "PROCESS_TYPE")
+	private String process_type;
 
 	public String getId() {
 		return id;
@@ -133,6 +136,14 @@ public class SanctionMatchedListEntity {
 
 	public void setModify_date(LocalDateTime modify_date) {
 		this.modify_date = modify_date;
+	}
+
+	public String getProcess_type() {
+		return process_type;
+	}
+
+	public void setProcess_type(String process_type) {
+		this.process_type = process_type;
 	}
 
 }

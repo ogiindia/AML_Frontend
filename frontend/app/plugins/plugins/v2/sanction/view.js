@@ -34,6 +34,7 @@ function View() {
     const [lists, setLists] = useState([])
     const [query, setQuery] = useState('')
     const [threshold, setThreshold] = useState(0.85)
+    const [onboard, setOnboard] = useState(false)
     const [rawRows, setRawRows] = useState([])
     const [rows, setRows] = useState([])
     const [availableLists, setAvailableLists] = useState([])
@@ -212,6 +213,9 @@ function View() {
 
 
         const sanctionName = Array.isArray(selectedLists) ? selectedLists.join(',') : '';
+
+        const processType = onboard ? "O" : "T";
+
         //alert(sanctionName);
         //alert(`Fetching matched lists for: ${sanctionName}`);
 
@@ -219,7 +223,8 @@ function View() {
         try {
             api.get('/app/rest/v1/getSanctionMatchedList', {
                 sanctionName: sanctionName,
-                threshold: threshold
+                threshold: threshold,
+                processType: processType
             }).then((res) => {
                 setRawRows(res);
 
@@ -383,6 +388,13 @@ function View() {
                             <span style={{ color: 'var(--muted)' }}>🔎</span>
                             <input placeholder={`Search customer or entity name...`} value={query} onChange={e => setQuery(e.target.value)} />
                         </div>
+                        <label style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'var(--card)', border: '1px solid rgba(148, 163, 184, .35)', borderRadius: 12, padding: '10px 12px' }}>
+                            <input type="checkbox" checked={onboard} onChange={e => setOnboard(e.target.checked)} />
+                            <span>Onboard</span>
+                        </label>
+
+
+
                         <div className="slider">
                             <span className="badge">Match ≥ {threshold.toFixed(2)}</span>
                             <input type="range" min={0} max={1} step={0.01} value={threshold} onChange={e => setThreshold(parseFloat(e.target.value))} />

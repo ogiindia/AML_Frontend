@@ -29,10 +29,11 @@ public class SanctionMatchedListImplRepo {
 	EntityManager em;
 
 	public List<SanctionMatchedListEntity> getSanctionMatchedListImplRepo(List<String> statusList, String threshold,
-			String customerId) {
+			String customerId, String processType) {
 		try {
 
-			LOGGER.info("Fetching sanction matched list | customerId={} threshold={}", customerId, threshold);
+			LOGGER.info("Fetching sanction matched list | customerId={} threshold={} | processType={}", customerId,
+					threshold, processType);
 
 			CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<SanctionMatchedListEntity> cq = cb.createQuery(SanctionMatchedListEntity.class);
@@ -47,6 +48,9 @@ public class SanctionMatchedListImplRepo {
 
 			if (customerId != null && !customerId.isEmpty()) {
 				predicates.add(cb.equal(root.get("customerid"), customerId));
+			}
+			if (processType != null && !processType.isEmpty()) {
+				predicates.add(cb.equal(root.get("process_type"), processType));
 			}
 
 			if (threshold != null && !threshold.isEmpty()) {

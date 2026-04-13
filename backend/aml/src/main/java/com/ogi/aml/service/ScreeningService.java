@@ -502,7 +502,7 @@ public class ScreeningService {
 			LOGGER.info("Fetching sanction score | customerId={}", customerId);
 
 			List<SanctionMatchedListEntity> respSanctionMatched = sanctionmatchedlistimplrepo
-					.getSanctionMatchedListImplRepo(null, "", customerId);
+					.getSanctionMatchedListImplRepo(null, "", customerId,"");
 
 			if (respSanctionMatched == null || respSanctionMatched.isEmpty()) {
 
