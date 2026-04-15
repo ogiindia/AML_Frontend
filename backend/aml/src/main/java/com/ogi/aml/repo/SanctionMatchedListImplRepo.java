@@ -53,18 +53,20 @@ public class SanctionMatchedListImplRepo {
 				predicates.add(cb.equal(root.get("process_type"), processType));
 			}
 
+			Expression<Double> confidenceAsDouble = cb.toDouble(root.get("confidence_percentage"));
+
 			if (threshold != null && !threshold.isEmpty()) {
 
 				Double thresholdValue = Double.parseDouble(threshold) * 100;
 
 				LOGGER.debug("Threshold value calculated | thresholdValue={}", thresholdValue);
 
-				Expression<Double> confidenceAsDouble = cb.toDouble(root.get("confidence_percentage"));
-
 				predicates.add(cb.greaterThanOrEqualTo(confidenceAsDouble, thresholdValue));
 			}
 
 			cq.where(predicates.toArray(new Predicate[0]));
+
+			cq.orderBy(cb.desc(confidenceAsDouble));
 
 			List<SanctionMatchedListEntity> result = em.createQuery(cq).getResultList();
 

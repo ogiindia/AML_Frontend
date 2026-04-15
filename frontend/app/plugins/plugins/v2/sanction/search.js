@@ -82,7 +82,7 @@ function Search() {
 
     const onClear = () => {
         setQuery('');
-
+        setRawRows([]);
     };
 
     // pagination state
