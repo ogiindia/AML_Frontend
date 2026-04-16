@@ -175,6 +175,7 @@ public class RuleServices extends BaseResolver<RuleEntity, UUID> {
 			nme.setPayload(obj.writeValueAsString(ruleConverter.convert(ruleEntity)));
 			nme.setRuleName(ruleEntity.getRuleName());
 			nme.setTxnMode(ruleEntity.getTxnMode());
+			nme.setStatus("1");
 			normalizedRuleRepo.save(nme);
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block

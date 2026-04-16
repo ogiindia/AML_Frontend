@@ -27,6 +27,7 @@ public class NormalizedRuleEntity extends LongBaseEntity {
 	private String alertCategory;
 
 	private String txnMode;
+	private String status;
 
 	public Integer getPriority() {
 		return priority;
@@ -90,6 +91,14 @@ public class NormalizedRuleEntity extends LongBaseEntity {
 
 	public void setTxnMode(String txnMode) {
 		this.txnMode = txnMode;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }

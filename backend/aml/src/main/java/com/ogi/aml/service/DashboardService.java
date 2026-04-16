@@ -152,10 +152,15 @@ public class DashboardService {
 
 			LOGGER.info("Service getRecurringCustomerCount called");
 
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Constants.DATE_PATTERN);
-			String today = LocalDate.now().format(formatter);
+			//DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Constants.DATE_PATTERN);
+			
+			DateTimeFormatter formatter = new DateTimeFormatterBuilder().parseCaseInsensitive()
+					.appendPattern(Constants.PARQUET_DATE_PATTERN).toFormatter(Locale.ENGLISH);
 
-			List<TransactionEntity> lsttrans = transactionimplrepo.getTransactionDetailsImplRepo(today, today, "","");
+			
+			String today = LocalDate.now().minusDays(1).format(formatter);
+
+			List<TransactionEntity> lsttrans = transactionimplrepo.getTransactionDetailsImplRepo(today, today, "", "");
 
 			if (lsttrans == null || lsttrans.isEmpty()) {
 
@@ -171,7 +176,8 @@ public class DashboardService {
 			List<Map<String, Object>> response = result.entrySet().stream()
 					.sorted(Map.Entry.<Long, Long>comparingByValue().reversed()).limit(10).map(e -> {
 
-						Optional<CustomerEntity> customer = customerrepo.findByIdFromParquet(String.valueOf(e.getKey()));
+						Optional<CustomerEntity> customer = customerrepo
+								.findByIdFromParquet(String.valueOf(e.getKey()));
 
 						Map<String, Object> map = new HashMap<>();
 
@@ -203,13 +209,19 @@ public class DashboardService {
 
 			LOGGER.info("Service getRepeatedCustomerCount called");
 
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Constants.DATE_PATTERN);
+			//DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Constants.DATE_PATTERN);
+			
+			DateTimeFormatter formatter = new DateTimeFormatterBuilder().parseCaseInsensitive()
+					.appendPattern(Constants.PARQUET_DATE_PATTERN).toFormatter(Locale.ENGLISH);
 
-			LocalDate today = LocalDate.now();
+			
+			
+			LocalDate today = LocalDate.now().minusDays(1);
 			String fromDate = today.minusMonths(1).format(formatter);
 			String toDate = today.format(formatter);
 
-			List<TransactionEntity> lsttrans = transactionimplrepo.getTransactionDetailsImplRepo(fromDate, toDate, "","");
+			List<TransactionEntity> lsttrans = transactionimplrepo.getTransactionDetailsImplRepo(fromDate, toDate, "",
+					"");
 
 			if (lsttrans == null || lsttrans.isEmpty()) {
 
@@ -225,7 +237,8 @@ public class DashboardService {
 			List<Map<String, Object>> response = result.entrySet().stream()
 					.sorted(Map.Entry.<Long, Long>comparingByValue().reversed()).limit(10).map(e -> {
 
-						Optional<CustomerEntity> customer = customerrepo.findByIdFromParquet(String.valueOf(e.getKey()));
+						Optional<CustomerEntity> customer = customerrepo
+								.findByIdFromParquet(String.valueOf(e.getKey()));
 
 						Map<String, Object> map = new HashMap<>();
 
@@ -257,10 +270,15 @@ public class DashboardService {
 
 			LOGGER.info("Service getSuspiciousTxnCount called");
 
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Constants.DATE_PATTERN);
-			String today = LocalDate.now().format(formatter);
+			//DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Constants.DATE_PATTERN);
+			
+			DateTimeFormatter formatter = new DateTimeFormatterBuilder().parseCaseInsensitive()
+					.appendPattern(Constants.PARQUET_DATE_PATTERN).toFormatter(Locale.ENGLISH);
+			
+			
+			String today = LocalDate.now().minusDays(1).format(formatter);
 
-			List<TransactionEntity> lsttrans = transactionimplrepo.getTransactionDetailsImplRepo(today, today, "","");
+			List<TransactionEntity> lsttrans = transactionimplrepo.getTransactionDetailsImplRepo(today, today, "", "");
 
 			if (lsttrans == null || lsttrans.isEmpty()) {
 
@@ -299,10 +317,14 @@ public class DashboardService {
 
 			LOGGER.info("Service getTopBranchCount called");
 
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Constants.DATE_PATTERN);
-			String today = LocalDate.now().format(formatter);
+			//DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Constants.DATE_PATTERN);
+			
+			DateTimeFormatter formatter = new DateTimeFormatterBuilder().parseCaseInsensitive()
+					.appendPattern(Constants.PARQUET_DATE_PATTERN).toFormatter(Locale.ENGLISH);
+			
+			String today = LocalDate.now().minusDays(1).format(formatter);
 
-			List<TransactionEntity> lsttrans = transactionimplrepo.getTransactionDetailsImplRepo(today, today, "","");
+			List<TransactionEntity> lsttrans = transactionimplrepo.getTransactionDetailsImplRepo(today, today, "", "");
 
 			if (lsttrans == null || lsttrans.isEmpty()) {
 
@@ -349,11 +371,9 @@ public class DashboardService {
 		try {
 
 			LOGGER.info("Service getRuleVsTransaction called");
-			DateTimeFormatter formatter = new DateTimeFormatterBuilder()
-			        .parseCaseInsensitive()   // ✅ IMPORTANT
-			        .appendPattern(Constants.PARQUET_DATE_PATTERN)
-			        .toFormatter(Locale.ENGLISH);
-			
+			DateTimeFormatter formatter = new DateTimeFormatterBuilder().parseCaseInsensitive()
+					.appendPattern(Constants.PARQUET_DATE_PATTERN).toFormatter(Locale.ENGLISH);
+
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSSXXX");
 
 			Year currentYear = Year.now();
@@ -365,7 +385,7 @@ public class DashboardService {
 			String toDate = endDate.format(formatter);
 
 			List<TransactionEntity> lsttransaction = transactionimplrepo.getTransactionDetailsImplRepo(fromDate, toDate,
-					"","");
+					"", "");
 
 			if (lsttransaction == null || lsttransaction.isEmpty()) {
 
@@ -375,22 +395,15 @@ public class DashboardService {
 
 			LOGGER.info("Transaction records fetched | recordCount={}", lsttransaction.size());
 
-			
+			Map<Month, Map<String, Long>> result = lsttransaction.stream()
+					.filter(t -> t.getTransactiondate() != null && !t.getTransactiondate().isEmpty())
+					.collect(Collectors.groupingBy(
+							t -> LocalDate.parse(t.getTransactiondate().toUpperCase(), formatter).getMonth(),
+							TreeMap::new,
+							Collectors.groupingBy(
+									t -> t.getDepositorwithdrawal() != null ? t.getDepositorwithdrawal() : "UNKNOWN",
+									Collectors.counting())));
 
-				Map<Month, Map<String, Long>> result = lsttransaction.stream()
-				    .filter(t -> t.getTransactiondate() != null && !t.getTransactiondate().isEmpty())
-				    .collect(Collectors.groupingBy(
-				        t -> LocalDate.parse(
-				                t.getTransactiondate().toUpperCase(),
-				                formatter
-				            ).getMonth(),
-				        TreeMap::new,
-				        Collectors.groupingBy(
-				            t -> t.getDepositorwithdrawal() != null ? t.getDepositorwithdrawal() : "UNKNOWN",
-				            Collectors.counting()
-				        )
-				    ));
-				
 			List<Map<String, Object>> output = new ArrayList<>();
 
 			for (Map.Entry<Month, Map<String, Long>> entry : result.entrySet()) {
