@@ -45,7 +45,7 @@ public class RuleConverterService {
 	private NormalizedRule.SchemaEntry convertConditionToSchema(RuleConditionsEntity c, String joiner) {
 
 		NormalizedRule.SchemaEntry s = new NormalizedRule.SchemaEntry();
-		s.setTag((c.getField().getName()));
+		s.setTag((c.getField().getSchema().getSchemaName() + "." + c.getField().getName()));
 		s.setValue((String) c.getValue());
 		s.setCondition(c.getOperator().getName());
 		s.setType(c.getField().getType().getName().toLowerCase());
