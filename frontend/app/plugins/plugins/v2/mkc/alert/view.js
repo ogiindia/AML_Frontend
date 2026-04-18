@@ -60,43 +60,10 @@ export default function View({ parentId, instanceId, customerId, entityId, trans
     const [kycScoreDate, setKycScoreDate] = useState([]);
     const [sanctionScore, setSanctionScore] = useState([]);
 
+    const [riskSanctionData, setRiskSanctionData] = useState([]);
 
 
-    const riskData = [
-        { category: "LOAN", percentage: 60 },
-        { category: "PPF", percentage: 25 },
-        { category: "ACCOUNT", percentage: 15 }
-    ];
 
-    const [showRiskScoreModal, setShowRiskScoreModal] = useState(false);
-
-    // animated percentage state
-    const [animatedPercents, setAnimatedPercents] = useState(riskData.map(() => 0));
-
-    // animate percentages when modal opens
-    useEffect(() => {
-        if (!showRiskScoreModal) {
-            setAnimatedPercents(riskData.map(() => 0));
-            return;
-        }
-
-        const duration = 800; // animation duration in ms
-        const targets = riskData.map(r => r.percentage);
-        const start = performance.now();
-
-        let rafId;
-        const tick = (now) => {
-            const t = Math.min(1, (now - start) / duration);
-            setAnimatedPercents(targets.map(p => Math.round(p * t)));
-            if (t < 1) rafId = requestAnimationFrame(tick);
-        };
-
-        rafId = requestAnimationFrame(tick);
-        return () => cancelAnimationFrame(rafId);
-    }, [showRiskScoreModal, /* keep riskData stable if defined inline change accordingly */]);
-
-    const openRiskModal = () => setShowRiskScoreModal(true);
-    const closeRiskModal = () => setShowRiskScoreModal(false);
 
     useEffect(() => {
         console.log("State in view page", state);
@@ -348,7 +315,93 @@ export default function View({ parentId, instanceId, customerId, entityId, trans
         }
 
 
+        try {
+            api.get('/app/rest/v1/getSanctionDetailsScore', {
+                customerId: state ? state.customerId || customerId : customerId
+            }).then((res) => {
+
+
+                setRiskSanctionData(res);
+
+            });
+        } catch (err) {
+            console.error("Error fetching sanction score details:", err);
+            setRiskSanctionData([]);
+        }
+
+
     }, []);
+
+
+    // Customer Animated Score
+
+    const riskData = [
+        { category: "LOAN", percentage: 60 },
+        { category: "PPF", percentage: 25 },
+        { category: "ACCOUNT", percentage: 15 }
+    ];
+
+    const [showRiskScoreModal, setShowRiskScoreModal] = useState(false);
+    const [animatedPercents, setAnimatedPercents] = useState(riskData.map(() => 0));
+
+    useEffect(() => {
+        if (!showRiskScoreModal) {
+            setAnimatedPercents(riskData.map(() => 0));
+            return;
+        }
+
+        const duration = 800; // animation duration in ms
+        const targets = riskData.map(r => r.percentage);
+        const start = performance.now();
+
+        let rafId;
+        const tick = (now) => {
+            const t = Math.min(1, (now - start) / duration);
+            setAnimatedPercents(targets.map(p => Math.round(p * t)));
+            if (t < 1) rafId = requestAnimationFrame(tick);
+        };
+
+        rafId = requestAnimationFrame(tick);
+        return () => cancelAnimationFrame(rafId);
+    }, [showRiskScoreModal,]);
+
+    const openRiskModal = () => setShowRiskScoreModal(true);
+    const closeRiskModal = () => setShowRiskScoreModal(false);
+
+
+
+
+    // Customer Animated Score
+
+    const [showRiskSanctionScoreModal, setShowRiskSanctionScoreModal] = useState(false);
+    const [animatedSanctionPercents, setAnimatedSanctionPercents] = useState(riskSanctionData.map(() => 0));
+
+    useEffect(() => {
+        if (!showRiskSanctionScoreModal) {
+            setAnimatedSanctionPercents(riskSanctionData.map(() => 0));
+            return;
+        }
+
+        const duration = 800; // animation duration in ms
+        const targets = riskSanctionData.map(r => r.ptg);
+        const start = performance.now();
+
+        let rafId;
+        const tick = (now) => {
+            const t = Math.min(1, (now - start) / duration);
+            setAnimatedSanctionPercents(targets.map(p => Math.round(p * t)));
+            if (t < 1) rafId = requestAnimationFrame(tick);
+        };
+
+        rafId = requestAnimationFrame(tick);
+        return () => cancelAnimationFrame(rafId);
+    }, [showRiskSanctionScoreModal,]);
+
+    const openRiskSanctionModal = () => setShowRiskSanctionScoreModal(true);
+    const closeRiskSanctionModal = () => setShowRiskSanctionScoreModal(false);
+
+
+
 
     const handleFilterClick = async (selectedValue) => {
         try {
@@ -988,6 +1041,73 @@ export default function View({ parentId, instanceId, customerId, entityId, trans
                 )
                 }
 
+
+                {showRiskSanctionScoreModal && (
+                    <div
+                        style={{
+                            position: "fixed",
+                            inset: 0,
+                            background: "rgba(0,0,0,0.45)",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            zIndex: 9999
+                        }}
+                        onClick={closeRiskSanctionModal}
+                    >
+                        <div
+                            role="dialog"
+                            aria-modal="true"
+                            style={{
+                                width: 520,
+                                maxWidth: "92vw",
+                                background: "#fff",
+                                borderRadius: 8,
+                                padding: 16,
+                                boxShadow: "0 6px 18px rgba(0,0,0,0.12)"
+                            }}
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <h3 style={{ margin: "0 0 12px 0", fontSize: 20, fontWeight: 700 }}>Sanction Score Details</h3>
+
+                            <div style={{ borderRadius: 8, overflow: "hidden", background: "#fff" }}>
+                                {riskSanctionData.map((item, idx) => (
+                                    <div
+                                        key={item.param_details}
+                                        style={{
+                                            padding: "10px 0",
+                                            borderBottom: idx < riskSanctionData.length - 1 ? "1px solid #eee" : "none"
+                                        }}
+                                    >
+                                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+                                            <div style={{ fontSize: 14 }}>{item.param_details}</div>
+                                            <div style={{ fontSize: 14, fontWeight: 600 }}>{animatedSanctionPercents[idx]}%</div>
+                                        </div>
+                                        <div style={{ height: 10, borderRadius: 6, background: "#f1f5f9", overflow: "hidden" }}>
+                                            <div
+                                                style={{
+                                                    width: `${animatedSanctionPercents[idx]}%`,
+                                                    height: "100%",
+                                                    background: "#0ea5e9",
+                                                    transition: "width 120ms linear"
+                                                }}
+                                            />
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+
+                            <div style={{ marginTop: 14, textAlign: "right" }}>
+
+
+                                <Button loading={buttonloading} label="CLOSE" style={{ float: "inline-end" }} onClick={closeRiskSanctionModal} >
+                                </Button>
+                            </div>
+                        </div>
+                    </div>
+                )
+                }
+
             </>
         )
     };
@@ -1032,10 +1152,19 @@ export default function View({ parentId, instanceId, customerId, entityId, trans
                             <Col span="flex">
                                 <SectionCard>
                                     <div className="flex items-center justify-between mb-3">
-                                        <span className="text-sm font-medium text-muted-foreground">
-                                            Sanction Score
+                                        <span
+                                            style={{
+                                                color: "red",
+                                                fontWeight: "bold",
+                                                cursor: "pointer",
+                                            }}
+                                            onClick={() => setShowRiskSanctionScoreModal(true)}
+                                        >
+                                            <span className="text-sm font-medium text-muted-foreground" style={{ marginRight: '15px' }} >
+                                                Sanction Score
+                                            </span>
+                                            <span className="text-sm font-semibold text-info">{sanctionScore[0]?.confidence_score}</span>
                                         </span>
-                                        <span className="text-sm font-semibold text-info">{sanctionScore[0]?.confidence_score}</span>
                                     </div>
                                 </SectionCard>
                             </Col>

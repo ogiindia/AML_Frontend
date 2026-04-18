@@ -390,7 +390,7 @@ function View() {
                         </div>
                         <label style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'var(--card)', border: '1px solid rgba(148, 163, 184, .35)', borderRadius: 12, padding: '10px 12px' }}>
                             <input type="checkbox" checked={onboard} onChange={e => setOnboard(e.target.checked)} />
-                            <span>Onboard</span>
+                            <span>Onboarded</span>
                         </label>
 
 

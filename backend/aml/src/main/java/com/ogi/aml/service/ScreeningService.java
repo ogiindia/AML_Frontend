@@ -26,6 +26,7 @@ import com.ogi.aml.Common.RandomIdGenerate;
 import com.ogi.aml.entity.AlertsEntity;
 import com.ogi.aml.entity.CustomerEntity;
 import com.ogi.aml.entity.KycAlertsEntity;
+import com.ogi.aml.entity.SanctionListWeightageEntity;
 import com.ogi.aml.entity.SanctionMatchedListEntity;
 import com.ogi.aml.entity.SuspiciousTransactionEntity;
 import com.ogi.aml.entity.TransactionEntity;
@@ -37,12 +38,14 @@ import com.ogi.aml.repo.CustomerRepo;
 import com.ogi.aml.repo.KycAlertsDetailsImplRepo;
 import com.ogi.aml.repo.KycAlertsDetailsRepo;
 import com.ogi.aml.repo.RuleCategoryImplRepo;
+import com.ogi.aml.repo.SanctionListWeightageImplRepo;
 import com.ogi.aml.repo.SanctionMatchedListImplRepo;
 import com.ogi.aml.repo.SuspiciousTransactionRepo;
 import com.ogi.aml.repo.TransactionImplRepo;
 import com.ogi.aml.request.RequestKycAlertsDetailsData;
 import com.ogi.aml.response.ResponseAlertDetailsData;
 import com.ogi.aml.response.ResponseKycAlertsDetailsData;
+import com.ogi.aml.response.ResponseSanctionListWeightage;
 import com.ogi.aml.response.ResponseSanctionMatchedListData;
 import com.ogi.aml.response.ResponseTransactionDetailsData;
 import com.ogi.factory.interfaces.Workflowinterface;
@@ -87,6 +90,9 @@ public class ScreeningService {
 
 	@Autowired
 	Workflowinterface workflowService;
+	
+	@Autowired
+	SanctionListWeightageImplRepo sanctionlistweightageimplrepo;
 
 	public List<Map<String, Object>> getCustomerRuleCount(String customerId, String parentId) {
 		try {
@@ -550,6 +556,65 @@ public class ScreeningService {
 		} catch (Exception ex) {
 
 			LOGGER.error("Error mapping sanction score results", ex);
+		}
+
+		return Collections.emptyList();
+	}
+	
+	
+	public List<ResponseSanctionListWeightage> getSanctionDetailsScore(String customerId) {
+		try {
+
+			LOGGER.info("Fetching sanction score weightage | customerId={}", customerId);
+
+			List<SanctionListWeightageEntity> respSanctionMatched = sanctionlistweightageimplrepo
+					.getSanctionListWeightageImplRepo(customerId);
+
+			if (respSanctionMatched == null || respSanctionMatched.isEmpty()) {
+
+				LOGGER.warn("No sanction score weightage records found | customerId={}", customerId);
+
+				return Collections.emptyList();
+			}
+
+			LOGGER.info("Sanction score weightage details records fetched | count={}", respSanctionMatched.size());
+
+			return getSanctionDetailsScoreResult(respSanctionMatched);
+
+		} catch (Exception ex) {
+
+			LOGGER.error("Error fetching sanction score | customerId={}", customerId, ex);
+		}
+
+		return Collections.emptyList();
+	}
+
+	public List<ResponseSanctionListWeightage> getSanctionDetailsScoreResult(List<SanctionListWeightageEntity> resp) {
+		try {
+
+			LOGGER.debug("Mapping sanction list weightage results | recordCount={}", resp.size());
+
+			List<ResponseSanctionListWeightage> listData = new ArrayList<>();
+
+			for (SanctionListWeightageEntity entity : resp) {
+
+				ResponseSanctionListWeightage res = new ResponseSanctionListWeightage();
+
+				res.setParam_details(entity.getParamDetails());
+				res.setPtg(entity.getPtg());
+
+				listData.add(res);
+
+				LOGGER.debug("Mapped sanction list weightage |Param Details={}", entity.getParamDetails());
+			}
+
+			LOGGER.info("Sanction score list weightage completed | totalParameters={}", listData.size());
+
+			return listData;
+
+		} catch (Exception ex) {
+
+			LOGGER.error("Error mapping sanction list weightage results", ex);
 		}
 
 		return Collections.emptyList();

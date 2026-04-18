@@ -40,6 +40,7 @@ import com.ogi.aml.response.ResponseCustomerDetailsData;
 import com.ogi.aml.response.ResponseDiligenceDetailsData;
 import com.ogi.aml.response.ResponseKycAlertsDetailsData;
 import com.ogi.aml.response.ResponseSanctionConfigData;
+import com.ogi.aml.response.ResponseSanctionListWeightage;
 import com.ogi.aml.response.ResponseSanctionMatchedListData;
 import com.ogi.aml.response.ResponseTransactionDetailsData;
 import com.ogi.aml.service.AccountDetailsService;
@@ -905,6 +906,31 @@ public class AmlController {
 				LOGGER.warn("No sanction score found | customerId={}", customerId);
 			} else {
 				LOGGER.info("Sanction score fetched successfully | customerId={} | recordCount={}", customerId,
+						resp.size());
+			}
+
+			return ResponseEntity.ok(resp);
+
+		} catch (Exception e) {
+
+			LOGGER.error("Exception occurred in getSanctionScore API | customerId={}", customerId, e);
+
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to fetch sanction score");
+		}
+	}
+	
+	@RequestMapping(value = "/getSanctionDetailsScore")
+	public ResponseEntity<?> getSanctionDetailsScore(@RequestParam String customerId) {
+		try {
+
+			LOGGER.info("API getSanctionDetailsScore called | customerId={}", customerId);
+
+			List<ResponseSanctionListWeightage> resp = screeningservice.getSanctionDetailsScore(customerId);
+
+			if (resp == null || resp.isEmpty()) {
+				LOGGER.warn("No sanction score found | customerId={}", customerId);
+			} else {
+				LOGGER.info("Sanction Details score fetched successfully | customerId={} | recordCount={}", customerId,
 						resp.size());
 			}
 
