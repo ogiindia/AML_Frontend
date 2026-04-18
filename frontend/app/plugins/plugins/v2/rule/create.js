@@ -16,6 +16,8 @@ import generateQueryFromFormJson from 'generateQueryFromFormJson';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import RenderForm from 'RenderForm';
+import useRoleBasedNavigate from 'useRoleBasedNavigate';
+
 
 const initialGroup = { type: 'AND', conditions: [] };
 export default function RuleCreate() {
@@ -31,6 +33,8 @@ export default function RuleCreate() {
     const navigate = useNavigate();
 
     const [showConfirm, setShowConfirm] = useState(false);
+
+    const { roleBasedNavigate } = useRoleBasedNavigate();
 
     useEffect(() => {
         //load static objects
@@ -456,7 +460,9 @@ export default function RuleCreate() {
                     variant: "success"
                 });
 
-                navigate(-1);
+
+                //navigate(-1);
+                roleBasedNavigate('/rule/manager/list');
             }
 
             if (error) {
