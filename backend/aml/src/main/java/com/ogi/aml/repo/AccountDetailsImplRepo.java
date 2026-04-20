@@ -23,12 +23,12 @@ public class AccountDetailsImplRepo {
 	// @Autowired
 	// EntityManager em;
 
-	public List<AccountDetailsEntity> getAccountDetails(String customerId) {
+	public List<AccountDetailsEntity> getAccountDetails(String customerId,String accountNo) {
 		try {
 
 			List<AccountDetailsEntity> list = new ArrayList<>();
 
-			SearchFieldsDTO srcField=new SearchFieldsDTO(customerId,null,null,null,null,null);
+			SearchFieldsDTO srcField=new SearchFieldsDTO(customerId,accountNo,null,null,null,null);
 			
 			list = perquetservice.executeQueryReturnEntity("Accounts", AccountDetailsEntity.class,srcField);
 

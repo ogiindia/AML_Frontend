@@ -389,7 +389,9 @@ export default function View({ parentId, instanceId, customerId, entityId, trans
         let rafId;
         const tick = (now) => {
             const t = Math.min(1, (now - start) / duration);
-            setAnimatedSanctionPercents(targets.map(p => Math.round(p * t)));
+            //setAnimatedSanctionPercents(targets.map(p => Math.round(p * t)));
+            setAnimatedSanctionPercents(targets.map(p => p * t));
+
             if (t < 1) rafId = requestAnimationFrame(tick);
         };
 

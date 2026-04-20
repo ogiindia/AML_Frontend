@@ -48,7 +48,7 @@ public class AccountDetailsService {
 
 			List<ResponseAccountDetailsData> resp = new ArrayList<>();
 
-			List<AccountDetailsEntity> respMenuMapping = accountdetailsimplrepo.getAccountDetails(customerId);
+			List<AccountDetailsEntity> respMenuMapping = accountdetailsimplrepo.getAccountDetails(customerId,"");
 
 			if (respMenuMapping != null && !respMenuMapping.isEmpty()) {
 

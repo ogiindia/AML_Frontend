@@ -382,7 +382,8 @@ public class AlertService extends BaseResolver<AlertsEntity, String> {
 
 	}
 
-	@Scheduled(fixedDelay = 8000000) // 1 min wait for the previous thread and starts at next minute
+	//@Scheduled(fixedDelay = 8000000) // 1 min wait for the previous thread and starts at next minute
+	@Scheduled(fixedDelay = 20000)
 	public void ParseAlerts() throws JsonProcessingException {
 		try {
 

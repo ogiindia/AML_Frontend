@@ -104,24 +104,35 @@ public class AlertImplRepo {
 			// Date Predicate
 			predicates.add(buildDatePredicate(range, cb, root));
 
-			cq.multiselect(cb.count(root).alias("total"),
+			cq.multiselect(
+			        cb.count(root).alias("total"),
 
-					cb.sum(cb.<Long>selectCase()
-							.when(cb.and(cb.equal(root.get("alertStatus"), Constants.OPEN_ALERT),
-									cb.equal(root.get("alertAssignee"), user)), 1L)
-							.otherwise(0L)).alias("opened"),
+			        cb.sum(cb.<Long>selectCase()
+			                .when(
+			                    cb.or(
+			                        cb.equal(root.get("alertStatus"), Constants.OPEN_ALERT),
+			                        cb.like(root.get("alertStatus"), "%LEVEL%")
+			                    ),
+			                    1L
+			                )
+			                .otherwise(0L)
+			        ).alias("opened"),
 
-					cb.sum(cb.<Long>selectCase()
-							.when(cb.and(
-									cb.or(cb.equal(root.get("alertStatus"), Constants.APPROVED_ALERTS),
-											cb.equal(root.get("alertStatus"), Constants.REJECTED_ALERTS)),
-									cb.equal(root.get("alertAssignee"), user)), 1L)
-							.otherwise(0L)).alias("closed"));
+			        cb.sum(cb.<Long>selectCase()
+			                .when(
+			                        cb.or(
+			                                cb.equal(root.get("alertStatus"), Constants.APPROVED_ALERTS),
+			                                cb.equal(root.get("alertStatus"), Constants.REJECTED_ALERTS)
+			                        ),
+			                        1L
+			                )
+			                .otherwise(0L)
+			        ).alias("closed")
+			);
 
 			cq.where(predicates.toArray(new Predicate[0]));
 
 			Tuple result = em.createQuery(cq).getSingleResult();
-
 			Map<String, Long> response = new HashMap<>();
 
 			response.put("total", result.get("total", Long.class));

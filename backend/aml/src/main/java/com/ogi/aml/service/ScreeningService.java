@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import com.ogi.aml.Common.Constants;
 import com.ogi.aml.Common.CustomerRiskScore;
 import com.ogi.aml.Common.RandomIdGenerate;
+import com.ogi.aml.entity.AccountDetailsEntity;
 import com.ogi.aml.entity.AlertsEntity;
 import com.ogi.aml.entity.CustomerEntity;
 import com.ogi.aml.entity.KycAlertsEntity;
@@ -31,6 +32,7 @@ import com.ogi.aml.entity.SanctionMatchedListEntity;
 import com.ogi.aml.entity.SuspiciousTransactionEntity;
 import com.ogi.aml.entity.TransactionEntity;
 import com.ogi.aml.entity.DTO.AlertParentDTO;
+import com.ogi.aml.repo.AccountDetailsImplRepo;
 import com.ogi.aml.repo.AlertImplRepo;
 import com.ogi.aml.repo.AlertRepo;
 import com.ogi.aml.repo.CustomerAlertsRepo;
@@ -90,7 +92,10 @@ public class ScreeningService {
 
 	@Autowired
 	Workflowinterface workflowService;
-	
+
+	@Autowired
+	AccountDetailsImplRepo accountdetailsimplrepo;
+
 	@Autowired
 	SanctionListWeightageImplRepo sanctionlistweightageimplrepo;
 
@@ -382,7 +387,7 @@ public class ScreeningService {
 			LOGGER.debug("Transaction date range | fromDate={} toDate={}", fromDate, toDate);
 
 			List<TransactionEntity> lstTrans = transactionimplrepo.getTransactionDetailsImplRepo(fromDate, toDate,
-					customerId,"");
+					customerId, "");
 
 			if (lstTrans == null || lstTrans.isEmpty()) {
 
@@ -508,7 +513,7 @@ public class ScreeningService {
 			LOGGER.info("Fetching sanction score | customerId={}", customerId);
 
 			List<SanctionMatchedListEntity> respSanctionMatched = sanctionmatchedlistimplrepo
-					.getSanctionMatchedListImplRepo(null, "", customerId,"");
+					.getSanctionMatchedListImplRepo(null, "", customerId, "");
 
 			if (respSanctionMatched == null || respSanctionMatched.isEmpty()) {
 
@@ -560,8 +565,7 @@ public class ScreeningService {
 
 		return Collections.emptyList();
 	}
-	
-	
+
 	public List<ResponseSanctionListWeightage> getSanctionDetailsScore(String customerId) {
 		try {
 
@@ -626,14 +630,14 @@ public class ScreeningService {
 			LOGGER.info("Generating KYC alert | customerId={} transId={} riskType={} status={}", customerId, transId,
 					cdd_edd, status);
 
-			List<TransactionEntity> lstAlert = transactionimplrepo.getTransactionDetailsImplRepo("","",customerId, transId);
+			List<TransactionEntity> lstAlert = transactionimplrepo.getTransactionDetailsImplRepo("", "", "", transId);
 
 			if (lstAlert == null || lstAlert.isEmpty()) {
 
 				LOGGER.warn("No transaction found for KYC alert generation | customerId={} transId={}", customerId,
 						transId);
 
-				return Constants.SUCCESS;
+				return Constants.FAILURE;
 			}
 
 			LOGGER.info("Transactions fetched for alert generation | count={}", lstAlert.size());
@@ -674,11 +678,22 @@ public class ScreeningService {
 			LOGGER.debug("Creating KYC alert | customerId={} transactionId={} riskCategory={} status={}",
 					req.getCustomerid(), req.getTransactionid(), riskCategory, status);
 
-			Optional<CustomerEntity> custDetails = customerrepo.findByIdFromParquet(String.valueOf(req.getCustomerid()));
+			List<AccountDetailsEntity> respAccDtls = accountdetailsimplrepo.getAccountDetails("",
+					String.valueOf(req.getAccountno()));
+			if (respAccDtls == null || respAccDtls.isEmpty()) {
+
+				LOGGER.warn("Account Details not found while creating KYC alert | accountNo={}", req.getAccountno());
+
+				return null;
+			}
+
+			AccountDetailsEntity accDtls = respAccDtls.get(0);
+
+			Optional<CustomerEntity> custDetails = customerrepo.findByIdFromParquet(accDtls.getCustomerid());
 
 			if (custDetails.isEmpty()) {
 
-				LOGGER.warn("Customer not found while creating KYC alert | customerId={}", req.getCustomerid());
+				LOGGER.warn("Customer not found while creating KYC alert | customerId={}", accDtls.getCustomerid());
 
 				return null;
 			}
@@ -694,7 +709,7 @@ public class ScreeningService {
 			entity.setAlert_dt(LocalDateTime.now());
 			entity.setAlert_desc(customer.getCustomername() + Constants.KYC_DESC);
 			entity.setAlert_name(Constants.KYC_NAME);
-			entity.setCust_id(req.getCustomerid());
+			entity.setCust_id(Long.valueOf(customer.getCustomerid()));
 			entity.setRisk_category(riskCategory);
 			entity.setSource("M");
 
@@ -736,7 +751,7 @@ public class ScreeningService {
 			}
 
 			// 🔹 Fetch transaction
-			List<TransactionEntity> lstTrans = transactionimplrepo.getTransactionDetailsImplRepo("","","",
+			List<TransactionEntity> lstTrans = transactionimplrepo.getTransactionDetailsImplRepo("", "", "",
 					request.getTransactionId());
 
 			if (lstTrans == null || lstTrans.isEmpty()) {
@@ -749,8 +764,8 @@ public class ScreeningService {
 			// 🔹 Fetch customer safely
 			Optional<CustomerEntity> customer = customerrepo.findByIdFromParquet(String.valueOf(request.getCust_id()));
 
-			
-			//CustomerEntity customer = customerrepo.findById(String.valueOf(request.getCust_id())).orElse(null);
+			// CustomerEntity customer =
+			// customerrepo.findById(String.valueOf(request.getCust_id())).orElse(null);
 
 			if (customer == null) {
 				LOGGER.warn("Customer not found | customerId={}", request.getCust_id());
