@@ -77,8 +77,10 @@ public class KycAlertsDetailsImplRepo {
 
 				predicates.add(cb.between(root.get("alert_dt"), ldtFrom, ldtTo));
 			}
-
+	
 			cq.where(predicates.toArray(new Predicate[0]));
+			
+			cq.orderBy(cb.desc(root.get("modified_dt")));
 
 			List<KycAlertsEntity> result = em.createQuery(cq).getResultList();
 
