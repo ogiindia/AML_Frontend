@@ -164,16 +164,16 @@ public class AlertImplRepo {
 
 		case "today":
 			LocalDate today = now.toLocalDate();
-			return cb.between(root.get("alertDT"), today.atStartOfDay(), today.plusDays(1).atStartOfDay());
+			return cb.between(root.get("modifiedDt"), today.atStartOfDay(), today.plusDays(1).atStartOfDay());
 
 		case "weekly":
-			return cb.greaterThanOrEqualTo(root.get("alertDT"), now.minusDays(7));
+			return cb.greaterThanOrEqualTo(root.get("modifiedDt"), now.minusDays(7));
 
 		case "monthly":
-			return cb.greaterThanOrEqualTo(root.get("alertDT"), now.minusMonths(1));
+			return cb.greaterThanOrEqualTo(root.get("modifiedDt"), now.minusMonths(1));
 
 		case "6months":
-			return cb.greaterThanOrEqualTo(root.get("alertDT"), now.minusMonths(6));
+			return cb.greaterThanOrEqualTo(root.get("modifiedDt"), now.minusMonths(6));
 
 		default:
 			throw new IllegalArgumentException("Invalid range type: " + range);

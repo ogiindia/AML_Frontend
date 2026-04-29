@@ -21,6 +21,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,6 +52,7 @@ import com.ogi.aml.service.DashboardService;
 import com.ogi.aml.service.DiligenceDetailsService;
 import com.ogi.aml.service.FinalReportService;
 import com.ogi.aml.service.KYCAlertsService;
+import com.ogi.aml.service.MuleNetworkService;
 import com.ogi.aml.service.SanctionScreeningService;
 import com.ogi.aml.service.SchemaCreation;
 import com.ogi.aml.service.ScreeningService;
@@ -92,16 +95,18 @@ public class AmlController {
 
 	@Autowired
 	SchemaCreation schemacreation;
+	
+	@Autowired
+	private MuleNetworkService service;
 
 	@Value("${file.path:C:/Users/FIS/Source/AML/Document/SampleFiles/}")
 	public String path;
-	
+
 	@Value("${accessfile.path:C:/Users/FIS/Source/AML/Document/}")
 	public String accessListPath;
-	
+
 	@Value("${nameMatched.url:https://finsecrt.aisworld.space/api/v1/rtengine/getscore}")
 	public String nameMatchedUrl;
-
 
 	@PostMapping("/uploadEvidence")
 	public ResponseEntity<String> uploadAlertFiles(@RequestParam String parentId, @RequestParam String TransactionId,
@@ -640,8 +645,6 @@ public class AmlController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to fetch sanction details");
 		}
 	}
-	
-	
 
 	@PostMapping("/uploadSanctionList")
 	public ResponseEntity<String> uploadSanctionList(@RequestParam String sanctionName, @RequestParam String fileType,
@@ -692,29 +695,32 @@ public class AmlController {
 	}
 
 	@RequestMapping(value = "/getSanctionMatchedList")
-	public ResponseEntity<?> getSanctionMatchedList(@RequestParam String sanctionName, @RequestParam String threshold,@RequestParam String processType) {
+	public ResponseEntity<?> getSanctionMatchedList(@RequestParam String sanctionName, @RequestParam String threshold,
+			@RequestParam String processType) {
 		try {
 
-			LOGGER.info("API getSanctionMatchedList called | sanctionName={} | threshold={} | processType={}", sanctionName, threshold,processType);
+			LOGGER.info("API getSanctionMatchedList called | sanctionName={} | threshold={} | processType={}",
+					sanctionName, threshold, processType);
 
 			List<ResponseSanctionMatchedListData> resp = sanctionscreeningservice.getSanctionMatchedList(sanctionName,
-					threshold,processType);
+					threshold, processType);
 
 			if (resp == null || resp.isEmpty()) {
-				LOGGER.warn("No sanction matched records found | sanctionName={} | threshold={} | processType={}", sanctionName,
-						threshold,processType);
+				LOGGER.warn("No sanction matched records found | sanctionName={} | threshold={} | processType={}",
+						sanctionName, threshold, processType);
 			} else {
 				LOGGER.info(
 						"Sanction matched list fetched successfully | sanctionName={} | threshold={}  | processType={} | recordCount={}",
-						sanctionName, threshold,processType, resp.size());
+						sanctionName, threshold, processType, resp.size());
 			}
 
 			return ResponseEntity.ok(resp);
 
 		} catch (Exception e) {
 
-			LOGGER.error("Exception occurred in getSanctionMatchedList API | sanctionName={} | threshold={} | processType={}",
-					sanctionName, threshold,processType, e);
+			LOGGER.error(
+					"Exception occurred in getSanctionMatchedList API | sanctionName={} | threshold={} | processType={}",
+					sanctionName, threshold, processType, e);
 
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 					.body("Failed to fetch sanction matched list");
@@ -918,7 +924,7 @@ public class AmlController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to fetch sanction score");
 		}
 	}
-	
+
 	@RequestMapping(value = "/getSanctionDetailsScore")
 	public ResponseEntity<?> getSanctionDetailsScore(@RequestParam String customerId) {
 		try {
@@ -1167,54 +1173,52 @@ public class AmlController {
 			return new ResponseEntity<>("Failed to fetch Mapping List alerts", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
-	
+
 	@PostMapping("/uploadNIDVDocument")
 	public ResponseEntity<String> uploadNIDVDocument(@RequestBody Map<String, String> request) {
 
-	    try {
-	        String documentType = request.get("documentType");
-	        String fileName = request.get("fileName");
-	        String base64Data = request.get("fileData");
+		try {
+			String documentType = request.get("documentType");
+			String fileName = request.get("fileName");
+			String base64Data = request.get("fileData");
 
-	        byte[] fileBytes = Base64.getDecoder().decode(base64Data);
+			byte[] fileBytes = Base64.getDecoder().decode(base64Data);
 
-	        Path filePath = Paths.get(path, fileName);
-	        Files.write(filePath, fileBytes);
+			Path filePath = Paths.get(path, fileName);
+			Files.write(filePath, fileBytes);
 
-	        return ResponseEntity.ok("File saved");
+			return ResponseEntity.ok("File saved");
 
-	    } catch (Exception e) {
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Upload failed");
-	    }
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Upload failed");
+		}
 	}
 
-	
 	@PostMapping("/uploadAccessListDocument")
 	public ResponseEntity<String> uploadAccessListDocument(@RequestBody Map<String, String> request) {
 
-	    try {
-	        String documentType = request.get("documentType");
-	        String fileName = request.get("fileName");
-	        String base64Data = request.get("fileData");
-	        	        
-	    	Path uploadPath = Paths.get(accessListPath + "/" + documentType + "/" );
+		try {
+			String documentType = request.get("documentType");
+			String fileName = request.get("fileName");
+			String base64Data = request.get("fileData");
+
+			Path uploadPath = Paths.get(accessListPath + "/" + documentType + "/");
 			if (!Files.exists(uploadPath)) {
 				Files.createDirectories(uploadPath);
 				LOGGER.info("Created upload directory: {}", uploadPath);
 			}
 
-	        byte[] fileBytes = Base64.getDecoder().decode(base64Data);
-	        Path filePath = uploadPath.resolve(fileName);
-	        Files.write(filePath, fileBytes);
-	        return ResponseEntity.ok("File saved");
+			byte[] fileBytes = Base64.getDecoder().decode(base64Data);
+			Path filePath = uploadPath.resolve(fileName);
+			Files.write(filePath, fileBytes);
+			return ResponseEntity.ok("File saved");
 
-	    } catch (Exception e) {
-	    	 e.printStackTrace(); 
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Upload failed");
-	    }
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Upload failed");
+		}
 	}
-	
+
 	@RequestMapping(value = "/getMatchedLists")
 	public ResponseEntity<?> getMatchedLists(@RequestParam String name) {
 		try {
@@ -1247,5 +1251,44 @@ public class AmlController {
 		}
 	}
 
+////////////////////////////////////////////////////////////////////////////////////
 
+
+
+	@GetMapping("/mule_network")
+	public Map<String, Object> network() {
+		return service.getNetwork();
+	}
+
+	@GetMapping("/mule_network_table")
+	public Object muleNetworkTable(@RequestParam int page, @RequestParam int page_size) {
+		return service.getNetworkTable(page, page_size);
+	}
+
+	@GetMapping("/get_filtered_graph")
+	public Object get_filtered_graph(@RequestParam String node_id) {
+		return service.getFilteredGraph(node_id);
+	}
+
+	@GetMapping("/mule_cluster")
+	public Object cluster() {
+		return service.cluster();
+	}
+
+	
+
+	// 🟢 ADD THIS (patterns list)
+	@GetMapping("/patterns")
+	public Object patterns() {
+		return Map.of("patterns", List.of(Map.of("id", "stack", "name", "Stack Pattern"),
+				Map.of("id", "gather", "name", "Gather Pattern"), Map.of("id", "cycle", "name", "Cycle Pattern")));
+	}
+
+	// 🟢 ADD THIS (pattern data)
+	@GetMapping("/pattern/{type}")
+	public Object pattern(@PathVariable String type) {
+
+		return Map.of("pattern_type", type, "nodes", List.of("A", "B"), "edges",
+				List.of(Map.of("source", "A", "target", "B")), "total_transactions", 1);
+	}
 }

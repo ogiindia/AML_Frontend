@@ -46,8 +46,8 @@ public class TransactionEntity {
 	@Column(name = "DEPOSITORWITHDRAWAL")
 	private String depositorwithdrawal;
 	
-	@Column(name = "ACCTCURRENCYCODE")
-	private String acctcurrencycode;
+	@Column(name = "OTHERCURRENCYCODE")
+	private String othercurrencycode;
 	
 	@Column(name = "CURRENCYCODE")
 	private String currencycode;
@@ -180,12 +180,14 @@ public class TransactionEntity {
 	}
 	
 
-	public String getAcctcurrencycode() {
-		return acctcurrencycode;
+
+
+	public String getOthercurrencycode() {
+		return othercurrencycode;
 	}
 
-	public void setAcctcurrencycode(String acctcurrencycode) {
-		this.acctcurrencycode = acctcurrencycode;
+	public void setOthercurrencycode(String othercurrencycode) {
+		this.othercurrencycode = othercurrencycode;
 	}
 
 	public String getCurrencycode() {

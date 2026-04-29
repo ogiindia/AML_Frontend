@@ -24,7 +24,7 @@ public interface AlertRepo extends JpaRepository<AlertsEntity, String> {
 
 	@Transactional
 	@Modifying
-	@Query("UPDATE AlertsEntity e SET e.alertStatus = :status WHERE e.alertParentId = :parentId")
+	@Query("UPDATE AlertsEntity e SET e.alertStatus = :status,e.modifiedDt=CURRENT_TIMESTAMP  WHERE e.alertParentId = :parentId")
 	int updateStatusByParentId(@Param("status") String status, @Param("parentId") String parentId);
 	
 	

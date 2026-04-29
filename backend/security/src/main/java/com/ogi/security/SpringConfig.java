@@ -103,7 +103,7 @@ public class SpringConfig extends WebSecurityConfigurerAdapter {
 		httpSecurity.csrf(csrf -> csrf.disable()).cors(cors -> cors.disable())
 				.authorizeRequests(requests -> requests.antMatchers(HttpMethod.OPTIONS).permitAll())
 				.authorizeRequests(requests -> requests
-						.antMatchers("/", "/graphiql", "/graphql", "/static/**", "/app/v1/login", "/actuator/**")
+						.antMatchers("/", "/graphiql", "/graphql", "/static/**", "/app/v1/login","/app/rest/v1/**", "/actuator/**")
 						.permitAll().anyRequest().authenticated())
 				.exceptionHandling(handling -> handling.authenticationEntryPoint(authEntryPoint))
 				.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
