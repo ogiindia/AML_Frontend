@@ -199,52 +199,67 @@ function Login() {
 
   return (
     <>
-      <PageCenterLayout
-        className={`login-bg`}
-        title={<img src={useBrandingValue('assets.logo', './logo.png')} width={'100px'} />}
-      >
-        <SimpleCard align='center' justify='center'
-          title={useBrandingValue('appTitle', 'Welcome Back')}
-          desc={useBrandingValue('appTagline', 'Enter your details below to login into your account')}
+
+      <div className="login-container">
+
+        {/* TOP LEFT TITLE */}
+        <div className="login-title">
+          AML / CFT Compliance System
+        </div>
+
+        <PageCenterLayout
+          className={`login-bg`}
+          title={<img src={useBrandingValue('assets.logo', './logo.png')} width={'100px'}
+          />}
+
+
         >
-          <Row>
-            {error && (
-              <Col>
-                <InlineStatusText text={error} />
+          <SimpleCard className={`login-set-trans dashboard-header`} align='center' justify='center'
+            title={useBrandingValue('appTitle', 'Welcome Back')}
+            desc={useBrandingValue('appTagline', 'Enter your details below to login into your account')}
+          >
+            <Row>
+              {error && (
+                <Col>
+                  <InlineStatusText text={error} />
+                </Col>
+              )}
+              <Col span={'12'}>
+                <CustomInput
+                  name="Username"
+                  label={'Username'}
+                  type={'text'}
+                  isError={error ? true : false}
+                  disabled={isLoading ? true : false}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
               </Col>
-            )}
-            <Col span={'12'}>
-              <CustomInput
-                name="Username"
-                label={'Username'}
-                type={'text'}
-                isError={error ? true : false}
-                disabled={isLoading ? true : false}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </Col>
-            <Col span="12">
-              <CustomInput
-                name="Password"
-                label={'Password'}
-                type={'password'}
-                isError={error ? true : false}
-                disabled={isLoading ? true : false}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col className="py-4">
-              <FullWidthSubmitButton
-                onClick={(e) => doLogin()}
-                loading={isLoading}
-                label={'Login'}
-              />
-            </Col>
-          </Row>
-        </SimpleCard>
-      </PageCenterLayout>
+              <Col span="12">
+                <CustomInput
+                  name="Password"
+                  label={'Password'}
+                  type={'password'}
+                  isError={error ? true : false}
+                  disabled={isLoading ? true : false}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col className="py-4">
+                <FullWidthSubmitButton
+                  onClick={(e) => doLogin()}
+                  loading={isLoading}
+                  label={'Login'}
+                />
+              </Col>
+            </Row>
+          </SimpleCard>
+        </PageCenterLayout >
+
+
+      </div>
+
     </>
   );
 }

@@ -53,7 +53,7 @@ public class GraphService {
 			LOGGER.info("Graph build completed | edges={} skippedRecords={}", edges.size(), skipped);
 
 			// 🔹 Top accounts (>60)
-			Set<String> topAccounts = transactionCount.entrySet().stream().filter(e -> e.getValue() > 60)
+			Set<String> topAccounts = transactionCount.entrySet().stream().filter(e -> e.getValue() > 30)
 					.map(Map.Entry::getKey).collect(Collectors.toSet());
 
 			LOGGER.info("Top accounts computed | count={}", topAccounts.size());

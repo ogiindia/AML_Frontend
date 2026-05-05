@@ -1275,19 +1275,14 @@ public class AmlController {
 		return service.cluster();
 	}
 
-	
-
-	// 🟢 ADD THIS (patterns list)
 	@GetMapping("/patterns")
 	public Object patterns() {
 		return Map.of("patterns", List.of(Map.of("id", "stack", "name", "Stack Pattern"),
 				Map.of("id", "gather", "name", "Gather Pattern"), Map.of("id", "cycle", "name", "Cycle Pattern")));
 	}
 
-	// 🟢 ADD THIS (pattern data)
 	@GetMapping("/pattern/{type}")
 	public Object pattern(@PathVariable String type) {
-
 		return Map.of("pattern_type", type, "nodes", List.of("A", "B"), "edges",
 				List.of(Map.of("source", "A", "target", "B")), "total_transactions", 1);
 	}

@@ -553,7 +553,7 @@ const sampleData = [
 const staticModules = [
   {
     name: 'AML',
-    plan: 'FINSEC',
+    plan: 'LUMINA',
     url: '#',
     logo: ShieldCheck,
     icon: 'Lock',
@@ -669,13 +669,14 @@ export function SideBarLayout({
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
                   <BreadcrumbPage href="#">
-                    FINSEC
+                    LUMINA
                   </BreadcrumbPage>
                 </BreadcrumbItem>
                 {/* <BreadcrumbSeparator className="hidden md:block" /> */}
                 <BreadcrumbLineSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbLink> Enhanced Solution for Anti Money Laundering</BreadcrumbLink>
+                  <BreadcrumbLink>Laundering & Unusual Movement Intelligence for Network Analysis
+                    with advanced AML capabilities</BreadcrumbLink>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
