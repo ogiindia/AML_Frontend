@@ -124,7 +124,7 @@ public class DashboardService {
 			response.add(createDashboardItem("STR", totalStr));
 			response.add(createDashboardItem("CTR", totalCtr));
 			response.add(createDashboardItem("NTR", totalNtr));
-			response.add(createDashboardItem("CBWTR", totalCbwtr));
+			response.add(createDashboardItem("CBWT", totalCbwtr));
 			response.add(createDashboardItem("CFTR", totalCftr));
 
 			LOGGER.info("Dashboard rule count generated successfully");
@@ -170,8 +170,8 @@ public class DashboardService {
 
 			LOGGER.info("Transaction records fetched | recordCount={}", lsttrans.size());
 
-			Map<Long, Long> result = lsttrans.stream().filter(x -> x.getCustomerid() != null)
-					.collect(Collectors.groupingBy(TransactionEntity::getCustomerid, Collectors.counting()));
+			Map<Long, Long> result = lsttrans.stream().filter(x -> x.getAccountno() != null)
+					.collect(Collectors.groupingBy(TransactionEntity::getAccountno, Collectors.counting()));
 
 			List<Map<String, Object>> response = result.entrySet().stream()
 					.sorted(Map.Entry.<Long, Long>comparingByValue().reversed()).limit(10).map(e -> {
@@ -231,8 +231,8 @@ public class DashboardService {
 
 			LOGGER.info("Transaction records fetched | recordCount={}", lsttrans.size());
 
-			Map<Long, Long> result = lsttrans.stream().filter(x -> x.getCustomerid() != null)
-					.collect(Collectors.groupingBy(TransactionEntity::getCustomerid, Collectors.counting()));
+			Map<Long, Long> result = lsttrans.stream().filter(x -> x.getAccountno() != null)
+					.collect(Collectors.groupingBy(TransactionEntity::getAccountno, Collectors.counting()));
 
 			List<Map<String, Object>> response = result.entrySet().stream()
 					.sorted(Map.Entry.<Long, Long>comparingByValue().reversed()).limit(10).map(e -> {
@@ -288,8 +288,13 @@ public class DashboardService {
 
 			LOGGER.info("Transaction records fetched | recordCount={}", lsttrans.size());
 
-			Map<String, Long> result = lsttrans.stream().filter(x -> x.getCustomerid() != null)
-					.collect(Collectors.groupingBy(TransactionEntity::getChanneltype, Collectors.counting()));
+			Map<String, Long> result = lsttrans.stream()
+				    .filter(x -> x.getAccountno() != null)
+				    .filter(x -> x.getChanneltype() != null) // 🔥 FIX
+				    .collect(Collectors.groupingBy(
+				        TransactionEntity::getChanneltype,
+				        Collectors.counting()
+				    ));
 
 			List<Map<String, Object>> response = result.entrySet().stream().map(e -> {
 
@@ -334,11 +339,11 @@ public class DashboardService {
 
 			LOGGER.info("Transaction records fetched | recordCount={}", lsttrans.size());
 
-			Map<String, Long> result = lsttrans.stream().filter(x -> x.getCustomerid() != null)
+			Map<String, Long> result = lsttrans.stream().filter(x -> x.getAccountno() != null)
 					.collect(Collectors.groupingBy(TransactionEntity::getBranchcode, Collectors.counting()));
 
 			List<Map<String, Object>> response = result.entrySet().stream()
-					.sorted(Map.Entry.<String, Long>comparingByValue().reversed()).limit(10).map(e -> {
+					.sorted(Map.Entry.<String, Long>comparingByValue().reversed()).limit(5).map(e -> {
 
 						Optional<BranchMasterEntity> branch = branchmasterrepo.findById(e.getKey());
 

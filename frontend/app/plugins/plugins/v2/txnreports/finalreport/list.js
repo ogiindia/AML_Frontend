@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Badge, Button, Col, IconButton, Row, TableLayout, toast, SimpleCard } from '@ais/components';
+import { Badge, Button, Col, IconButton, Row, TableLayout, toast, SimpleCard, H1 } from '@ais/components';
 import api from 'api';
 import { SimpleTable } from "@ais/datatable";
 import React, { useState, useMemo } from 'react';
@@ -283,6 +283,9 @@ function EventsList() {
   return (
     <>
       <Row>
+        <Col>
+          <H1 style={{ marginTop: '20px', marginLeft: '5px' }}>Final Report</H1>
+        </Col>
         <Col span="12" className="p-2">
           <fieldset
             style={{
@@ -293,15 +296,6 @@ function EventsList() {
               margin: 0,
             }}
           >
-            <legend
-              style={{
-                padding: "0 8px",
-                fontWeight: 600,
-                fontSize: 16,
-              }}
-            >
-              Final Reort
-            </legend>
 
             <div
               style={{

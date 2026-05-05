@@ -26,23 +26,48 @@ export function UnderlinedTabs({ tabData = [], defaultValue }) {
     <>
       <div className="">
         <Tabs defaultValue={defaultValue} className="gap-4">
-          <TabsList className="rounded-none border-b p-0">
-            {tabData.length > 0 && tabData.map((tab, __index) => (
+
+          {/* TAB HEADER */}
+          <TabsList className="flex gap-3 bg-transparent border-0 p-0">
+
+            {tabData.map((tab) => (
               <TabsTrigger
                 key={tab.value}
                 value={tab.value}
-                className="data-[state=active]:border-primary dark:data-[state=active]:border-primary data-[state=active]:text-foreground text-muted-foreground dark:text-muted-foreground hover:text-foreground dark:hover:text-foreground hover:border-muted-foreground/30 h-full rounded-none border-0 border-b-2 border-transparent data-[state=active]:shadow-none"
+
+                className="
+          px-5 py-2 rounded-lg
+          text-white
+          bg-white/10
+          backdrop-blur-md
+          border border-white/20
+          transition-all duration-300
+
+          hover:bg-white/20
+
+          data-[state=active]:bg-gradient-to-r
+          data-[state=active]:from-[#1f4e79]
+          data-[state=active]:to-[#00AEEF]
+          data-[state=active]:text-white
+          data-[state=active]:shadow-lg
+          data-[state=active]:border-0
+        "
               >
-                {tab.name} {tab.badge && <Badge>{tab.badge}</Badge>}
+                {tab.name}
               </TabsTrigger>
             ))}
+
           </TabsList>
 
+          {/* TAB CONTENT */}
           {tabData.map((tab) => (
             <TabsContent key={tab.value} value={tab.value}>
-              <p className="text-muted-foreground text-sm">{tab.content}</p>
+              <div className="font-semibold text-sm">
+                {tab.content}
+              </div>
             </TabsContent>
           ))}
+
         </Tabs>
       </div>
     </>

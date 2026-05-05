@@ -17,7 +17,7 @@ export function PageCenterLayout({
 }: React.ComponentProps<'div'>) {
   return (
     <div
-      className={`bg-muted flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10 ${className}`}
+      className={`flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10 ${className}`}
     >
       <div className={`flex w-full ${widthMap[size]} flex-col gap-6`}>
         {title && (

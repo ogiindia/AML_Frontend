@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-hooks/rules-of-hooks */
 import api from '@ais/api';
-import { Col, MutedBgLayout, Row } from '@ais/components';
+import { Col, MutedBgLayout, Row, H1 } from '@ais/components';
 import { VariableType, jsonToGraphQLQuery } from '@ais/graphql';
 import { flattenArray, groupby } from '@ais/utils';
 import Card from 'Card';
@@ -104,9 +104,12 @@ function ViewCustomers() {
   return (
     <MutedBgLayout>
       <Row>
+        <Col>
+          <H1>Search Customer</H1>
+        </Col>
         <Col sm={6} md={6} lg={6}>
           <div className="pt-2">
-            <Card title={'Search Customer'}>
+            <Card title="Search Customer">
               <div className={'p-2'}>
                 <RenderForm
                   error={error}

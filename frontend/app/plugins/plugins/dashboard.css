@@ -1,0 +1,75 @@
+/* Dashboard Styles */
+
+body {
+    background-color: #1a1a2e !important;
+    /* Dark blue background */
+    color: #ffffff !important;
+    /* White text color */
+    font-family: 'Roboto', sans-serif !important;
+}
+
+.app {
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: 100vh !important;
+    padding: 20px !important;
+    background-color: #1a1a2e !important;
+}
+
+.header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    margin-bottom: 20px !important;
+}
+
+.toggle-btn {
+    background-color: #0f3460 !important;
+    color: #ffffff !important;
+    border: none !important;
+    padding: 10px 20px !important;
+    border-radius: 5px !important;
+    cursor: pointer !important;
+}
+
+.grid {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 20px !important;
+}
+
+.grid-item,
+.grid-half,
+.grid-third,
+.grid-two-third {
+    background-color: #16213e !important;
+    border-radius: 10px !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+    padding: 20px !important;
+    color: #ffffff !important;
+}
+
+.grid-half {
+    flex: 1 1 48%;
+}
+
+.grid-third {
+    flex: 1 1 30%;
+}
+
+.grid-two-third {
+    flex: 1 1 65%;
+}
+
+.kpi {
+    font-size: 2rem !important;
+    font-weight: bold !important;
+    color: #e94560 !important;
+    /* Highlighted KPI color */
+}
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}

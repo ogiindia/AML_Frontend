@@ -36,6 +36,7 @@ function KYCView() {
             { name: "Singapore UEN", value: "Singapore UEN" },
             { name: "Global Verification", value: "Global Verification" },
             { name: "Qatar ID", value: "Qatar ID" },
+            { name: "CPR", value: "Central Population Register" },
         ];
         setschemaMaster(data);
 

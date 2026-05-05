@@ -16,7 +16,6 @@ import {
 import { SimpleTable } from "@ais/datatable";
 import React, { useEffect, useState } from "react";
 import { R } from "../../../../core/build/assets/Range-CZNrBk8u";
-
 function Alerts() {
 
     React.useEffect(() => {
@@ -270,7 +269,7 @@ function Alerts() {
                                 margin: "0 10px 0 5px",
                             }}
                         >
-                            <legend
+                            {/* <legend
                                 style={{
                                     padding: "0 8px",
                                     fontWeight: 600,
@@ -279,7 +278,7 @@ function Alerts() {
                                 }}
                             >
                                 Cust. Due Diligence Search
-                            </legend>
+                            </legend> */}
 
                             <div
                                 style={{
@@ -412,7 +411,7 @@ function Alerts() {
                                 margin: "0 10px 0 5px",
                             }}
                         >
-                            <legend
+                            {/* <legend
                                 style={{
                                     padding: "0 8px",
                                     fontWeight: 600,
@@ -421,7 +420,7 @@ function Alerts() {
                                 }}
                             >
                                 Extended Due Diligence Search
-                            </legend>
+                            </legend> */}
 
                             <div
                                 style={{
@@ -557,7 +556,7 @@ function Alerts() {
                                 margin: "0 10px 0 5px",
                             }}
                         >
-                            <legend
+                            {/* <legend
                                 style={{
                                     padding: "0 8px",
                                     fontWeight: 600,
@@ -566,7 +565,7 @@ function Alerts() {
                                 }}
                             >
                                 KYC Search
-                            </legend>
+                            </legend> */}
 
                             <div
                                 style={{

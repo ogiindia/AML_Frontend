@@ -130,8 +130,7 @@ function View() {
         try {
             await api.post('/app/rest/v1/setSanctionDetails', {
                 sanction_name: newSanctionName,
-                country: newCountry,
-                list_type: listType
+                country: newCountry
             });
 
             console.log('Saved Successfully');

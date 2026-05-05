@@ -6,7 +6,7 @@ export function H3({ children }: any) {
 }
 
 export function H1({ children }: any) {
-  return <h1 className="text-2xl font-bold">{children}</h1>;
+  return <h1 className="text-2xl font-bold" style={{ color: '#ffffff' }}  >{children}</h1>;
 }
 
 export function Heading({
@@ -32,7 +32,7 @@ export function Heading({
       <div
         className={`flex flex-col gap-2 ${center && 'text-center items-center'} ${className}`}
       >
-        <h1 className="text-2xl font-bold">{title}</h1>
+        <h1 className="text-2xl font-bold" style={{ color: '#ffffff' }} >{title}</h1>
         {(subHeading || subTitle) && (
           <p className="text-muted-foreground text-sm text-balance">
             {subTitle || subHeading}

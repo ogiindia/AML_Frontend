@@ -15,9 +15,9 @@ function MuleView() {
             <MutedBgLayout>
                 <Row>
                     <Col span="12">
-                        <H1>Finsentinal Mule</H1>
+                        <H1>Mule Detection</H1>
                         <iframe
-                            title="Finsentinal Mule"
+                            title="Mule Detection"
                             src="http://localhost:5175/"
                             style={{
                                 width: '100%',
